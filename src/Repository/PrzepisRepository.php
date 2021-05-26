@@ -29,13 +29,21 @@ class PrzepisRepository extends ServiceEntityRepository
 
     /**
      * Query all records.
-     *
+     * @param array $filters
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters = []): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
+        $qb = $this->getOrCreateQueryBuilder()
             ->orderBy('przepis.dataUtworzenia', 'DESC');
+
+        if(array_key_exists('kategoria_id', $filters) && $filters['kategoria_id'] > 0) {
+            $qb->where('przepis.kategoria = :kategoria_id')
+                ->setParameter('kategoria_id', $filters['kategoria_id'])
+            ;
+        }
+
+        return $qb;
     }
 
     /**

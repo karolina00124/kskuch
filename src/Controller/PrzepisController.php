@@ -48,10 +48,13 @@ class PrzepisController extends AbstractController
      */
     public function index(Request $request): Response
     {
+        $filters = [];
+        $filters['kategoria_id'] = $request->query->getInt('filters_kategoria_id');
+
         $pagination = $this->paginator->paginate(
-            $this->przepisRepository->queryAll(),
+            $this->przepisRepository->queryAll($filters),
             $request->query->getInt('page', 1),
-            PrzepisRepository::PAGINATOR_ITEMS_PER_PAGE
+            PrzepisRepository::PAGINATOR_ITEMS_PER_PAGE,
         );
 
         return $this->render(

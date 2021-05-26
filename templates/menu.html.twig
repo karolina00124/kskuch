@@ -1,5 +1,5 @@
 <ul>
 {% for k in kategorie %}
-    <li><a href="{{ url('przepis_index') }}">{{ k.kategoriaNazwa }}</a></li>
+    <li><a href="{{ url('przepis_index', {'filters_kategoria_id': k.id}) }}">{{ k.kategoriaNazwa }}</a></li>
 {% endfor %}
 </ul>
