@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="app_name">
+                <source>app_name</source>
+                <target>Tortomaniacy</target>
+            </trans-unit>
+            <trans-unit id="action_back_to_list">
+                <source>action_back_to_list</source>
+                <target>Powrót</target>
+            </trans-unit>
+            <trans-unit id="action_view">
+                <source>action_view</source>
+                <target>Wyświetl</target>
+            </trans-unit>
+            <trans-unit id="choose_category">
+                <source>choose_category</source>
+                <target>Wybierz kategorię</target>
+            </trans-unit>
+            <trans-unit id="label_actions">
+                <source>label_actions</source>
+                <target>Operacje</target>
+            </trans-unit>
+            <trans-unit id="label_id">
+                <source>label_id</source>
+                <target>Identyfikator</target>
+            </trans-unit>
+            <trans-unit id="label_kroki">
+                <source>label_kroki</source>
+                <target>Kroki</target>
+            </trans-unit>
+            <trans-unit id="label_content">
+                <source>label_content</source>
+                <target>Zawartość</target>
+            </trans-unit>
+            <trans-unit id="label_created_at">
+                <source>label_created_at</source>
+                <target>Utowrzono</target>
+            </trans-unit>
+            <trans-unit id="label_skladniki">
+                <source>label_skladniki</source>
+                <target>Składniki</target>
+            </trans-unit>
+            <trans-unit id="label_tags">
+                <source>label_tags</source>
+                <target>Tagi</target>
+            </trans-unit>
+            <trans-unit id="label_title">
+                <source>label_title</source>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="label_updated_at">
+                <source>label_updated_at</source>
+                <target>Zmodyfikowano</target>
+            </trans-unit>
+            <trans-unit id="message_empty_list">
+                <source>message_empty_list</source>
+                <target>Lista jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="title_record_list">
+                <source>title_record_list</source>
+                <target>Lista Rekordów</target>
+            </trans-unit>
+            <trans-unit id="title_record_view">
+                <source>title_record_view</source>
+                <target>Wyświetlanie rekordu</target>
+            </trans-unit>
+            <trans-unit id="title_kategoria_details">
+                <source>title_kategoria_details</source>
+                <target>Kategoria szczegóły #%id%</target>
+            </trans-unit>
+            <trans-unit id="title_przepis_details">
+                <source>title_przepis_details</source>
+                <target>Przepis szczegóły #%id%</target>
+            </trans-unit>
+            <trans-unit id="title_tag_details">
+                <source>title_tag_details</source>
+                <target> Tag szczegóły #%id%</target>
+            </trans-unit>
+            <trans-unit id="title_kategoria_list">
+                <source>title_kategoria_list</source>
+                <target>Lista kategorii</target>
+            </trans-unit>
+            <trans-unit id="title_przepis_list">
+                <source>title_przepis_list</source>
+                <target>Lista przepisów</target>
+            </trans-unit>
+            <trans-unit id="title_tag_list">
+                <source>title_tag_list</source>
+                <target>Lista tagów</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

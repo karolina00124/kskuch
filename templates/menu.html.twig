@@ -3,3 +3,7 @@
     <li><a href="{{ url('przepis_index', {'filters_kategoria_id': k.id}) }}">{{ k.kategoriaNazwa }}</a></li>
 {% endfor %}
 </ul>
+<a href={{ url('przepis_index')}}>napis</a>
+{#<a href="{{ url('kategoria_create', {id: kategoria.id}) }}" title="{{ 'action_create'|trans }}">
+    {{ 'action_create'|trans }}
+</a>#}

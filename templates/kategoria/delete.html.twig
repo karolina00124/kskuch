@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_kategoria_delete'|trans({'%id%': kategoria.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_kategoria_delete'|trans({'%id%': kategoria.id|default('')}) }}</h1>
+    <a> {{ 'question_kategoria_delete'|trans() }} </a>
+    {{ form_start(form, { method: 'DELETE', action: url('kategoria_delete', {id: kategoria.id}) }) }}
+    {{ form_widget(form) }}
+    {% if kategoria is defined and kategoria|length %}
+    <dl class="dl-horizontal">
+        <dt>{{ 'label_id'|trans }}</dt>
+        <dd>{{ kategoria.id }}</dd>
+        <dt>{{ 'label_title'|trans }}</dt>
+        <dd>{{ kategoria.kategorianazwa }}</dd>
+    </dl>
+
+    {% endif %}
+    <div class="form-group row float-sm-right">
+        <input type="submit" value="{{ 'action_save'|trans }}" class="btn btn-primary" />
+    </div>
+    <div class="form-group row float-sm-left">
+        <a href="{{ url('kategoria_index') }}" class="btn btn-link">
+            {{ 'action_back_to_list'|trans }}
+        </a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
