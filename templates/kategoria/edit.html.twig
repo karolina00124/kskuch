@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title_kategoria_edit'|trans({'%id%': kategoria.id|default('')}) }}</h1>
-    <a> {{ 'question_kategoria_edit'|trans() }} </a>
+
     {{ form_start(form, { method: 'PUT', action: url('kategoria_edit', {id: kategoria.id}) }) }}
     {{ form_widget(form) }}
 

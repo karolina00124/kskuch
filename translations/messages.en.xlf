@@ -10,9 +10,25 @@
                 <source>action_back_to_list</source>
                 <target>Back</target>
             </trans-unit>
+            <trans-unit id="action_create">
+                <source>action_create</source>
+                <target>Create</target>
+            </trans-unit>
+            <trans-unit id="action_delete">
+                <source>action_delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="action_edit">
+                <source>action_edit</source>
+                <target>Edit</target>
+            </trans-unit>
             <trans-unit id="action_view">
                 <source>action_view</source>
                 <target>Show</target>
+            </trans-unit>
+            <trans-unit id="action_save">
+                <source>action_save</source>
+                <target>Save</target>
             </trans-unit>
             <trans-unit id="choose_category">
                 <source>choose_category</source>
@@ -25,6 +41,10 @@
             <trans-unit id="label_id">
                 <source>label_id</source>
                 <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label_info">
+                <source>label_info</source>
+                <target>Info</target>
             </trans-unit>
             <trans-unit id="label_kroki">
                 <source>label_kroki</source>
@@ -66,6 +86,18 @@
                 <source>title_record_view</source>
                 <target>View record</target>
             </trans-unit>
+            <trans-unit id="title_kategoria_create">
+                <source>title_kategoria_create</source>
+                <target>Create new category</target>
+            </trans-unit>
+            <trans-unit id="title_kategoria_delete">
+                <source>title_kategoria_delete</source>
+                <target>Delete category</target>
+            </trans-unit>
+            <trans-unit id="title_kategoria_edit">
+                <source>title_kategoria_edit</source>
+                <target>Edit category</target>
+            </trans-unit>
             <trans-unit id="title_kategoria_details">
                 <source>title_kategoria_details</source>
                 <target>Category details #%id%</target>
@@ -89,6 +121,10 @@
             <trans-unit id="title_tag_list">
                 <source>title_tag_list</source>
                 <target>Tags list</target>
+            </trans-unit>
+            <trans-unit id="question_kategoria_delete">
+                <source>question_kategoria_delete</source>
+                <target>Do you want to delete category below?</target>
             </trans-unit>
         </body>
     </file>
