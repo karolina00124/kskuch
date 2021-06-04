@@ -35,12 +35,14 @@
                         <a href="{{ url('kategoria_edit', {id: kategoria.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
                         </a>
-                        <a href="{{ url('kategoria_delete', {id: kategoria.id}) }}" title="{{ 'action_delete'|trans }}">
-                            {{ 'action_delete'|trans }}
-                        </a>
                         <a href="{{ url('kategoria_create', {id: kategoria.id}) }}" title="{{ 'action_create'|trans }}">
                             {{ 'action_create'|trans }}
                         </a>
+                        {% if not kategoria.przepis|length %}
+                        <a href="{{ url('kategoria_delete', {id: kategoria.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
+                        </a>
+                        {% endif %}
 
                     </td>
                 </tr>

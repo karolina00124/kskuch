@@ -189,6 +189,10 @@ class KategoriaController extends AbstractController
     public
     function delete(Request $request, Kategoria $kategoria, KategoriaRepository $kategoriaRepository): Response
     {
+        if($kategoria->getPrzepis()->count()){
+            $this->addFlash('warning','message_category_contains_tasks');
+            return $this->redirectToRoute('kategoria_index');
+        }
         $form = $this->createForm(FormType::class, $kategoria, ['method' => 'DELETE']);
         $form->handleRequest($request);
 

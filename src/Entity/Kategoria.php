@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\KategoriaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +29,16 @@ class Kategoria
      */
     private $kategoriaNazwa;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Przepis::class, mappedBy="kategoria")
+     */
+    private $przepis;
+
+    public function __construct()
+    {
+        $this->przepis = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -42,4 +54,36 @@ class Kategoria
         $this->kategoriaNazwa = $kategoriaNazwa;
         return $this;
     }
+
+    /**
+     * @return Collection|Przepis[]
+     */
+    public function getPrzepis(): Collection
+    {
+        return $this->przepis;
+    }
+
+    public function addPrzepis(Przepis $przepis): self
+    {
+        if (!$this->przepis->contains($przepis)) {
+            $this->przepis[] = $przepis;
+            $przepis->setKategoria($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrzepis(Przepis $przepis): self
+    {
+        if ($this->przepis->removeElement($przepis)) {
+            // set the owning side to null (unless already changed)
+            if ($przepis->getKategoria() === $this) {
+                $przepis->setKategoria(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
