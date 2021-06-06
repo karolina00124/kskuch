@@ -19,8 +19,9 @@
             </a>
         </p>
     {% else %}
-        <p>
-            {{ 'message_item_not_found'|trans }}
-        </p>
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message_item_not_found'|trans
+        } %}
     {% endif %}
 {% endblock %}
