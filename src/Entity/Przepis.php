@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PrzepisRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=PrzepisRepository::class)
@@ -53,6 +54,7 @@ class Przepis
      * Data utworzenia.
      * @var \DateTimeInterface
      * @ORM\Column(type="date")
+     * @Gedmo\Timestampable(on="create")
      */
     private $dataUtworzenia;
 
