@@ -2,7 +2,6 @@
 /**
  * Kategoria controller.
  */
-
 namespace App\Controller;
 
 use App\Entity\Kategoria;
@@ -215,5 +214,4 @@ class KategoriaController extends AbstractController
             ]
         );
     }
-
 }

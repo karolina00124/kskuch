@@ -22,6 +22,11 @@ class PrzepisRepository extends ServiceEntityRepository
      */
     const PAGINATOR_ITEMS_PER_PAGE = 10;
 
+    /**
+     * PrzepisRepository constructor.
+     *
+     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Przepis::class);
@@ -45,7 +50,6 @@ class PrzepisRepository extends ServiceEntityRepository
 
         return $qb;
     }
-
     /**
      * Get or create new query builder.
      *
@@ -57,7 +61,33 @@ class PrzepisRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('przepis');
     }
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Przepis $przepis Przepis entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Przepis $przepis): void
+    {
+        $this->_em->persist($przepis);
+        $this->_em->flush();
+    }
 
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Przepis $przepis Przepis entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Przepis $przepis): void
+    {
+        $this->_em->remove($przepis);
+        $this->_em->flush();
+    }
 
     // /**
     //  * @return Przepis[] Returns an array of Przepis objects

@@ -8,6 +8,7 @@ use DateTimeInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * Class Przepis.
  * @ORM\Entity(repositoryClass=PrzepisRepository::class)
  * @ORM\Table(name="przepisy")
  */

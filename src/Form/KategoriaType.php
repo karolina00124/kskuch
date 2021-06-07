@@ -39,4 +39,3 @@ class KategoriaType extends AbstractType
             return 'kategoria';
         }
 }
-

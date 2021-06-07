@@ -1,9 +1,9 @@
 {% include 'default/_form.html.twig' with {
     page_title: 'title_kategoria_edit',
-    page_title_param: {'%id%': category.id},
+    page_title_param: {'%id%': kategoria.id},
     attr: {
         method: 'PUT',
-        action: url('kategoria_edit', {'id': category.id}),
+        action: url('kategoria_edit', {'id': kategoria.id}),
     },
     form: form,
     back_to_list_path: 'kategoria_index',

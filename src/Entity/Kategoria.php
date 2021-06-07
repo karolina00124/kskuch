@@ -6,11 +6,15 @@ use App\Repository\KategoriaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
+ * Class Kategoria.
  * @ORM\Entity(repositoryClass=KategoriaRepository::class)
  * @ORM\Table(name="kategorie")
+ * @UniqueEntity(fields={"kategoriaNazwa"})
  */
 class Kategoria
 {
@@ -27,11 +31,17 @@ class Kategoria
      * Nazwa.
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
+     * )
      */
     private $kategoriaNazwa;
 
     /**
-     * @ORM\OneToMany(targetEntity=Przepis::class, mappedBy="kategoria")
+     * @ORM\OneToMany(targetEntity=Przepis::class, mappedBy="kategoria", fetch ="EXTRA_LAZY")
      */
     private $przepis;
 

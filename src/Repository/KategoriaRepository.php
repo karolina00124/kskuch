@@ -89,7 +89,6 @@ class KategoriaRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-
     // /**
     //  * @return Kategoria[] Returns an array of Kategoria objects
     //  */

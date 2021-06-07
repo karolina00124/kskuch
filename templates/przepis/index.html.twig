@@ -33,6 +33,16 @@
                         <a href="{{ url('przepis_show', {id: przepis.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
+                        <a href="{{ url('przepis_edit', {id: przepis.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
+                        </a>
+                        <a href="{{ url('przepis_create', {id: przepis.id}) }}" title="{{ 'action_create'|trans }}">
+                            {{ 'action_create'|trans }}
+                        </a>
+                        <a href="{{ url('przepis_delete', {id: przepis.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
+                        </a>
+
                     </td>
                 </tr>
             {% endfor %}
