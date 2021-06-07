@@ -15,7 +15,13 @@ class PrzepisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('info')
+            ->add('info', TextType::class,
+                [
+                    'label' => 'label_info',
+                    'required' => true,
+                    'attr' => ['min_length' => 3, 'max_length' => 150],
+                ]
+            )
             ->add('nazwa', TextType::class,
                 [
                     'label' => 'label_title',
@@ -23,8 +29,18 @@ class PrzepisType extends AbstractType
                     'attr' => ['max_length' => 64],
                 ]
             )
-            ->add('skladniki')
-            ->add('kroki')
+            ->add('skladniki', TextType::class,
+                [
+                    'label' => 'label_ingredients',
+                    'required' => true,
+                    'attr' => ['min_length' => 3],
+                ])
+            ->add('kroki', TextType::class,
+                [
+                    'label' => 'label_steps',
+                    'required' => true,
+                    'attr' => ['min_length' => 8],
+                ])
             ->add('kategoria', EntityType::class,
                   [
                       'class' => Kategoria::class,
