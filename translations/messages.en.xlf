@@ -46,6 +46,10 @@
                 <source>label_info</source>
                 <target>Info</target>
             </trans-unit>
+            <trans-unit id="label_kategoria">
+                <source>label_kategoria</source>
+                <target>Category</target>
+            </trans-unit>
             <trans-unit id="label_kroki">
                 <source>label_kroki</source>
                 <target>Steps</target>

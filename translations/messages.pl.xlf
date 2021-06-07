@@ -46,6 +46,10 @@
                 <source>label_info</source>
                 <target>Informacje</target>
             </trans-unit>
+            <trans-unit id="label_kategoria">
+                <source>label_kategoria</source>
+                <target>Kategoria</target>
+            </trans-unit>
             <trans-unit id="label_kroki">
                 <source>label_kroki</source>
                 <target>Kroki</target>

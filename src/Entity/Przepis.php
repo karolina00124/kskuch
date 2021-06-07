@@ -5,12 +5,15 @@ namespace App\Entity;
 use App\Repository\PrzepisRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Przepis.
  * @ORM\Entity(repositoryClass=PrzepisRepository::class)
  * @ORM\Table(name="przepisy")
+ * @UniqueEntity(fields={"nazwa"})
  */
 class Przepis
 {
@@ -27,6 +30,12 @@ class Przepis
      * Info.
      * @var string
      * @ORM\Column(type="string", length=200)
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="150",
+     * )
      */
     private $info;
 
@@ -34,6 +43,12 @@ class Przepis
      * Nazwa.
      * @var string
      * @ORM\Column(type="string", length=65)
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
+     * )
      */
     private $nazwa;
 
@@ -41,6 +56,11 @@ class Przepis
      * Składniki.
      * @var string
      * @ORM\Column(type="text")
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3", max="150",
+     * )
      */
     private $skladniki;
 
@@ -48,6 +68,11 @@ class Przepis
      * Kroki.
      * @var string
      * @ORM\Column(type="text")
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="8",
+     *)
      */
     private $kroki;
 
@@ -56,6 +81,7 @@ class Przepis
      * @var \DateTimeInterface
      * @ORM\Column(type="date")
      * @Gedmo\Timestampable(on="create")
+     * @Assert\Type(type ="\DateTimeInterface")
      */
     private $dataUtworzenia;
 

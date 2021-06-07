@@ -6,6 +6,7 @@ use App\Entity\Kategoria;
 use App\Entity\Przepis;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,13 +16,6 @@ class PrzepisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('info', TextType::class,
-                [
-                    'label' => 'label_info',
-                    'required' => true,
-                    'attr' => ['min_length' => 3, 'max_length' => 150],
-                ]
-            )
             ->add('nazwa', TextType::class,
                 [
                     'label' => 'label_title',
@@ -29,15 +23,22 @@ class PrzepisType extends AbstractType
                     'attr' => ['max_length' => 64],
                 ]
             )
-            ->add('skladniki', TextType::class,
+            ->add('info', TextType::class,
                 [
-                    'label' => 'label_ingredients',
+                    'label' => 'label_info',
+                    'required' => true,
+                    'attr' => ['min_length' => 3, 'max_length' => 150],
+                ]
+            )
+            ->add('skladniki', TextareaType::class,
+                [
+                    'label' => 'label_skladniki',
                     'required' => true,
                     'attr' => ['min_length' => 3],
                 ])
-            ->add('kroki', TextType::class,
+            ->add('kroki', TextareaType::class,
                 [
-                    'label' => 'label_steps',
+                    'label' => 'label_kroki',
                     'required' => true,
                     'attr' => ['min_length' => 8],
                 ])
@@ -47,8 +48,8 @@ class PrzepisType extends AbstractType
                       'choice_label' =>function($kategoria){
                             return $kategoria->getKategoriaNazwa();
                       },
-                      'label'=>'label_category',
-                      'placeholder'=>'label_none',
+                      'label'=>'label_kategoria',
+                      'placeholder'=>'choose_category',
                       'required'=>true,
 
                    ]
