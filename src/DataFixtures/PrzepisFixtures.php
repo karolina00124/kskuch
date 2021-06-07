@@ -6,10 +6,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Przepis;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
- * Class TaskFixtures.
+ * Class PrzepisFixtures.
  */
 class PrzepisFixtures extends AbstractBaseFixtures
 {
@@ -27,10 +28,27 @@ class PrzepisFixtures extends AbstractBaseFixtures
             $przepis->setInfo($this->faker->sentence);
             $przepis->setKroki($this->faker->sentence);
             $przepis->setSkladniki($this->faker->sentence);
+            $przepis->addTag($this->getRandomReference('tags'));
+
+            $tags = $this ->getRandomReferences(
+                'tags',
+                $this->faker->numberBetween(0,3)
+            );
+
+            foreach ($tags as $tag) {
+                $tags->addTag($tag);
+            }
 
             $this->manager->persist($przepis);
         }
 
         $manager->flush();
+    }
+    /**
+     * *@psalm-return array<class-string<FixtureInterface>>
+     */
+    public function getDependencies()
+    {
+        return[TagFixtures::class];
     }
 }

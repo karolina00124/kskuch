@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PrzepisRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -91,6 +93,17 @@ class Przepis
      */
     private $kategoria;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="przepis")
+     * @ORM\JoinTable(name="przepisy_tagi")
+     */
+    private $tagi;
+
+    public function __construct()
+    {
+        $this->tagi = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -159,6 +172,30 @@ class Przepis
     public function setKategoria(?Kategoria $kategoria): self
     {
         $this->kategoria = $kategoria;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTagi(): Collection
+    {
+        return $this->tagi;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tagi->contains($tag)) {
+            $this->tagi[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tagi->removeElement($tag);
 
         return $this;
     }
