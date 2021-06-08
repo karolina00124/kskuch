@@ -85,7 +85,6 @@ class KategoriaController extends AbstractController
             ['kategoria' => $kategoria]
         );
     }
-
     /**
      * Create action.
      *

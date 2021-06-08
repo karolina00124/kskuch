@@ -89,7 +89,6 @@ class TagRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-
     // /**
     //  * @return Tag[] Returns an array of Tag objects
     //  */

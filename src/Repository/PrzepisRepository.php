@@ -40,6 +40,11 @@ class PrzepisRepository extends ServiceEntityRepository
     public function queryAll(array $filters = []): QueryBuilder
     {
         $qb = $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial przepis.{id, dataUtworzenia, nazwa}',
+                'partial tagi.{id,tagNazwa}'
+            )
+            ->leftJoin('przepis.tagi', 'tagi')
             ->orderBy('przepis.dataUtworzenia', 'DESC');
 
         if(array_key_exists('kategoria_id', $filters) && $filters['kategoria_id'] > 0) {
