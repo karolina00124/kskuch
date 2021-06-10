@@ -54,6 +54,10 @@
                 <source>label_kroki</source>
                 <target>Kroki</target>
             </trans-unit>
+            <trans-unit id="label_menu">
+                <source>label_menu</source>
+                <target>Przepisy</target>
+            </trans-unit>
             <trans-unit id="label_content">
                 <source>label_content</source>
                 <target>Zawartość</target>
@@ -81,6 +85,18 @@
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
                 <target>Lista jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>Lista jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="message_created_successfully">
+                <source>message_created_successfully</source>
+                <target>Utworzono poprawnie.</target>
+            </trans-unit>
+            <trans-unit id="message_form_error">
+                <source>message_form_error</source>
+                <target>Błąd.</target>
             </trans-unit>
             <trans-unit id="title_record_list">
                 <source>title_record_list</source>

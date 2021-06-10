@@ -1,4 +1,5 @@
 <ul>
+    <h2>{{ 'label_menu'|trans }}</h2>
 {% for k in kategorie %}
     <li><a href="{{ url('przepis_index', {'filters_kategoria_id': k.id}) }}">{{ k.kategoriaNazwa }}</a></li>
 {% endfor %}

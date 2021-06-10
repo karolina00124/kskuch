@@ -6,7 +6,6 @@
 
 {% block body %}
     <h1>{{ 'title_kategoria_list'|trans }}</h1>
-
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -55,7 +54,6 @@
         </div>
 
     {% else %}
-
             {% include 'default/_single_flash_message.html.twig' with {
                 type: 'warning',
                 message: 'message.empty_list'|trans

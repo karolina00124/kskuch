@@ -46,7 +46,7 @@ class Tag
     private $dataUtworzenia;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Przepis::class, mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity=Przepis::class, mappedBy="tagi")
      */
     private $przepis;
 
@@ -67,7 +67,7 @@ class Tag
 
     public function setTagNazwa(string $tagNazwa): self
     {
-        $this->tag_nazwa = $tagNazwa;
+        $this->tagNazwa = $tagNazwa;
 
         return $this;
     }
