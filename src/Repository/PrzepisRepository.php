@@ -53,6 +53,12 @@ class PrzepisRepository extends ServiceEntityRepository
             ;
         }
 
+        if(array_key_exists('tag_id', $filters) && $filters['tag_id'] > 0) {
+            $qb->andWhere('tagi IN (:tag_id)')
+                ->setParameter('tag_id', $filters['tag_id'])
+            ;
+        }
+
         return $qb;
     }
     /**

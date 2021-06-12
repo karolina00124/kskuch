@@ -54,6 +54,7 @@ class PrzepisController extends AbstractController
     {
         $filters = [];
         $filters['kategoria_id'] = $request->query->getInt('filters_kategoria_id');
+        $filters['tag_id'] = $request->query->getInt('filters_tag_id');
 
         $pagination = $this->paginator->paginate(
             $this->przepisRepository->queryAll($filters),

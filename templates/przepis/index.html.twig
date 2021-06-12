@@ -6,6 +6,9 @@
 
 {% block body %}
     <h1>{{ 'title_przepis_list'|trans }}</h1>
+    <a href="{{ url('przepis_create') }}" title="{{ 'action_create'|trans }}">
+        {{ 'action_create'|trans }}
+    </a>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -33,11 +36,11 @@
                     <td>
                         {% if przepis.tagi is defined and przepis.tagi|length %}
                         {% for tag in przepis.tagi %}
-                            {{ tag.tagNazwa }}
-                            {% endfor %}
+                            <a href="{{ url('przepis_index', { 'filters_tag_id': tag.id }) }}">{{ tag.tagNazwa }}</a>
+                        {% endfor %}
                         {% else %}
                             &nbsp;
-                            {% endif %}
+                        {% endif %}
                     </td>
                     <td>
                         <a href="{{ url('przepis_show', {id: przepis.id}) }}" title="{{ 'action_view'|trans }}">
@@ -45,9 +48,6 @@
                         </a>
                         <a href="{{ url('przepis_edit', {id: przepis.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
-                        </a>
-                        <a href="{{ url('przepis_create', {id: przepis.id}) }}" title="{{ 'action_create'|trans }}">
-                            {{ 'action_create'|trans }}
                         </a>
                         <a href="{{ url('przepis_delete', {id: przepis.id}) }}" title="{{ 'action_delete'|trans }}">
                             {{ 'action_delete'|trans }}
