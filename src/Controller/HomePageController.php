@@ -23,6 +23,5 @@ class HomePageController extends AbstractController
         return $this->render(   //kozystamy z metody renderowania odziedziczonej po AbastractController
             'homepage/index.html.twig'  //używamy szablonu twig
         );
-
     }
 }

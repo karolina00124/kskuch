@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Uzytkownik;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @method Uzytkownik|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,8 +15,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UzytkownikRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * Password encoder.
+     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
+
+    public function __construct(ManagerRegistry $registry, UserPasswordEncoderInterface $passwordEncoder)
     {
+        $this->passwordEncoder = $passwordEncoder;
         parent::__construct($registry, Uzytkownik::class);
     }
 
@@ -47,4 +55,24 @@ class UzytkownikRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * Rejestruje użytkownika
+     * @param array $data
+     */
+    public function register(array $data)
+    {
+        $user = new Uzytkownik();
+        $user->setNazwaUzytkownik($data['nazwa_uzytkownik']);
+        $user->setHaslo(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $data['haslo']
+            )
+        );
+        $user->setRola([Uzytkownik::ROLE_USER]);
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
 }
