@@ -4,12 +4,25 @@ namespace App\Entity;
 
 use App\Repository\UzytkownikRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UzytkownikRepository::class)
  */
-class Uzytkownik
+class Uzytkownik implements UserInterface
 {
+    /**
+     * Role user.
+     * @var string
+     */
+    const ROLE_USER = 'ROLE_USER';
+
+    /**
+     * Role admin.
+     * @var string
+     */
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -71,5 +84,37 @@ class Uzytkownik
         $this->rola = $rola;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getRoles()
+    {
+        return $this->getRola();
+    }
+
+    public function getPassword()
+    {
+        return $this->getHaslo();
+    }
+
+    public function getUsername()
+    {
+        $this->getNazwaUzytkownik();
     }
 }
