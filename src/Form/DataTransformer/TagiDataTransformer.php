@@ -21,7 +21,7 @@ class TagiDataTransformer implements DataTransformerInterface
 
     public function transform($tagi)
     {
-       if (null === $tags)
+       if (null === $tagi)
        {
            return '';
        }
@@ -35,7 +35,7 @@ class TagiDataTransformer implements DataTransformerInterface
 
     public function reverseTransform($value)
     {
-       $tagTitles =explode()
+       //$tagTitles =explode()
     }
 
 }
