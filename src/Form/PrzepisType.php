@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Kategoria;
 use App\Entity\Przepis;
+use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -41,8 +42,8 @@ class PrzepisType extends AbstractType
                     'label' => 'label_kroki',
                     'required' => true,
                     'attr' => ['min_length' => 8],
-                ])
-            ->add('kategoria', EntityType::class,
+                ]);
+            $builder->add('kategoria', EntityType::class,
                   [
                       'class' => Kategoria::class,
                       'choice_label' =>function($kategoria){
@@ -53,8 +54,21 @@ class PrzepisType extends AbstractType
                       'required'=>true,
 
                    ]
-            )
-        ;
+            );
+        $builder->add('tagi', EntityType::class,
+        [
+            'class' => Tag::class,
+            'choice_label' =>function($tag){
+                return $tag->getTagNazwa();
+            },
+            'label'=>'label_tagi',
+            'expanded'=>true,
+            'required'=>false,
+            'multiple' =>true,
+
+        ]
+    );
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
