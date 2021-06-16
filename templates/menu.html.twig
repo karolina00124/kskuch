@@ -4,6 +4,7 @@
     <li><a href="{{ url('przepis_index', {'filters_kategoria_id': k.id}) }}">{{ k.kategoriaNazwa }}</a></li>
 {% endfor %}
 </ul>
+<h2>{{ 'label_menu_2'|trans }}</h2>
 <a href={{ url('kategoria_index')}}>{{ 'kategoria_lista'|trans }}</a><br/>
 <a href={{ url('tag_index')}}>{{ 'tag_lista'|trans }}</a>
 <br/><br/>

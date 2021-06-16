@@ -69,10 +69,17 @@ class AppFixtures extends AbstractBaseFixtures
 
             $randomsTagNumber = rand(0, 3);
             if($randomsTagNumber > 0) {
-                $randomTagsIndex = (array) array_rand($tags, $randomsTagNumber);
+                $randomTagsIndex = (array)array_rand($tags, $randomsTagNumber);
                 foreach ($randomTagsIndex as $randomTagIndex) {
                     $przepis->addTag($tags[$randomTagIndex]);
                 }
+            }
+                $randomsKategoriaNumber = rand(0, 3);
+                if($randomsKategoriaNumber >= 0) {
+                    $randomKategorieIndex = (array) array_rand($kategorie, $randomsKategoriaNumber);
+                    foreach ($randomKategorieIndex as $randomKategoriaIndex) {
+                        $przepis->addKategoria($kategorie[$randomKategoriaIndex]);
+                    }
             }
 
             $this->manager->persist($przepis);

@@ -94,6 +94,8 @@ class Przepis
     private $kategoria;
 
     /**
+     * Tagi.
+     * @var array
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="przepis")
      * @ORM\JoinTable(name="przepisy_tagi")
      */
@@ -172,6 +174,14 @@ class Przepis
     public function setKategoria(?Kategoria $kategoria): self
     {
         $this->kategoria = $kategoria;
+
+        return $this;
+    }
+    public function addKategoria(Kategoria $kategoria): self
+    {
+        if (!$this->kategoria->contains($kategoria)) {
+            $this->kategoria[] = $kategoria;
+        }
 
         return $this;
     }

@@ -18,7 +18,13 @@
         <div class="col-sm-9">
 
             {% include 'default/_flash_messages.html.twig' %}
-            {% block body %}{% endblock %}
+            {% block topbar %}
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <div id="topbar">{{ app.user.NazwaUzytkownik }}</div>
+                {% endif %}
+            {% endblock %}
+            {% block body %}
+            {% endblock %}
 
         </div>
     </div>

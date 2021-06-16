@@ -58,6 +58,10 @@
                 <source>label_menu</source>
                 <target>Przepisy</target>
             </trans-unit>
+            <trans-unit id="label_menu_2">
+                <source>label_menu_2</source>
+                <target>Panel edycyjny</target>
+            </trans-unit>
             <trans-unit id="label_content">
                 <source>label_content</source>
                 <target>Zawartość</target>
