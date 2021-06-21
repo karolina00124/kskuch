@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\UzytkownikDane;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,51 @@ class UzytkownikDaneRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UzytkownikDane::class);
+    }
+    /**
+     * @return UzytkownikDane[]
+     */
+    public function getAll(): array
+    {
+        return $this->queryAll()->getQuery()->getResult();
+    }
+    /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('uzytkownikDane');
+    }
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\UzytkownikDane $uzytkownikDane UzytkownikDane entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(UzytkownikDane $uzytkownikDane): void
+    {
+        $this->_em->persist($uzytkownikDane);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\UzytkownikDane $uzytkownikDane UzytkownikDane entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(UzytkownikDane $uzytkownikDane): void
+    {
+        $this->_em->remove($uzytkownikDane);
+        $this->_em->flush();
     }
 
     // /**

@@ -188,10 +188,6 @@ class TagController extends AbstractController
     public
     function delete(Request $request, Tag $tag, TagRepository $tagRepository): Response
     {
-        if($tag->getPrzepis()->count()){
-            $this->addFlash('warning','message_category_contains_tasks');
-            return $this->redirectToRoute('tag_index');
-        }
         $form = $this->createForm(FormType::class, $tag, ['method' => 'DELETE']);
         $form->handleRequest($request);
 

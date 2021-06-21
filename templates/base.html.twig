@@ -7,6 +7,7 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     {% endblock %}
 </head>
 <body>
@@ -20,7 +21,9 @@
             {% include 'default/_flash_messages.html.twig' %}
             {% block topbar %}
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <div id="topbar">{{ app.user.NazwaUzytkownik }}</div>
+                    <div id="topbar"><a href="UzytkownikDane/index.html.twig" id="topbar">
+                        {{ 'Hello,' }} {{ app.user.NazwaUzytkownik }} <i class="bi bi-person"></i></a>
+                    </div>
                 {% endif %}
             {% endblock %}
             {% block body %}

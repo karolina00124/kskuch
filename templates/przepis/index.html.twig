@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_przepis_list'|trans }}</h1>
-    <a class="btn btn-success" href="{{ url('przepis_create') }}" title="{{ 'action_create'|trans }}">
-        {{ 'action_create'|trans }}
-    </a>
+
+    <div class="index_title"> {{ 'title_przepis_list'|trans }}
+    <a href="{{ url('przepis_create') }}" title="{{ 'action_create'|trans }}"><i class="bi bi-plus-circle">
+        </i></a>
+    </div>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -43,13 +44,13 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ url('przepis_show', {id: przepis.id}) }}" title="{{ 'action_view'|trans }}">
+                        <a class="btn btn-outline-success btn-sm" href="{{ url('przepis_show', {id: przepis.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
-                        <a href="{{ url('przepis_edit', {id: przepis.id}) }}" title="{{ 'action_edit'|trans }}">
+                        <a class="btn btn-outline-info btn-sm" href="{{ url('przepis_edit', {id: przepis.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
                         </a>
-                        <a href="{{ url('przepis_delete', {id: przepis.id}) }}" title="{{ 'action_delete'|trans }}">
+                        <a class="btn btn-outline-danger btn-sm" href="{{ url('przepis_delete', {id: przepis.id}) }}" title="{{ 'action_delete'|trans }}">
                             {{ 'action_delete'|trans }}
                         </a>
 

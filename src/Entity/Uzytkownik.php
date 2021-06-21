@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\UzytkownikRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UzytkownikRepository::class)
@@ -24,6 +26,7 @@ class Uzytkownik implements UserInterface
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
+     * Primary key.
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -34,9 +37,16 @@ class Uzytkownik implements UserInterface
      * @ORM\Column(type="string", length=32)
      */
     private $nazwa_uzytkownik;
-
     /**
+     * The hashed password.
+     *
+     * @var string
+     *
      * @ORM\Column(type="string", length=191)
+
+     * @Assert\NotBlank
+     * @Assert\Type(type="string")
+     * @SecurityAssert\UserPassword
      */
     private $haslo;
 

@@ -10,6 +10,10 @@
                 <source>action_back_to_list</source>
                 <target>Back</target>
             </trans-unit>
+            <trans-unit id="button_login">
+                <source>button_login</source>
+                <target>Log in</target>
+            </trans-unit>
             <trans-unit id="action_create">
                 <source>action_create</source>
                 <target>Create</target>
@@ -86,9 +90,21 @@
                 <source>label_updated_at</source>
                 <target>Updated at</target>
             </trans-unit>
+            <trans-unit id="label_user">
+                <source>label_user</source>
+                <target>Nick name</target>
+            </trans-unit>
+            <trans-unit id="label_password">
+                <source>label_password</source>
+                <target>Password</target>
+            </trans-unit>
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
                 <target>Empty list.</target>
+            </trans-unit>
+            <trans-unit id="message_add_data_user">
+                <source>message_add_data_user</source>
+                <target>Add data.</target>
             </trans-unit>
             <trans-unit id="message.empty_list">
                 <source>message.empty_list</source>
@@ -97,6 +113,10 @@
             <trans-unit id="message_created_successfully">
                 <source>message_created_successfully</source>
                 <target>Created successfuly.</target>
+            </trans-unit>
+            <trans-unit id="message_login">
+                <source>message_login</source>
+                <target>Log in</target>
             </trans-unit>
             <trans-unit id="message_form_error">
                 <source>message_form_error</source>
@@ -133,6 +153,10 @@
             <trans-unit id="title_tag_details">
                 <source>title_tag_details</source>
                 <target>Tag details #%id%</target>
+            </trans-unit>
+            <trans-unit id="title_uzytkownik_dane">
+                <source>title_uzytkownik_dane</source>
+                <target>Data user.</target>
             </trans-unit>
             <trans-unit id="title_kategoria_list">
                 <source>title_kategoria_list</source>

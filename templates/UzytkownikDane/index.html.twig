@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_uzytkownik_dane'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="index_title"> {{ 'title_uzytkownik_dane'|trans }}
+        <a href="{{ url('uzytkownikDane_create') }}" title="{{ 'action_create'|trans }}">
+            <i class="bi bi-plus-circle"></i>
+        </a>
+    </div>
+    {% if uzytkownikDane is defined and uzytkownikDane|length %}
+        <dl class="dl-horizontal">
+                <dt>{{ 'label_imie'|trans }}</dt>
+                <dd>{{ uzytkownikDane.imie }}</dd>
+                <dt>{{ 'label_nazwisko'|trans }}</dt>
+                <dd>{{ uzytkownikDane.nazwisko }}</dd>
+                <dt>{{ 'label_email'|trans }}</dt>
+                <dd>{{ uzytkownikDane.email }}</dd>
+            </dl>
+            <p>
+                <a href="{{ url('tag_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                    {{ 'action_back_to_list'|trans }}
+                </a>
+            </p>
+    {% else %}
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message_add_data_user'|trans
+        } %}
+
+    {% endif %}
+{% endblock %}

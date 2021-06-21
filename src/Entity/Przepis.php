@@ -101,6 +101,11 @@ class Przepis
      */
     private $tagi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Uzytkownik::class, fetch="EXTRA_LAZY")
+     */
+    private $author;
+
     public function __construct()
     {
         $this->tagi = new ArrayCollection();
@@ -194,20 +199,28 @@ class Przepis
         return $this->tagi;
     }
 
-    public function addTag(Tag $tag): self
+    public function addTag(Tag $tag): void
     {
         if (!$this->tagi->contains($tag)) {
             $this->tagi[] = $tag;
         }
 
-        return $this;
     }
 
-    public function removeTag(Tag $tag): self
+    public function removeTag(Tag $tag): void
     {
         $this->tagi->removeElement($tag);
+    }
 
-        return $this;
+    public function getAuthor(): ?Uzytkownik
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Uzytkownik $author): void
+    {
+        $this->author = $author;
+
     }
 
 }

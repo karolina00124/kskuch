@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_kategoria_list'|trans }}</h1>
+    <div class="index_title"> {{ 'title_kategoria_list'|trans }}
+        <a href="{{ url('kategoria_create') }}" title="{{ 'action_create'|trans }}"><i class="bi bi-plus-circle">
+            </i></a>
+    </div>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -28,17 +31,14 @@
 
                     <td>{{ kategoria.kategoriaNazwa }}</td>
                     <td>
-                        <a href="{{ url('kategoria_show', {id: kategoria.id}) }}" title="{{ 'action_view'|trans }}">
+                        <a class="btn btn-outline-success btn-sm" href="{{ url('kategoria_show', {id: kategoria.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
-                        <a href="{{ url('kategoria_edit', {id: kategoria.id}) }}" title="{{ 'action_edit'|trans }}">
+                        <a class="btn btn-outline-info btn-sm" href="{{ url('kategoria_edit', {id: kategoria.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
                         </a>
-                        <a href="{{ url('kategoria_create', {id: kategoria.id}) }}" title="{{ 'action_create'|trans }}">
-                            {{ 'action_create'|trans }}
-                        </a>
                         {% if not kategoria.przepis|length %}
-                        <a href="{{ url('kategoria_delete', {id: kategoria.id}) }}" title="{{ 'action_delete'|trans }}">
+                        <a class="btn btn-outline-danger btn-sm" href="{{ url('kategoria_delete', {id: kategoria.id}) }}" title="{{ 'action_delete'|trans }}">
                             {{ 'action_delete'|trans }}
                         </a>
                         {% endif %}
