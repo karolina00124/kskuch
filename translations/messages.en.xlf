@@ -102,6 +102,18 @@
                 <source>label_created_at</source>
                 <target>Created at</target>
             </trans-unit>
+            <trans-unit id="label_haslo">
+                <source>label_haslo</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="label_haslo_powtorz">
+                <source>label_haslo_powtorz</source>
+                <target>Repete password</target>
+            </trans-unit>
+            <trans-unit id="label_nazwa_uzytkownik">
+                <source>label_nazwa_uzytkownik</source>
+                <target>Nickname</target>
+            </trans-unit>
             <trans-unit id="label_ocena">
                 <source>label_ocena</source>
                 <target>Mark</target>
@@ -158,6 +170,10 @@
                 <source>message.empty_list</source>
                 <target>Empty list.</target>
             </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Deleted successfully.</target>
+            </trans-unit>
             <trans-unit id="message_created_successfully">
                 <source>message_created_successfully</source>
                 <target>Created successfuly.</target>
@@ -165,6 +181,10 @@
             <trans-unit id="message_updated_successfully">
                 <source>message_updated_successfully</source>
                 <target>Updated successfuly.</target>
+            </trans-unit>
+            <trans-unit id="message_registered_successfully">
+                <source>message_registered_successfully</source>
+                <target>Registered successfuly.</target>
             </trans-unit>
             <trans-unit id="message_login">
                 <source>message_login</source>
@@ -182,9 +202,17 @@
                 <source>profil</source>
                 <target>Edit profile</target>
             </trans-unit>
+            <trans-unit id="rejestracja_title">
+                <source>rejestracja_title</source>
+                <target>Register</target>
+            </trans-unit>
             <trans-unit id="title_record_view">
                 <source>title_record_view</source>
                 <target>View record</target>
+            </trans-unit>
+            <trans-unit id="title_login">
+                <source>title_login</source>
+                <target>Login</target>
             </trans-unit>
             <trans-unit id="title_kategoria_create">
                 <source>title_kategoria_create</source>
@@ -205,6 +233,10 @@
             <trans-unit id="title_przepis_details">
                 <source>title_przepis_details</source>
                 <target>Recipes details #%id%</target>
+            </trans-unit>
+            <trans-unit id="title_przepis_delete">
+                <source>title_przepis_delete</source>
+                <target>Recipes delete</target>
             </trans-unit>
             <trans-unit id="title_tag_details">
                 <source>title_tag_details</source>
@@ -234,13 +266,21 @@
                 <source>tag_lista</source>
                 <target>Edit tag</target>
             </trans-unit>
+            <trans-unit id="title_tag_delete">
+                <source>title_tag_delete</source>
+                <target>Delete tag</target>
+            </trans-unit>
+            <trans-unit id="title_tag_edit">
+                <source>title_tag_edit</source>
+                <target>Edit tag</target>
+            </trans-unit>
             <trans-unit id="title_tag_list">
                 <source>title_tag_list</source>
                 <target>Tags list</target>
             </trans-unit>
-            <trans-unit id="question_kategoria_delete">
-                <source>question_kategoria_delete</source>
-                <target>Do you want to delete category below?</target>
+            <trans-unit id="question_delete">
+                <source>question_delete</source>
+                <target>Do you want to delete record below?</target>
             </trans-unit>
         </body>
     </file>

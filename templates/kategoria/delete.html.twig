@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title_kategoria_delete'|trans({'%id%': kategoria.id|default('')}) }}</h1>
-    <a> {{ 'question_kategoria_delete'|trans() }} </a>
+    <div class="delete"><a> {{ 'question_delete'|trans() }} </a></div>
     {{ form_start(form, { method: 'DELETE', action: url('kategoria_delete', {id: kategoria.id}) }) }}
     {{ form_widget(form) }}
     {% if kategoria is defined and kategoria|length %}

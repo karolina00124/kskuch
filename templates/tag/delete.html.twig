@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title_tag_delete'|trans({'%id%': tag.id|default('')}) }}</h1>
-    <a> {{ 'question_tag_delete'|trans() }} </a>
+    <div class="delete"><a> {{ 'question_delete'|trans() }} </a></div>
     {{ form_start(form, { method: 'DELETE', action: url('tag_delete', {id: tag.id}) }) }}
     {{ form_widget(form) }}
     {% if tag is defined and tag|length %}

@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title_przepis_delete'|trans({'%id%': przepis.id|default('')}) }}</h1>
-    <a> {{ 'question_przepis_delete'|trans() }} </a>
+    <div class="delete"><a> {{ 'question_delete'|trans() }} </a></div>
     {{ form_start(form, { method: 'DELETE', action: url('przepis_delete', {id: przepis.id}) }) }}
     {{ form_widget(form) }}
     {% if przepis is defined and przepis|length %}

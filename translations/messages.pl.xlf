@@ -102,6 +102,18 @@
                 <source>label_created_at</source>
                 <target>Utowrzono</target>
             </trans-unit>
+            <trans-unit id="label_haslo">
+                <source>label_haslo</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="label_haslo_powtorz">
+                <source>label_haslo_powtorz</source>
+                <target>Powtórz hasło</target>
+            </trans-unit>
+            <trans-unit id="label_nazwa_uzytkownik">
+                <source>label_nazwa_uzytkownik</source>
+                <target>Nazwa użytkownika</target>
+            </trans-unit>
             <trans-unit id="label_ocena">
                 <source>label_ocena</source>
                 <target>Ocena</target>
@@ -144,7 +156,7 @@
             </trans-unit>
             <trans-unit id="menu_zarejestruj">
                 <source>menu_zarejestruj</source>
-                <target>Zarejstruj się</target>
+                <target>Zarejestruj się</target>
             </trans-unit>
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
@@ -158,6 +170,10 @@
                 <source>message.empty_list</source>
                 <target>Lista jest pusta.</target>
             </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Usunięto poprawnie.</target>
+            </trans-unit>
             <trans-unit id="message_created_successfully">
                 <source>message_created_successfully</source>
                 <target>Utworzono poprawnie.</target>
@@ -165,6 +181,10 @@
             <trans-unit id="message_updated_successfully">
                 <source>message_updated_successfully</source>
                 <target>Zmodyfikowano poprawnie.</target>
+            </trans-unit>
+            <trans-unit id="message_registered_successfully">
+                <source>message_registered_successfully</source>
+                <target>Zarejestrowano poprawnie.</target>
             </trans-unit>
             <trans-unit id="message_login">
                 <source>message_login</source>
@@ -182,9 +202,17 @@
                 <source>profil</source>
                 <target>Twój profil</target>
             </trans-unit>
+            <trans-unit id="rejestracja_title">
+                <source>rejestracja_title</source>
+                <target>Rejestracja</target>
+            </trans-unit>
             <trans-unit id="title_record_view">
                 <source>title_record_view</source>
                 <target>Wyświetlanie rekordu</target>
+            </trans-unit>
+            <trans-unit id="title_login">
+                <source>title_login</source>
+                <target>Logowanie</target>
             </trans-unit>
             <trans-unit id="title_kategoria_create">
                 <source>title_kategoria_create</source>
@@ -205,6 +233,10 @@
             <trans-unit id="title_przepis_details">
                 <source>title_przepis_details</source>
                 <target>Przepis szczegóły #%id%</target>
+            </trans-unit>
+            <trans-unit id="title_przepis_delete">
+                <source>title_przepis_delete</source>
+                <target>Usuń przepis</target>
             </trans-unit>
             <trans-unit id="title_tag_details">
                 <source>title_tag_details</source>
@@ -234,13 +266,21 @@
                 <source>tag_lista</source>
                 <target>Edycja tagów</target>
             </trans-unit>
+            <trans-unit id="title_tag_delete">
+                <source>title_tag_delete</source>
+                <target>Usuń tag</target>
+            </trans-unit>
+            <trans-unit id="title_tag_edit">
+                <source>title_tag_edit</source>
+                <target>Edytuj tag</target>
+            </trans-unit>
             <trans-unit id="title_tag_list">
                 <source>title_tag_list</source>
                 <target>Lista tagów</target>
             </trans-unit>
-            <trans-unit id="question_kategoria_delete">
-                <source>question_kategoria_delete</source>
-                <target>Czy chesz usunąć poniższą kategorie?</target>
+            <trans-unit id="question_delete">
+                <source>question_delete</source>
+                <target>Czy na pewno chesz usunąć poniższy rekord?</target>
             </trans-unit>
         </body>
     </file>

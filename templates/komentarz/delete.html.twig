@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title_komentarz_delete'|trans({'%id%': komentarz.id|default('')}) }}</h1>
-    <a> {{ 'question_komentarz_delete'|trans() }} </a>
+    <div class="delete"><a> {{ 'question_delete'|trans() }} </a></div>
     {{ form_start(form, { method: 'DELETE', action: url('komentarz_delete', {id: komentarz.id}) }) }}
     {{ form_widget(form) }}
     {% if komentarz is defined and komentarz|length %}
