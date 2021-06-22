@@ -37,17 +37,22 @@
          </div>
         </div>
 
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="btn-group" role="group" aria-label="comment, mark">
-            <a href="{{ url('komentarz_create') }}" title="{{ 'action_create'|trans }}" type="button" class="btn btn-secondary"> {{ 'label_mark'|trans }} </a>
-            <a href="{{ url('komentarz_create') }}" title="{{ 'action_create'|trans }}" type="button" class="btn  btn-info btn-secondary"> {{ 'label_comment'|trans }} </a>
+            <a href="{{ url('komentarz_create', {przepisId: przepis.id}) }}" title="{{ 'label_mark'|trans }}" type="button" class="btn btn-secondary"> {{ 'label_mark'|trans }} </a>
+            <a href="{{ url('komentarz_create', {przepisId: przepis.id}) }}" title="{{ 'label_comment'|trans }}" type="button" class="btn  btn-info btn-secondary"> {{ 'label_comment'|trans }} </a>
         </div>
         <br>
+        {% endif %}
+
         <br>
-    {% if przepis.komentarz is defined and przepis.komentarz|length %}
+    {% if przepis.komentarze|length %}
+        {% for komentarz in przepis.komentarze %}
         <dl class="dl-horizontal">
             <dt>{{ 'label_komentarz'|trans }}</dt>
-            <dd>{{ przepis.komentarz.tresc }}</dd>
+            <dd>{{ komentarz.tresc }}</dd>
         </dl>
+        {% endfor %}
         <br>
     {% endif %}
         <p>

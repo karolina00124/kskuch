@@ -19,6 +19,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserFixtures extends AbstractBaseFixtures
 {
+    const ADMIN_REFERENCE = 'admin';
+    const USER_REFERENCE = 'user';
+
     /**
      * Password encoder.
      *
@@ -66,5 +69,8 @@ class UserFixtures extends AbstractBaseFixtures
         $manager->persist($userAdmin);
 
         $manager->flush();
+
+        $this->addReference(self::USER_REFERENCE, $user);
+        $this->addReference(self::ADMIN_REFERENCE, $userAdmin);
     }
 }

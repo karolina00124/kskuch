@@ -89,9 +89,10 @@ class Przepis
     private $dataUtworzenia;
 
     /**
+     * @var Kategoria
      * Kategoria.
      * @ORM\ManyToOne(targetEntity=Kategoria::class, inversedBy="przepis")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="kategoria_id", referencedColumnName="id")
      */
     private $kategoria;
 
@@ -109,9 +110,11 @@ class Przepis
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Komentarz::class,  fetch="EXTRA_LAZY")
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Komentarz", mappedBy="przepis")
      */
-    private $komentarz;
+    private $komentarze;
 
     /**
      * Przepis constructor.
@@ -119,6 +122,7 @@ class Przepis
     public function __construct()
     {
         $this->tagi = new ArrayCollection();
+        $this->komentarze = new ArrayCollection();
     }
 
     /**
@@ -243,19 +247,6 @@ class Przepis
     }
 
     /**
-     * @param Kategoria $kategoria
-     * @return $this
-     */
-    public function addKategoria(Kategoria $kategoria): self
-    {
-        if (!$this->kategoria->contains($kategoria)) {
-            $this->kategoria[] = $kategoria;
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Tag[]
      */
     public function getTagi(): Collection
@@ -311,19 +302,19 @@ class Przepis
     }
 
     /**
-     * @return Komentarz|null
+     * @return Collection
      */
-    public function getKomentarz(): ?Komentarz
+    public function getKomentarze(): Collection
     {
-        return $this->komentarz;
+        return $this->komentarze;
     }
 
     /**
-     * @param Komentarz|null $komentarz
+     * @param Collection $komentarze
      */
-    public function setKomentarz(?Komentarz $komentarz): void
+    public function setKomentarze(Collection $komentarze): void
     {
-        $this->komentarz = $komentarz;
+        $this->komentarze = $komentarze;
 
     }
 

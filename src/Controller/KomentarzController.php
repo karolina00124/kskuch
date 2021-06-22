@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Komentarz;
 use App\Form\KomentarzType;
 use App\Repository\KomentarzRepository;
+use App\Repository\PrzepisRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -90,6 +91,7 @@ class KomentarzController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      * @param \App\Repository\KomentarzRepository $komentarzRepository Komentarz repository
+     * @param int $przepisId Id przepisu
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -97,20 +99,22 @@ class KomentarzController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
-     *     "/create",
+     *     "/{przepisId}/create",
      *     methods={"GET", "POST"},
      *     name="komentarz_create",
      * )
      */
-    public function create(Request $request, KomentarzRepository $komentarzRepository): Response
+    public function create(Request $request, KomentarzRepository $komentarzRepository, PrzepisRepository $przepisRepository, int $przepisId): Response
     {
+        $przepis = $przepisRepository->find($przepisId);
+
         $komentarz = new Komentarz();
         $form = $this->createForm(KomentarzType::class, $komentarz);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $komentarz->setAutor($this->getUser());
+            $komentarz->setPrzepis($przepis);
             $komentarzRepository->save($komentarz);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -120,7 +124,10 @@ class KomentarzController extends AbstractController
 
         return $this->render(
             'komentarz/create.html.twig',
-            ['form' => $form->createView()]
+            [
+                'form' => $form->createView(),
+                'action' => $this->generateUrl('komentarz_create', ['przepisId' => $przepisId]),
+            ]
         );
     }
 

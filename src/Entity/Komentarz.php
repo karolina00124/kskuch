@@ -29,9 +29,19 @@ class Komentarz
     private $tresc;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Uzytkownik::class,fetch="EXTRA_LAZY")
+     * @ORM\ManyToOne(targetEntity=Uzytkownik::class, fetch="EXTRA_LAZY")
      */
     private $autor;
+
+    /**
+     * @var Przepis
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Przepis", inversedBy="komentarze")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="przepis_id", referencedColumnName="id")
+     * })
+     */
+    private $przepis;
 
     public function getId(): ?int
     {
@@ -60,5 +70,21 @@ class Komentarz
         $this->autor = $autor;
 
         return $this;
+    }
+
+    /**
+     * @param Przepis $przepis
+     */
+    public function setPrzepis(Przepis $przepis): void
+    {
+        $this->przepis = $przepis;
+    }
+
+    /**
+     * @return Przepis
+     */
+    public function getPrzepis(): Przepis
+    {
+        return $this->przepis;
     }
 }
