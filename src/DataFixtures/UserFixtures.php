@@ -10,6 +10,7 @@ use App\Entity\Contact;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Entity\Uzytkownik;
+use App\Entity\UzytkownikDane;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -68,6 +69,22 @@ class UserFixtures extends AbstractBaseFixtures
         );
         $manager->persist($userAdmin);
 
+        $manager->flush();
+
+        $userDane = new UzytkownikDane();
+        $userDane->setUzytkownik($user);
+        $userDane->setImie('User');
+        $userDane->setNazwisko('Nowak');
+        $userDane->setEmail('user@nowak.com');
+        $manager->persist($userDane);
+        $manager->flush();
+
+        $userAdminDane = new UzytkownikDane();
+        $userAdminDane->setUzytkownik($userAdmin);
+        $userAdminDane->setImie('Admin');
+        $userAdminDane->setNazwisko('Kowalski');
+        $userAdminDane->setEmail('admin@kowalski.com');
+        $manager->persist($userAdminDane);
         $manager->flush();
 
         $this->addReference(self::USER_REFERENCE, $user);

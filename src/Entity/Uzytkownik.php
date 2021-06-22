@@ -43,10 +43,9 @@ class Uzytkownik implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string", length=191)
-
+     *
      * @Assert\NotBlank
      * @Assert\Type(type="string")
-     * @SecurityAssert\UserPassword
      */
     private $haslo;
 
@@ -54,6 +53,12 @@ class Uzytkownik implements UserInterface
      * @ORM\Column(type="json")
      */
     private $rola = [];
+
+    /**
+     * @var UzytkownikDane
+     * @ORM\OneToOne(targetEntity="App\Entity\UzytkownikDane", mappedBy="uzytkownik")
+     */
+    private $uzytkownikDane;
 
     public function getId(): ?int
     {
@@ -126,5 +131,22 @@ class Uzytkownik implements UserInterface
     public function getUsername()
     {
         $this->getNazwaUzytkownik();
+    }
+
+    /**
+     * @return UzytkownikDane
+     */
+    public function getUzytkownikDane(): UzytkownikDane
+    {
+        return $this->uzytkownikDane;
+    }
+
+    /**
+     * @param UzytkownikDane $uzytkownikDane
+     */
+    public function setUzytkownikDane(UzytkownikDane $uzytkownikDane): void
+    {
+        $uzytkownikDane->setUzytkownik($this);
+        $this->uzytkownikDane = $uzytkownikDane;
     }
 }

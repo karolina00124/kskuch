@@ -119,7 +119,7 @@ class KomentarzController extends AbstractController
 
             $this->addFlash('success', 'message_created_successfully');
 
-            return $this->redirectToRoute('komentarz_index');
+            return $this->redirectToRoute('przepis_show', ['id' => $przepisId]);
         }
 
         return $this->render(

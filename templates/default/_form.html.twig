@@ -11,7 +11,7 @@
     </h1>
     <br>
 
-    {{ form_start(form, { method: attr.method|default('POST'), action: attr.action }) }}
+    {{ form_start(form, { method: attr.method|default('POST'), action: attr.action, attr: attr.attr|default({}) }) }}
     {% if false == form.vars.valid %}
         {% include 'default/_single_flash_message.html.twig' with {
             type: 'danger',

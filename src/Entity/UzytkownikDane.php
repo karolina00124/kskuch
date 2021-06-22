@@ -41,6 +41,13 @@ class UzytkownikDane
      */
     private $email;
 
+    /**
+     * @var Uzytkownik
+     * @ORM\OneToOne(targetEntity="App\Entity\Uzytkownik", inversedBy="uzytkownikDane")
+     * @ORM\JoinColumn(name="uzytkownik_id", referencedColumnName="id")
+     */
+    private $uzytkownik;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,5 +87,21 @@ class UzytkownikDane
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * @return Uzytkownik
+     */
+    public function getUzytkownik(): Uzytkownik
+    {
+        return $this->uzytkownik;
+    }
+
+    /**
+     * @param Uzytkownik $uzytkownik
+     */
+    public function setUzytkownik(Uzytkownik $uzytkownik): void
+    {
+        $this->uzytkownik = $uzytkownik;
     }
 }

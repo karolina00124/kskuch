@@ -75,4 +75,25 @@ class UzytkownikRepository extends ServiceEntityRepository
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    /**
+     * @param Uzytkownik $user
+     * @param string|null $newPasswordPlain
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Uzytkownik $user, string $newPasswordPlain = null)
+    {
+        if($newPasswordPlain) {
+            $user->setHaslo(
+                $this->passwordEncoder->encodePassword(
+                    $user,
+                    $newPasswordPlain
+                )
+            );
+        }
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
 }

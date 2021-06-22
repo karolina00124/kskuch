@@ -29,7 +29,7 @@
                                 {{ 'hello'|trans() }} {{ app.user.NazwaUzytkownik }} </a>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="UzytkownikDane/index.html.twig"><i class="bi bi-pencil-square"></i>{{ 'data_edit'|trans() }}</a>
+                                <a class="dropdown-item" href="{{ url('user_edit') }}"><i class="bi bi-pencil-square"></i>{{ 'data_edit'|trans() }}</a>
                                 <a class="dropdown-item" href=UzytkownikDane/index.html.twig"><i class="bi bi-person"></i>{{ 'profil'|trans() }}</a>
                             </div>
                         </div>
