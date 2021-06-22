@@ -20,8 +20,7 @@
             <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'kategoria.id') }}</th>
-
-                <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'kategoria.nazwa') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'kategoria.kategoriaNazwa') }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
@@ -29,7 +28,6 @@
             {% for kategoria in pagination.items %}
                 <tr>
                     <td>{{ kategoria.id }}</td>
-
                     <td>{{ kategoria.kategoriaNazwa }}</td>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="{{ url('kategoria_show', {id: kategoria.id}) }}" title="{{ 'action_view'|trans }}">

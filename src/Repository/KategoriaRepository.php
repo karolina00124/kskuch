@@ -39,8 +39,8 @@ class KategoriaRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this
-            ->createQueryBuilder('k')
-            ->orderBy('k.id', 'ASC');
+            ->createQueryBuilder('kategoria')
+        ;
     }
 
     /**
