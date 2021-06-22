@@ -17,7 +17,7 @@
             <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'komentarz.id') }}</th>
-
+                <th>{{ knp_pagination_sortable(pagination, 'label_autor'|trans, 'komentarz.autor.nazwaUzytkownik') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_tresc'|trans, 'komentarz.tresc') }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
@@ -26,7 +26,7 @@
             {% for komentarz in pagination.items %}
                 <tr>
                     <td>{{ komentarz.id }}</td>
-
+                    <td>{{ komentarz.autor.nazwaUzytkownik }}</td>
                     <td>{{ komentarz.tresc }}</td>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="{{ url('komentarz_show', {id: komentarz.id}) }}" title="{{ 'action_view'|trans }}">

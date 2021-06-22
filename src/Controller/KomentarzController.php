@@ -110,7 +110,7 @@ class KomentarzController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
+            $komentarz->setAutor($this->getUser());
             $komentarzRepository->save($komentarz);
 
             $this->addFlash('success', 'message_created_successfully');

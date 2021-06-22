@@ -1,17 +1,26 @@
-<ul>
-    <h2>{{ 'label_menu'|trans }}</h2>
+
+<div class="list-group">
+    <a class="list-group-item active">{{ 'label_menu'|trans }}</a>
+
 {% for k in kategorie %}
-    <li><a href="{{ url('przepis_index', {'filters_kategoria_id': k.id}) }}">{{ k.kategoriaNazwa }}</a></li>
+    <a class="list-group-item list-group-item-action" href="{{ url('przepis_index', {'filters_kategoria_id': k.id}) }}">{{ k.kategoriaNazwa }}</a>
 {% endfor %}
-</ul>
-<h2>{{ 'label_menu_2'|trans }}</h2>
-<a href={{ url('kategoria_index')}}>{{ 'kategoria_lista'|trans }}</a><br/>
-<a href={{ url('tag_index')}}>{{ 'tag_lista'|trans }}</a><br/>
-<a href={{ url('komentarz_index')}}>{{ 'komentarz_lista'|trans }}</a>
-<br/> <br/>
+</div>
+<br/>
+<div class="list-group">
+    <a class="list-group-item active">{{ 'label_menu_2'|trans }}</a>
+<a class="list-group-item list-group-item-action" href="{{ url('kategoria_index') }}">{{ 'kategoria_lista'|trans }}</a>
+<a class="list-group-item list-group-item-action" href="{{ url('tag_index')}}">{{ 'tag_lista'|trans }}</a>
+<a class="list-group-item list-group-item-action" href="{{ url('komentarz_index')}}">{{ 'komentarz_lista'|trans }}</a>
+    </div>
+<br/>
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <a href="{{ url('app_logout') }}">{{ 'menu_wyloguj'|trans }}</a>
+<div class="list-group">
+    <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ url('app_logout') }}">{{ 'menu_wyloguj'|trans }}</a>
+</div>
 {% else %}
-    <a href="{{ url('app_login') }}">{{ 'menu_zaloguj'|trans }}</a><br/>
-    <a href="{{ url('user_register') }}">{{ 'menu_zarejestruj'|trans }}</a><br/>
+<div class="list-group">
+    <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ url('app_login') }}">{{ 'menu_zaloguj'|trans }}</a>
+    <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ url('user_register') }}">{{ 'menu_zarejestruj'|trans }}</a>
+</div>
 {% endif %}

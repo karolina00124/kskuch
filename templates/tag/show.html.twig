@@ -14,8 +14,8 @@
             <dd>{{ tag.tagnazwa }}</dd>
         </dl>
         <p>
-            <a href="{{ url('tag_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                {{ 'action_back_to_list'|trans }}
+            <a href="{{ url('tag_index') }}" class="btn btn-light">
+                {{ 'action_back_to_list'|trans }} <i class="bi bi-arrow-return-left"></i>
             </a>
         </p>
     {% else %}

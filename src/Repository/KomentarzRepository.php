@@ -38,8 +38,11 @@ class KomentarzRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this
-            ->createQueryBuilder('ko')
-            ->orderBy('ko.id', 'ASC');
+            ->getOrcreateQueryBuilder()
+            ->select(  'partial komentarz.{id, tresc}',
+                'partial autor.{id,nazwa_uzytkownik}')
+            ->join('komentarz.autor', 'autor')
+            ->orderBy('komentarz.id', 'ASC');
     }
 
     /**

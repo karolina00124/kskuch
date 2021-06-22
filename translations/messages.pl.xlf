@@ -46,9 +46,21 @@
                 <source>hello</source>
                 <target>Witaj,</target>
             </trans-unit>
+            <trans-unit id="kategoria_lista">
+                <source>kategoria_lista</source>
+                <target>Edycja kategorii</target>
+            </trans-unit>
+            <trans-unit id="komentarz_lista">
+                <source>komentarz_lista</source>
+                <target>Edycja komentarzy</target>
+            </trans-unit>
             <trans-unit id="label_actions">
                 <source>label_actions</source>
                 <target>Operacje</target>
+            </trans-unit>
+            <trans-unit id="label_autor">
+                <source>label_autor</source>
+                <target>Autor</target>
             </trans-unit>
             <trans-unit id="label_comment">
                 <source>label_comment</source>
@@ -90,6 +102,10 @@
                 <source>label_created_at</source>
                 <target>Utowrzono</target>
             </trans-unit>
+            <trans-unit id="label_ocena">
+                <source>label_ocena</source>
+                <target>Ocena</target>
+            </trans-unit>
             <trans-unit id="label_skladniki">
                 <source>label_skladniki</source>
                 <target>Składniki</target>
@@ -114,6 +130,22 @@
                 <source>label_password</source>
                 <target>Hasło</target>
             </trans-unit>
+            <trans-unit id="label_tresc">
+                <source>label_tresc</source>
+                <target>Treść</target>
+            </trans-unit>
+            <trans-unit id="menu_wyloguj">
+                <source>menu_wyloguj</source>
+                <target>Wyloguj się</target>
+            </trans-unit>
+            <trans-unit id="menu_zaloguj">
+                <source>menu_zaloguj</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="menu_zarejestruj">
+                <source>menu_zarejestruj</source>
+                <target>Zarejstruj się</target>
+            </trans-unit>
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
                 <target>Lista jest pusta.</target>
@@ -129,6 +161,10 @@
             <trans-unit id="message_created_successfully">
                 <source>message_created_successfully</source>
                 <target>Utworzono poprawnie.</target>
+            </trans-unit>
+            <trans-unit id="message_updated_successfully">
+                <source>message_updated_successfully</source>
+                <target>Zmodyfikowano poprawnie.</target>
             </trans-unit>
             <trans-unit id="message_login">
                 <source>message_login</source>
@@ -182,9 +218,21 @@
                 <source>title_kategoria_list</source>
                 <target>Lista kategorii</target>
             </trans-unit>
+            <trans-unit id="title_komentarz_list">
+                <source>title_komentarz_list</source>
+                <target>Lista komentarzy</target>
+            </trans-unit>
+            <trans-unit id="title_przepis_edit">
+                <source>title_przepis_edit</source>
+                <target>Edytuj przepis</target>
+            </trans-unit>
             <trans-unit id="title_przepis_list">
                 <source>title_przepis_list</source>
                 <target>Lista przepisów</target>
+            </trans-unit>
+            <trans-unit id="tag_lista">
+                <source>tag_lista</source>
+                <target>Edycja tagów</target>
             </trans-unit>
             <trans-unit id="title_tag_list">
                 <source>title_tag_list</source>
