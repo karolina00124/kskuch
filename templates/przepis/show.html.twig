@@ -12,6 +12,8 @@
             <dd>{{ przepis.dataUtworzenia|format_date('long') }}</dd>
             <dt>{{ 'label_info'|trans }}</dt>
             <dd>{{ przepis.info }}</dd>
+            <dt>{{ 'label_autor'|trans }}</dt>
+            <dd>{{ przepis.author.nazwaUzytkownik }}</dd>
             <dt>{{ 'label_title'|trans }}</dt>
             <dd>{{ przepis.nazwa }}</dd>
             <dt>{{ 'label_skladniki'|trans }}</dt>
@@ -19,9 +21,22 @@
             <dt>{{ 'label_kroki'|trans }}</dt>
             <dd>{{ przepis.kroki }}</dd>
         </dl>
+        <div class="btn-group" role="group" aria-label="comment, mark">
+            <a href="{{ url('komentarz_create') }}" title="{{ 'action_create'|trans }}" type="button" class="btn btn-secondary"> {{ 'label_mark'|trans }} </a>
+            <a href="{{ url('komentarz_create') }}" title="{{ 'action_create'|trans }}" type="button" class="btn  btn-info btn-secondary"> {{ 'label_comment'|trans }} </a>
+        </div>
+        <br>
+        <br>
+    {% if przepis.komentarz is defined and przepis.komentarz|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_komentarz'|trans }}</dt>
+            <dd>{{ przepis.komentarz.tresc }}</dd>
+        </dl>
+        <br>
+    {% endif %}
         <p>
-            <a href="{{ url('przepis_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                {{ 'action_back_to_list'|trans }}
+            <a href="{{ url('przepis_index') }}" class="btn btn-light">
+                {{ 'action_back_to_list'|trans }} <i class="bi bi-arrow-return-left"></i>
             </a>
         </p>
     {% else %}

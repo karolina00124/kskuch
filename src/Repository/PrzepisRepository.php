@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Przepis;
+use App\Entity\Uzytkownik;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,6 +33,13 @@ class PrzepisRepository extends ServiceEntityRepository
         parent::__construct($registry, Przepis::class);
     }
 
+    public function queryByAuthor(Uzytkownik $uzytkownik): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->andWhere('przepis.author = :author')
+            ->setParameter('author', $uzytkownik);
+        return $queryBuilder;
+    }
     /**
      * Query all records.
      * @param array $filters
@@ -42,7 +50,9 @@ class PrzepisRepository extends ServiceEntityRepository
         $qb = $this->getOrCreateQueryBuilder()
             ->select(
                 'partial przepis.{id, dataUtworzenia, nazwa}',
-                'partial tagi.{id,tagNazwa}'
+                'partial tagi.{id,tagNazwa}',
+
+
             )
             ->leftJoin('przepis.tagi', 'tagi')
             ->orderBy('przepis.dataUtworzenia', 'DESC');

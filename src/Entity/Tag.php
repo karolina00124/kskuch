@@ -10,10 +10,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
  * @ORM\Table(name="tagi")
+ * @UniqueEntity(fields={"title"})
  */
 class Tag
 {
@@ -34,6 +37,12 @@ class Tag
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="64",
+     * )
      */
     private $tagNazwa;
 
@@ -46,15 +55,23 @@ class Tag
     private $dataUtworzenia;
 
     /**
+     * Przepis.
      * @ORM\ManyToMany(targetEntity=Przepis::class, mappedBy="tagi")
      */
     private $przepis;
 
+    /**
+     * Tag constructor.
+     */
     public function __construct()
     {
         $this->przepis = new ArrayCollection();
     }
 
+    /**
+     * Getter for Id.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -92,20 +109,20 @@ class Tag
         return $this->przepis;
     }
 
-    public function addPrzepi(Przepis $przepi): self
+    public function addPrzepis(Przepis $przepis): self
     {
-        if (!$this->przepis->contains($przepi)) {
-            $this->przepis[] = $przepi;
-            $przepi->addTag($this);
+        if (!$this->przepis->contains($przepis)) {
+            $this->przepis[] = $przepis;
+            $przepis->addTag($this);
         }
 
         return $this;
     }
 
-    public function removePrzepi(Przepis $przepi): self
+    public function removePrzepis(Przepis $przepis): self
     {
-        if ($this->przepis->removeElement($przepi)) {
-            $przepi->removeTag($this);
+        if ($this->przepis->removeElement($przepis)) {
+            $przepis->removeTag($this);
         }
 
         return $this;

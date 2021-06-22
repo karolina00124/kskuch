@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_komentarz_details'|trans({'%id%': komentarz.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_komentarz_details'|trans({'%id%':komentarz.id|default('')}) }}</h1>
+    {% if komentarz is defined and komentarz|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_id'|trans }}</dt>
+            <dd>{{ komentarz.id }}</dd>
+            <dt>{{ 'label_tresc'|trans }}</dt>
+            <dd>{{ komentarz.tresc }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('komentarz_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'action_back_to_list'|trans }}
+            </a>
+        </p>
+    {% else %}
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message_item_not_found'|trans
+        } %}
+    {% endif %}
+{% endblock %}

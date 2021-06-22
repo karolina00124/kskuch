@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Uzytkownik;
 use App\Entity\Kategoria;
 use App\Entity\Przepis;
 use App\Entity\Tag;
@@ -18,7 +19,7 @@ class AppFixtures extends AbstractBaseFixtures
         $manager->flush();
     }
 
-    private function loadKategorie($manager) : array
+    private function loadKategorie($manager): array
     {
         $kategorie = [];
         $nazwy = [
@@ -67,19 +68,25 @@ class AppFixtures extends AbstractBaseFixtures
             $przepis->setSkladniki($this->faker->sentence);
             $przepis->setKategoria($kategorie[0]);
 
+
             $randomsTagNumber = rand(0, 3);
-            if($randomsTagNumber > 0) {
+            if ($randomsTagNumber > 0) {
                 $randomTagsIndex = (array)array_rand($tags, $randomsTagNumber);
                 foreach ($randomTagsIndex as $randomTagIndex) {
                     $przepis->addTag($tags[$randomTagIndex]);
                 }
             }
-                $randomsKategoriaNumber = rand(0, 3);
-                if($randomsKategoriaNumber >= 0) {
-                    $randomKategorieIndex = (array) array_rand($kategorie, $randomsKategoriaNumber);
-                    foreach ($randomKategorieIndex as $randomKategoriaIndex) {
-                        $przepis->addKategoria($kategorie[$randomKategoriaIndex]);
-                    }
+            /**
+             * TO DO: przypożadkowywanie różnych kategorii do przepisów get random references ??
+             *   $przepis->setAuthor($this->getRandomReferences('uzytkownicy'));
+             *   function getDependencies
+             */
+            $randomsKategoriaNumber = rand(0, 3);
+            if ($randomsKategoriaNumber >= 0) {
+                $randomKategorieIndex = (array)array_rand($kategorie, $randomsKategoriaNumber);
+                foreach ($randomKategorieIndex as $randomKategoriaIndex) {
+                    $przepis->addKategoria($kategorie[$randomKategoriaIndex]);
+                }
             }
 
             $this->manager->persist($przepis);
@@ -87,5 +94,4 @@ class AppFixtures extends AbstractBaseFixtures
 
         $manager->flush();
     }
-
 }

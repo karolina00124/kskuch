@@ -1,13 +1,12 @@
 <?php
 /**
- * Przepis controller.
+ *Komentarz controller.
  */
 namespace App\Controller;
 
-use App\Entity\Przepis;
-use App\Form\PrzepisType;
-use App\Entity\Uzytkownik;
-use App\Repository\PrzepisRepository;
+use App\Entity\Komentarz;
+use App\Form\KomentarzType;
+use App\Repository\KomentarzRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -16,55 +15,51 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class PrzepisController.
- * @Route("/przepis")
+ * Class KomentarzController.
+ *
+ * @Route("/komentarz")
  */
-class PrzepisController extends AbstractController
+class KomentarzController extends AbstractController
 {
-    /**
-     * Przepis Repository.
-     *
-     * @var \App\Repository\PrzepisRepository
-     */
-    private PrzepisRepository $przepisRepository;
+    private KomentarzRepository $komentarzRepository;
 
     private PaginatorInterface $paginator;
 
     /**
-     * PrzepisController constructor.
-     *
-     * @param \App\Repository\PrzepisRepository $przepisRepository Przepis repository
+     * KomentarzController constructor.
+     * @param KomentarzRepository $komentarzRepository
+     * @param PaginatorInterface $paginator
      */
-    public function __construct(PrzepisRepository $przepisRepository, PaginatorInterface $paginator)
+    public function __construct(KomentarzRepository $komentarzRepository, PaginatorInterface $paginator)
     {
-        $this->przepisRepository = $przepisRepository;
+        $this->komentarzRepository = $komentarzRepository;
         $this->paginator = $paginator;
     }
 
+
     /**
      * Index action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/",
-     *     name="przepis_index",
+     *     methods={"GET"},
+     *     name="komentarz_index",
      * )
      */
     public function index(Request $request): Response
     {
-        $filters = [];
-        $filters['kategoria_id'] = $request->query->getInt('filters_kategoria_id');
-        $filters['tag_id'] = $request->query->getInt('filters_tag_id');
-
         $pagination = $this->paginator->paginate(
-            $this->przepisRepository->queryAll($filters),
+            $this->komentarzRepository->queryAll(),
             $request->query->getInt('page', 1),
-            PrzepisRepository::PAGINATOR_ITEMS_PER_PAGE,
+            KomentarzRepository::PAGINATOR_ITEMS_PER_PAGE
         );
 
         return $this->render(
-            'przepis/index.html.twig',
+            'komentarz/index.html.twig',
             ['pagination' => $pagination]
         );
     }
@@ -72,30 +67,29 @@ class PrzepisController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param \App\Entity\Komentarz $komentarz Komentarz entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/{id}",
      *     methods={"GET"},
-     *     name="przepis_show",
+     *     name="komentarz_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Przepis $przepis): Response
+    public function show(Komentarz $komentarz): Response
     {
         return $this->render(
-            'przepis/show.html.twig',
-            ['przepis' => $przepis]
+            'komentarz/show.html.twig',
+            ['komentarz' => $komentarz]
         );
     }
-
     /**
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\PrzepisRepository $przepisRepository Przepis repository
+     * @param \App\Repository\KomentarzRepository $komentarzRepository Komentarz repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -105,27 +99,27 @@ class PrzepisController extends AbstractController
      * @Route(
      *     "/create",
      *     methods={"GET", "POST"},
-     *     name="przepis_create",
+     *     name="komentarz_create",
      * )
      */
-    public function create(Request $request, PrzepisRepository $przepisRepository): Response
+    public function create(Request $request, KomentarzRepository $komentarzRepository): Response
     {
-        $przepis = new Przepis();
-        $form = $this->createForm(PrzepisType::class, $przepis);
+        $komentarz = new Komentarz();
+        $form = $this->createForm(KomentarzType::class, $komentarz);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $przepis->setAuthor($this->getUser());
-            $przepisRepository->save($przepis);
+
+            $komentarzRepository->save($komentarz);
 
             $this->addFlash('success', 'message_created_successfully');
 
-            return $this->redirectToRoute('przepis_index');
+            return $this->redirectToRoute('komentarz_index');
         }
 
         return $this->render(
-            'przepis/create.html.twig',
+            'komentarz/create.html.twig',
             ['form' => $form->createView()]
         );
     }
@@ -134,8 +128,8 @@ class PrzepisController extends AbstractController
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis $przepis Przepis entity
-     * @param \App\Repository\PrzepisRepository $przepisRepository Przepis repository
+     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param \App\Repository\KomentarzRepository $komentarzRepository Komentarz repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -146,28 +140,28 @@ class PrzepisController extends AbstractController
      *     "/{id}/edit",
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
-     *     name="przepis_edit",
+     *     name="komentarz_edit",
      * )
      */
-    public function edit(Request $request, Przepis $przepis, PrzepisRepository $przepisRepository): Response
+    public function edit(Request $request, Komentarz $komentarz, KomentarzRepository $komentarzRepository): Response
     {
-        $form = $this->createForm(PrzepisType::class, $przepis, ['method' => 'PUT']);
+        $form = $this->createForm(KomentarzType::class, $komentarz, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $przepisRepository->save($przepis);
+            $komentarzRepository->save($komentarz);
 
             $this->addFlash('success', 'message_updated_successfully');
 
-            return $this->redirectToRoute('przepis_index');
+            return $this->redirectToRoute('komentarz_index');
         }
 
         return $this->render(
-            'przepis/edit.html.twig',
+            'komentarz/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'przepis' => $przepis,
+                'komentarz' => $komentarz,
             ]
         );
     }
@@ -176,8 +170,8 @@ class PrzepisController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis $przepis Przepis entity
-     * @param \App\Repository\PrzepisRepository $przepisRepository Przepis repository
+     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param \App\Repository\KomentarzRepository $komentarzRepository Komentarz repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -188,14 +182,13 @@ class PrzepisController extends AbstractController
      *     "/{id}/delete",
      *     methods={"GET", "DELETE"},
      *     requirements={"id": "[1-9]\d*"},
-     *     name="przepis_delete",
+     *     name="komentarz_delete",
      * )
      */
     public
-    function delete(Request $request, Przepis $przepis, PrzepisRepository $przepisRepository): Response
+    function delete(Request $request, Komentarz $komentarz, KomentarzRepository $komentarzRepository): Response
     {
-
-        $form = $this->createForm(FormType::class, $przepis, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $komentarz, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
@@ -203,19 +196,18 @@ class PrzepisController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $przepisRepository->delete($przepis);
+            $komentarzRepository->delete($komentarz);
             $this->addFlash('success', 'message.deleted_successfully');
 
-            return $this->redirectToRoute('przepis_index');
+            return $this->redirectToRoute('komentarz_index');
         }
 
         return $this->render(
-            'przepis/delete.html.twig',
+            'komentarz/delete.html.twig',
             [
                 'form' => $form->createView(),
-                'przepis' => $przepis,
+                'komentarz' => $komentarz,
             ]
         );
     }
-
 }

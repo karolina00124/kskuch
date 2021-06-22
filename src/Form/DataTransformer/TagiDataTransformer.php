@@ -1,14 +1,22 @@
 <?php
 namespace App\Form\DataTransformer;
 
+use Symfony\Component\Form\DataTransformerInterface;
 use App\Repository\TagRepository;
 use App\Entity\Tag;
-use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
+
+/**
+ * Class TagiDataTransformer.
+ */
 class TagiDataTransformer implements DataTransformerInterface
 {
-    private  TagRepository $tagRepository;
+    /**
+     * Tag repository.
+     *
+     * @var \App\Repository\TagRepository
+     */
+    private TagRepository $tagRepository;
 
     /**
      * TagiDataTransformer constructor.
@@ -20,40 +28,57 @@ class TagiDataTransformer implements DataTransformerInterface
         $this->tagRepository = $tagRepository;
     }
 
-     public function transform($tagi)
+    /**
+     * Transform array of tags to string of names.
+     *
+     * @param \Doctrine\Common\Collections\Collection $tags Tags entity collection
+     *
+     * @return string Result
+     */
+     public function transform($tagi): string
       {
        if (null === $tagi)
        {
           return '';
-     }
+       }
+
     $tagNames = [];
+
        foreach ($tagi as $tag)
       {
         $tagNames[] = $tag->getTagNazwa();
-     }
+      }
     return implode(',',$tagNames);
     }
 
-    public function reverseTransform($value)
+    /**
+     * Transform string of tag names into array of Tag entities.
+     *
+     * @param string $value String of tag names
+     *
+     * @return array Result
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function reverseTransform($value): array
     {
         $tagTitles = explode(',', $value);
+
         $tagi = [];
-        foreach ($tagTitles as $tagTitle){
-            if('' === trim($tagTitle)){
-                continue;
-            }
 
-            $tagTitle = strtolower($tagTitle);
-
-            $tag = $this->tagRepository->findOneByTagNazwa($tagTitle);
-            if (null === $tag)
-            {
-              $tag = new Tag();
-              $tag->setTagNazwa($tagTitle);
-              $this->tagRepository->save($tag);
+        foreach ($tagTitles as $tagTitle) {
+            if ('' !== trim($tagTitle)) {
+                $tag = $this->tagRepository->findOneByTagNazwa(strtolower($tagTitle));
+                if (null == $tag) {
+                    $tag = new Tag();
+                    $tag->setTagNazwa($tagTitle);
+                    $this->tagRepository->save($tag);
+                }
+                $tagi[] = $tag;
             }
-            $tagi[] = $tag;
         }
+
         return $tagi;
     }
 

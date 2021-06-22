@@ -38,9 +38,21 @@
                 <source>choose_category</source>
                 <target>Choose category</target>
             </trans-unit>
+            <trans-unit id="data_edit">
+                <source>data_edit</source>
+                <target>Data Edit</target>
+            </trans-unit>
+            <trans-unit id="hello">
+                <source>hello</source>
+                <target>Hello,</target>
+            </trans-unit>
             <trans-unit id="label_actions">
                 <source>label_actions</source>
                 <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="label_comment">
+                <source>label_comment</source>
+                <target>Comment</target>
             </trans-unit>
             <trans-unit id="label_id">
                 <source>label_id</source>
@@ -61,6 +73,10 @@
             <trans-unit id="label_menu">
                 <source>label_menu</source>
                 <target>Recipes</target>
+            </trans-unit>
+            <trans-unit id="label_mark">
+                <source>label_mark</source>
+                <target>Rate</target>
             </trans-unit>
             <trans-unit id="label_menu_2">
                 <source>label_menu_2</source>
@@ -125,6 +141,10 @@
             <trans-unit id="title_record_list">
                 <source>title_record_list</source>
                 <target>Records list</target>
+            </trans-unit>
+            <trans-unit id="profil">
+                <source>profil</source>
+                <target>Edit profile</target>
             </trans-unit>
             <trans-unit id="title_record_view">
                 <source>title_record_view</source>

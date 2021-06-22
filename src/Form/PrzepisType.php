@@ -15,6 +15,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PrzepisType extends AbstractType
 {
+    /**
+     * Tagi data transformer.
+     * @var TagiDataTransformer
+     */
     private TagiDataTransformer $tagiDataTransformer;
 
     /**
@@ -35,7 +39,7 @@ class PrzepisType extends AbstractType
      *
      * @see FormTypeExtensionInterface::bulidForm()
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('nazwa', TextType::class,
@@ -81,8 +85,6 @@ class PrzepisType extends AbstractType
             'label'=>'label_tagi',
             'attr'=> ['max_length'=> 128],
             'required'=>false,
-
-
         ]
     );
         $builder
@@ -92,6 +94,11 @@ class PrzepisType extends AbstractType
 
     }
 
+    /**
+     * Configures the options for this type.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

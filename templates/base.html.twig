@@ -21,8 +21,19 @@
             {% include 'default/_flash_messages.html.twig' %}
             {% block topbar %}
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <div id="topbar"><a href="UzytkownikDane/index.html.twig" id="topbar">
-                        {{ 'Hello,' }} {{ app.user.NazwaUzytkownik }} <i class="bi bi-person"></i></a>
+
+                    <div id="topbar">
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ 'hello'|trans() }} {{ app.user.NazwaUzytkownik }} </a>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="UzytkownikDane/index.html.twig"><i class="bi bi-pencil-square"></i>{{ 'data_edit'|trans() }}</a>
+                                <a class="dropdown-item" href=UzytkownikDane/index.html.twig"><i class="bi bi-person"></i>{{ 'profil'|trans() }}</a>
+                            </div>
+                        </div>
+
                     </div>
                 {% endif %}
             {% endblock %}
