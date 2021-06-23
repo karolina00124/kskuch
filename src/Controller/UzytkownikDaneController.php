@@ -52,6 +52,7 @@ class UzytkownikDaneController extends AbstractController
             ['uzytkownikDane' => $uzytkownikDaneRepository->findAll()]
         );
     }
+
     /**
      * Create action.
      *

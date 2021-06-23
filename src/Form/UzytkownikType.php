@@ -30,8 +30,8 @@ class UzytkownikType extends AbstractType
             'type' => PasswordType::class,
             'invalid_message' => 'Hasła muszą się zgadzać',
             'options' => ['attr' => ['class' => 'password-field']],
-            'first_options'  => ['label' => 'label_password'],
-            'second_options' => ['label' => 'label_password_repeat'],
+            'first_options'  => ['label' => 'label_nowe_haslo'],
+            'second_options' => ['label' => 'label_haslo_powtorz'],
         ]);
     }
 

@@ -12,11 +12,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class KategoriaController.
  *
  * @Route("/kategoria")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class KategoriaController extends AbstractController
 {
@@ -28,7 +31,7 @@ class KategoriaController extends AbstractController
     /**
      * KategoriaController constructor.
      *
-     * @param \App\Service\KategoriaService $kategoriaService
+     * @param KategoriaService $kategoriaService
      */
     public function __construct(KategoriaService $kategoriaService)
     {

@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="index_title"> {{ 'title_przepis_list'|trans }}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
     <a href="{{ url('przepis_create') }}" title="{{ 'action_create'|trans }}"><i class="bi bi-plus-circle">
         </i></a>
+        {% endif %}
     </div>
     {% if pagination is defined and pagination.items|length %}
 
@@ -47,13 +48,14 @@
                         <a class="btn btn-outline-success btn-sm" href="{{ url('przepis_show', {id: przepis.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
-                        <a class="btn btn-outline-info btn-sm" href="{{ url('przepis_edit', {id: przepis.id}) }}" title="{{ 'action_edit'|trans }}">
-                            {{ 'action_edit'|trans }}
-                        </a>
-                        <a class="btn btn-outline-danger btn-sm" href="{{ url('przepis_delete', {id: przepis.id}) }}" title="{{ 'action_delete'|trans }}">
-                            {{ 'action_delete'|trans }}
-                        </a>
-
+                             {% if is_granted('ROLE_ADMIN') or przepis.author == app.user %}
+                                <a class="btn btn-outline-info btn-sm" href="{{ url('przepis_edit', {id: przepis.id}) }}" title="{{ 'action_edit'|trans }}">
+                                    {{ 'action_edit'|trans }}
+                                </a>
+                                <a class="btn btn-outline-danger btn-sm" href="{{ url('przepis_delete', {id: przepis.id}) }}" title="{{ 'action_delete'|trans }}">
+                                    {{ 'action_delete'|trans }}
+                                </a>
+                             {%  endif %}
                     </td>
                 </tr>
             {% endfor %}

@@ -66,9 +66,17 @@
                 <source>label_comment</source>
                 <target>Comment</target>
             </trans-unit>
+            <trans-unit id="label_email">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
             <trans-unit id="label_id">
                 <source>label_id</source>
                 <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label_imie">
+                <source>label_imie</source>
+                <target>Name</target>
             </trans-unit>
             <trans-unit id="label_info">
                 <source>label_info</source>
@@ -101,6 +109,14 @@
             <trans-unit id="label_menu_2">
                 <source>label_menu_2</source>
                 <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="label_nazwisko">
+                <source>label_nazwisko</source>
+                <target>Surname</target>
+            </trans-unit>
+            <trans-unit id="label_nowe_haslo">
+                <source>label_nowe_haslo</source>
+                <target>New password</target>
             </trans-unit>
             <trans-unit id="label_content">
                 <source>label_content</source>
@@ -190,6 +206,10 @@
                 <source>message_created_successfully</source>
                 <target>Created successfuly.</target>
             </trans-unit>
+            <trans-unit id="message.item_not_found">
+                <source>message.item_not_found</source>
+                <target>Item not found.</target>
+            </trans-unit>
             <trans-unit id="message_updated_successfully">
                 <source>message_updated_successfully</source>
                 <target>Updated successfuly.</target>
@@ -213,6 +233,14 @@
             <trans-unit id="title_komentarz_create">
                 <source>title_komentarz_create</source>
                 <target>Comment</target>
+            </trans-unit>
+            <trans-unit id="title_komentarz_delete">
+                <source>title_komentarz_delete</source>
+                <target>Delete comment</target>
+            </trans-unit>
+            <trans-unit id="title_komentarz_edit">
+                <source>title_komentarz_edit</source>
+                <target>Edit comment</target>
             </trans-unit>
             <trans-unit id="profil">
                 <source>profil</source>
@@ -265,6 +293,10 @@
             <trans-unit id="title_uzytkownik_dane">
                 <source>title_uzytkownik_dane</source>
                 <target>Data user.</target>
+            </trans-unit>
+            <trans-unit id="title_user_edit">
+                <source>title_user_edit</source>
+                <target>Edit data user</target>
             </trans-unit>
             <trans-unit id="title_kategoria_list">
                 <source>title_kategoria_list</source>

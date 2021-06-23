@@ -1,11 +1,12 @@
 <?php
-
+/**
+ * Uzytkownik controller.
+ */
 namespace App\Controller;
 
-use App\Entity\Uzytkownik;
 use App\Form\RejestracjaType;
 use App\Form\UzytkownikType;
-use App\Repository\UzytkownikRepository;
+use App\Service\UzytkownikService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,15 +14,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class UzytkownikController extends AbstractController
 {
     /**
+     * @var UzytkownikService
+     */
+    private $uzytkownikService;
+
+    /**
      * @Route("/register", name="user_register")
      */
-    public function register(Request $request, UzytkownikRepository $uzytkownikRepository)
+    public function register(Request $request)
     {
         $form = $this->createForm(RejestracjaType::class, null);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uzytkownikRepository->register($form->getData());
+            $this->uzytkownikService->register($form->getData());
             $this->addFlash('success', 'message_registered_successfully');
             return $this->redirectToRoute('app_login');
         }
@@ -36,10 +42,10 @@ class UzytkownikController extends AbstractController
      * @Route("/admin/user/edit", methods={"GET", "POST"}, name="user_edit")
      *
      * @param Request $request
-     * @param UzytkownikRepository $uzytkownikRepository
+     * @param UzytkownikService $uzytkownikService
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request, UzytkownikRepository $uzytkownikRepository)
+    public function edit(Request $request)
     {
         $user = $this->getUser();
 
@@ -48,8 +54,8 @@ class UzytkownikController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newPasswordPlain = $form->get('newPassword')->getData();
-            $uzytkownikRepository->save($user, $newPasswordPlain);
-            $this->addFlash('success', 'message_registered_successfully');
+            $this->uzytkownikService->save($user, $newPasswordPlain);
+            $this->addFlash('success', 'message_updated_successfully');
             return $this->redirectToRoute('user_edit');
         }
 

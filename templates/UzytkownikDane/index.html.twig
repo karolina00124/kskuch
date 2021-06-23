@@ -11,14 +11,7 @@
         </a>
     </div>
     {% if uzytkownikDane is defined and uzytkownikDane|length %}
-        <dl class="dl-horizontal">
-                <dt>{{ 'label_imie'|trans }}</dt>
-                <dd>{{ uzytkownikDane.imie }}</dd>
-                <dt>{{ 'label_nazwisko'|trans }}</dt>
-                <dd>{{ uzytkownikDane.nazwisko }}</dd>
-                <dt>{{ 'label_email'|trans }}</dt>
-                <dd>{{ uzytkownikDane.email }}</dd>
-            </dl>
+
             <p>
                 <a href="{{ url('tag_index') }}" title="{{ 'action_back_to_list'|trans }}">
                     {{ 'action_back_to_list'|trans }}
@@ -32,3 +25,4 @@
 
     {% endif %}
 {% endblock %}
+user_edit

@@ -6,6 +6,7 @@
     <a class="list-group-item list-group-item-action" href="{{ url('przepis_index', {'filters_kategoria_id': k.id}) }}">{{ k.kategoriaNazwa }}</a>
 {% endfor %}
 </div>
+{% if is_granted('ROLE_ADMIN') %}
 <br/>
 <div class="list-group">
     <a class="list-group-item active">{{ 'label_menu_2'|trans }}</a>
@@ -14,6 +15,7 @@
 <a class="list-group-item list-group-item-action" href="{{ url('komentarz_index')}}">{{ 'komentarz_lista'|trans }}</a>
     </div>
 <br/>
+{%  endif %}
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 <div class="list-group">
     <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ url('app_logout') }}">{{ 'menu_wyloguj'|trans }}</a>

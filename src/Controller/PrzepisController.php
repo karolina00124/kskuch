@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class PrzepisController.
@@ -43,6 +44,7 @@ class PrzepisController extends AbstractController
      *
      * @Route(
      *     "/",
+     *     methods={"GET"},
      *     name="przepis_index",
      * )
      */
@@ -95,6 +97,7 @@ class PrzepisController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="przepis_create",
      * )
+     * @IsGranted("ROLE_ADMIN","ROLE_USER")
      */
     public function create(Request $request): Response
     {
@@ -138,6 +141,12 @@ class PrzepisController extends AbstractController
      */
     public function edit(Request $request, Przepis $przepis): Response
     {
+        if ($przepis->getAuthor() !== $this->getUser() or $this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('warning', 'message.item_not_found');
+
+            return $this->redirectToRoute('przepis_index');
+        }
+
         $form = $this->createForm(PrzepisType::class, $przepis, ['method' => 'PUT']);
         $form->handleRequest($request);
 
@@ -179,6 +188,11 @@ class PrzepisController extends AbstractController
      */
     public function delete(Request $request, Przepis $przepis): Response
     {
+        if ($przepis->getAuthor() !== $this->getUser() or $this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('warning', 'message.item_not_found');
+
+            return $this->redirectToRoute('przepis_index');
+        }
 
         $form = $this->createForm(FormType::class, $przepis, ['method' => 'DELETE']);
         $form->handleRequest($request);

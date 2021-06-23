@@ -66,9 +66,17 @@
                 <source>label_comment</source>
                 <target>Skomentuj</target>
             </trans-unit>
+            <trans-unit id="label_email">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
             <trans-unit id="label_id">
                 <source>label_id</source>
                 <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label_imie">
+                <source>label_imie</source>
+                <target>Imię</target>
             </trans-unit>
             <trans-unit id="label_info">
                 <source>label_info</source>
@@ -101,6 +109,14 @@
             <trans-unit id="label_menu_2">
                 <source>label_menu_2</source>
                 <target>Panel edycyjny</target>
+            </trans-unit>
+            <trans-unit id="label_nazwisko">
+                <source>label_nazwisko</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="label_nowe_haslo">
+                <source>label_nowe_haslo</source>
+                <target>Nowe hasło</target>
             </trans-unit>
             <trans-unit id="label_content">
                 <source>label_content</source>
@@ -190,6 +206,10 @@
                 <source>message_created_successfully</source>
                 <target>Utworzono poprawnie.</target>
             </trans-unit>
+            <trans-unit id="message.item_not_found">
+                <source>message.item_not_found</source>
+                <target>Nie znaleziono.</target>
+            </trans-unit>
             <trans-unit id="message_updated_successfully">
                 <source>message_updated_successfully</source>
                 <target>Zmodyfikowano poprawnie.</target>
@@ -213,6 +233,14 @@
             <trans-unit id="title_komentarz_create">
                 <source>title_komentarz_create</source>
                 <target>Skomentuj</target>
+            </trans-unit>
+            <trans-unit id="title_komentarz_delete">
+                <source>title_komentarz_delete</source>
+                <target>Usuń komentarz</target>
+            </trans-unit>
+            <trans-unit id="title_komentarz_edit">
+                <source>title_komentarz_edit</source>
+                <target>Edytuj komentarz</target>
             </trans-unit>
             <trans-unit id="profil">
                 <source>profil</source>
@@ -266,6 +294,10 @@
                 <source>title_uzytkownik_dane</source>
                 <target>Twój profil.</target>
             </trans-unit>
+            <trans-unit id="title_user_edit">
+                <source>title_user_edit</source>
+                <target>Edytuj swoje dane</target>
+            </trans-unit>
             <trans-unit id="title_kategoria_list">
                 <source>title_kategoria_list</source>
                 <target>Lista kategorii</target>
@@ -276,7 +308,7 @@
             </trans-unit>
             <trans-unit id="title_przepis_create">
                 <source>title_przepis_create</source>
-                <target>Utwórz przeois</target>
+                <target>Utwórz przepis</target>
             </trans-unit>
             <trans-unit id="title_przepis_edit">
                 <source>title_przepis_edit</source>

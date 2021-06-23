@@ -6,35 +6,35 @@ namespace App\Controller;
 
 use App\Entity\Komentarz;
 use App\Form\KomentarzType;
-use App\Repository\KomentarzRepository;
 use App\Repository\PrzepisRepository;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Service\KomentarzService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class KomentarzController.
  *
  * @Route("/komentarz")
+ *
+ * @IsGranted("ROLE_ADMIN")
  */
 class KomentarzController extends AbstractController
 {
-    private KomentarzRepository $komentarzRepository;
-
-    private PaginatorInterface $paginator;
-
+    /**
+     * @var KomentarzService
+     */
+    private $komentarzService;
     /**
      * KomentarzController constructor.
-     * @param KomentarzRepository $komentarzRepository
-     * @param PaginatorInterface $paginator
+     * @param KomentarzService $komentarzService
      */
-    public function __construct(KomentarzRepository $komentarzRepository, PaginatorInterface $paginator)
+    public function __construct(KomentarzService $komentarzService)
     {
-        $this->komentarzRepository = $komentarzRepository;
-        $this->paginator = $paginator;
+        $this->komentarzService = $komentarzService;
     }
 
 
@@ -53,15 +53,9 @@ class KomentarzController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $pagination = $this->paginator->paginate(
-            $this->komentarzRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            KomentarzRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-
         return $this->render(
             'komentarz/index.html.twig',
-            ['pagination' => $pagination]
+            ['pagination' => $this->komentarzService->createPaginatedList($request->query->getInt('page', 1))]
         );
     }
 
@@ -90,7 +84,6 @@ class KomentarzController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\KomentarzRepository $komentarzRepository Komentarz repository
      * @param int $przepisId Id przepisu
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -104,7 +97,7 @@ class KomentarzController extends AbstractController
      *     name="komentarz_create",
      * )
      */
-    public function create(Request $request, KomentarzRepository $komentarzRepository, PrzepisRepository $przepisRepository, int $przepisId): Response
+    public function create(Request $request, PrzepisRepository $przepisRepository, int $przepisId): Response
     {
         $przepis = $przepisRepository->find($przepisId);
 
@@ -115,7 +108,7 @@ class KomentarzController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $komentarz->setAutor($this->getUser());
             $komentarz->setPrzepis($przepis);
-            $komentarzRepository->save($komentarz);
+            $this->komentarzService->save($komentarz);
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -136,7 +129,6 @@ class KomentarzController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      * @param \App\Entity\Komentarz $komentarz Komentarz entity
-     * @param \App\Repository\KomentarzRepository $komentarzRepository Komentarz repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -150,14 +142,14 @@ class KomentarzController extends AbstractController
      *     name="komentarz_edit",
      * )
      */
-    public function edit(Request $request, Komentarz $komentarz, KomentarzRepository $komentarzRepository): Response
+    public function edit(Request $request, Komentarz $komentarz): Response
     {
         $form = $this->createForm(KomentarzType::class, $komentarz, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $komentarzRepository->save($komentarz);
+            $this->komentarzService->save($komentarz);
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -178,7 +170,6 @@ class KomentarzController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      * @param \App\Entity\Komentarz $komentarz Komentarz entity
-     * @param \App\Repository\KomentarzRepository $komentarzRepository Komentarz repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -192,8 +183,7 @@ class KomentarzController extends AbstractController
      *     name="komentarz_delete",
      * )
      */
-    public
-    function delete(Request $request, Komentarz $komentarz, KomentarzRepository $komentarzRepository): Response
+    public function delete(Request $request, Komentarz $komentarz): Response
     {
         $form = $this->createForm(FormType::class, $komentarz, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -203,7 +193,7 @@ class KomentarzController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $komentarzRepository->delete($komentarz);
+            $this->komentarzService->delete($komentarz);
             $this->addFlash('success', 'message.deleted_successfully');
 
             return $this->redirectToRoute('komentarz_index');

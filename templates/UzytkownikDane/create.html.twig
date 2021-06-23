@@ -1,3 +1,4 @@
+{% if uzytkownikDane is defined and uzytkownikDane|length %}
 {% include 'default/_form.html.twig' with {
     page_title: 'title_uzytkownikDane_create',
     attr: {
@@ -8,3 +9,10 @@
     submit_label: 'action_create'|trans,
     back_to_list_path: 'uzytkownikDane_index',
 } %}
+{% else %}
+    {% include 'default/_single_flash_message.html.twig' with {
+        type: 'warning',
+        message: 'message_add_data_user'|trans
+    } %}
+
+{% endif %}
