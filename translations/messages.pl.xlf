@@ -78,6 +78,14 @@
                 <source>label_kategoria</source>
                 <target>Kategoria</target>
             </trans-unit>
+            <trans-unit id="label_komentarz">
+                <source>label_komentarz</source>
+                <target>Treść komentarza</target>
+            </trans-unit>
+        <trans-unit id="label_komentarze">
+            <source>label_komentarze</source>
+            <target>Komentarze</target>
+        </trans-unit>
             <trans-unit id="label_kroki">
                 <source>label_kroki</source>
                 <target>Kroki</target>
@@ -158,6 +166,10 @@
                 <source>menu_zarejestruj</source>
                 <target>Zarejestruj się</target>
             </trans-unit>
+            <trans-unit id="message_category_contains_tasks">
+                <source>message_category_contains_tasks</source>
+                <target>Ta kategoria zawiera przepisy! Nie można jej usunąć.</target>
+            </trans-unit>
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
                 <target>Lista jest pusta.</target>
@@ -198,6 +210,10 @@
                 <source>title_record_list</source>
                 <target>Lista Rekordów</target>
             </trans-unit>
+            <trans-unit id="title_komentarz_create">
+                <source>title_komentarz_create</source>
+                <target>Skomentuj</target>
+            </trans-unit>
             <trans-unit id="profil">
                 <source>profil</source>
                 <target>Twój profil</target>
@@ -230,6 +246,10 @@
                 <source>title_kategoria_details</source>
                 <target>Kategoria szczegóły #%id%</target>
             </trans-unit>
+            <trans-unit id="title_komentarz_details">
+                <source>title_komentarz_details</source>
+                <target>Komentarz szczegóły #%id%</target>
+            </trans-unit>
             <trans-unit id="title_przepis_details">
                 <source>title_przepis_details</source>
                 <target>Przepis szczegóły #%id%</target>
@@ -253,6 +273,10 @@
             <trans-unit id="title_komentarz_list">
                 <source>title_komentarz_list</source>
                 <target>Lista komentarzy</target>
+            </trans-unit>
+            <trans-unit id="title_przepis_create">
+                <source>title_przepis_create</source>
+                <target>Utwórz przeois</target>
             </trans-unit>
             <trans-unit id="title_przepis_edit">
                 <source>title_przepis_edit</source>

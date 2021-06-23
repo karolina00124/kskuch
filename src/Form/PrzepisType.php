@@ -82,7 +82,7 @@ class PrzepisType extends AbstractType
             );
         $builder->add('tagi', TextType::class,
         [
-            'label'=>'label_tagi',
+            'label'=>'label_tags',
             'attr'=> ['max_length'=> 128],
             'required'=>false,
         ]

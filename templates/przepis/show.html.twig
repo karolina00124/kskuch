@@ -47,9 +47,10 @@
 
         <br>
     {% if przepis.komentarze|length %}
+        <h2> {{ 'label_komentarze'|trans }} </h2>
         {% for komentarz in przepis.komentarze %}
         <dl class="dl-horizontal">
-            <dt>{{ 'label_komentarz'|trans }}</dt>
+            <dt>{{ komentarz.autor.nazwaUzytkownik }}</dt>
             <dd>{{ komentarz.tresc }}</dd>
         </dl>
         {% endfor %}

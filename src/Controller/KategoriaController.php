@@ -6,8 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Kategoria;
 use App\Form\KategoriaType;
-use App\Repository\KategoriaRepository;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Service\KategoriaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,21 +20,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class KategoriaController extends AbstractController
 {
-    private KategoriaRepository $kategoriaRepository;
-
-    private PaginatorInterface $paginator;
+    /**
+     * @var KategoriaService
+     */
+    private $kategoriaService;
 
     /**
      * KategoriaController constructor.
-     * @param KategoriaRepository $kategoriaRepository
-     * @param PaginatorInterface $paginator
+     *
+     * @param \App\Service\KategoriaService $kategoriaService
      */
-    public function __construct(KategoriaRepository $kategoriaRepository, PaginatorInterface $paginator)
+    public function __construct(KategoriaService $kategoriaService)
     {
-        $this->kategoriaRepository = $kategoriaRepository;
-        $this->paginator = $paginator;
+        $this->kategoriaService = $kategoriaService;
     }
-
 
     /**
      * Index action.
@@ -52,15 +50,9 @@ class KategoriaController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $pagination = $this->paginator->paginate(
-            $this->kategoriaRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            KategoriaRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-
         return $this->render(
             'kategoria/index.html.twig',
-            ['pagination' => $pagination]
+            ['pagination' => $this->kategoriaService->createPaginatedList($request->query->getInt('page', 1))]
         );
     }
 
@@ -89,7 +81,6 @@ class KategoriaController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\KategoriaRepository $kategoriaRepository Kategoria repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -102,7 +93,7 @@ class KategoriaController extends AbstractController
      *     name="kategoria_create",
      * )
      */
-    public function create(Request $request, KategoriaRepository $kategoriaRepository): Response
+    public function create(Request $request): Response
     {
         $kategoria = new Kategoria();
         $form = $this->createForm(KategoriaType::class, $kategoria);
@@ -110,7 +101,7 @@ class KategoriaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $kategoriaRepository->save($kategoria);
+            $this->kategoriaService->save($kategoria);
 
             $this->addFlash('success', 'message_created_successfully');
 
@@ -128,7 +119,6 @@ class KategoriaController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      * @param \App\Entity\Kategoria $kategoria Kategoria entity
-     * @param \App\Repository\KategoriaRepository $kategoriaRepository Kategoria repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -142,14 +132,14 @@ class KategoriaController extends AbstractController
      *     name="kategoria_edit",
      * )
      */
-    public function edit(Request $request, Kategoria $kategoria, KategoriaRepository $kategoriaRepository): Response
+    public function edit(Request $request, Kategoria $kategoria): Response
     {
         $form = $this->createForm(KategoriaType::class, $kategoria, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $kategoriaRepository->save($kategoria);
+            $this->kategoriaService->save($kategoria);
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -170,7 +160,6 @@ class KategoriaController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      * @param \App\Entity\Kategoria $kategoria Kategoria entity
-     * @param \App\Repository\KategoriaRepository $kategoriaRepository Kategoria repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -184,8 +173,7 @@ class KategoriaController extends AbstractController
      *     name="kategoria_delete",
      * )
      */
-    public
-    function delete(Request $request, Kategoria $kategoria, KategoriaRepository $kategoriaRepository): Response
+    public function delete(Request $request, Kategoria $kategoria): Response
     {
         if($kategoria->getPrzepis()->count()){
             $this->addFlash('warning','message_category_contains_tasks');
@@ -199,7 +187,7 @@ class KategoriaController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $kategoriaRepository->delete($kategoria);
+            $this->kategoriaService->delete($kategoria);
             $this->addFlash('success', 'message.deleted_successfully');
 
             return $this->redirectToRoute('kategoria_index');
