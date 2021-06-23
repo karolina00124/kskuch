@@ -141,7 +141,7 @@ class PrzepisController extends AbstractController
      */
     public function edit(Request $request, Przepis $przepis): Response
     {
-        if ($przepis->getAuthor() !== $this->getUser() or $this->isGranted('ROLE_ADMIN')) {
+        if (!($this->isGranted('ROLE_ADMIN') || $przepis->getAuthor() === $this->getUser())) {
             $this->addFlash('warning', 'message.item_not_found');
 
             return $this->redirectToRoute('przepis_index');
@@ -188,7 +188,7 @@ class PrzepisController extends AbstractController
      */
     public function delete(Request $request, Przepis $przepis): Response
     {
-        if ($przepis->getAuthor() !== $this->getUser() or $this->isGranted('ROLE_ADMIN')) {
+        if (!($this->isGranted('ROLE_ADMIN') || $przepis->getAuthor() === $this->getUser())) {
             $this->addFlash('warning', 'message.item_not_found');
 
             return $this->redirectToRoute('przepis_index');
@@ -217,4 +217,33 @@ class PrzepisController extends AbstractController
         );
     }
 
+    /**
+     * Vote action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Przepis $przepis Przepis entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/vote/{upOrDown}",
+     *     methods={"GET"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="przepis_vote",
+     * )
+     */
+    public function vote(Request $request, Przepis $przepis, string $upOrDown): Response
+    {
+        if($upOrDown === 'up') {
+            $this->przepisService->voteUp($przepis);
+        }
+        elseif ($upOrDown === 'down') {
+            $this->przepisService->voteDown($przepis);
+        }
+
+        return $this->redirectToRoute('przepis_show', ['id' => $przepis->getId()]);
+    }
 }

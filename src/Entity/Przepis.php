@@ -112,9 +112,30 @@ class Przepis
     /**
      * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Komentarz", mappedBy="przepis")
+     * @ORM\OneToMany(targetEntity="App\Entity\Komentarz", mappedBy="przepis", cascade={"remove"})
      */
     private $komentarze;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="thumb_up", type="integer")
+     */
+    private $thumbUp = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="thumb_down", type="integer")
+     */
+    private $thumbDown = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="thumb_diff", type="integer")
+     */
+    private $thumbDiff = 0;
 
     /**
      * Przepis constructor.
@@ -318,4 +339,45 @@ class Przepis
 
     }
 
+    /**
+     * @return int
+     */
+    public function getThumbUp(): int
+    {
+        return $this->thumbUp;
+    }
+
+    /**
+     * @param int $thumbUp
+     */
+    public function setThumbUp(int $thumbUp): void
+    {
+        $this->thumbUp = $thumbUp;
+        $this->thumbDiff = $this->thumbUp - $this->thumbDown;
+    }
+
+    /**
+     * @return int
+     */
+    public function getThumbDown(): int
+    {
+        return $this->thumbDown;
+    }
+
+    /**
+     * @param int $thumbDown
+     */
+    public function setThumbDown(int $thumbDown): void
+    {
+        $this->thumbDown = $thumbDown;
+        $this->thumbDiff = $this->thumbUp - $this->thumbDown;
+    }
+
+    /**
+     * @return int
+     */
+    public function getThumbDiff(): int
+    {
+        return $this->thumbDiff;
+    }
 }

@@ -22,9 +22,9 @@
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'przepis.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_created_at'|trans, 'przepis.dataUtworzenia') }}</th>
-
                 <th>{{ knp_pagination_sortable(pagination, 'label_title'|trans, 'przepis.nazwa') }}</th>
                 <th>{{ 'label_tags'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_thumb_diff'|trans, 'przepis.thumbDiff') }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
@@ -33,7 +33,6 @@
                 <tr>
                     <td>{{ przepis.id }}</td>
                     <td>{{ przepis.dataUtworzenia|format_date('long') }}</td>
-
                     <td>{{ przepis.nazwa }}</td>
                     <td>
                         {% if przepis.tagi is defined and przepis.tagi|length %}
@@ -44,6 +43,7 @@
                             &nbsp;
                         {% endif %}
                     </td>
+                    <td>{{ przepis.thumbDiff }}</td>
                     <td>
                         <a class="btn btn-outline-success btn-sm" href="{{ url('przepis_show', {id: przepis.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}

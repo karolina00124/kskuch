@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Uzytkownik;
+use App\Entity\UzytkownikDane;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -71,6 +72,7 @@ class UzytkownikRepository extends ServiceEntityRepository
             )
         );
         $user->setRola([Uzytkownik::ROLE_USER]);
+        $user->setUzytkownikDane($data['uzytkownikDane']);
 
         $this->_em->persist($user);
         $this->_em->flush();

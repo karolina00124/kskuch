@@ -1,11 +1,9 @@
 <?php
+
 namespace App\Service;
 
 use App\Entity\Uzytkownik;
 use App\Repository\UzytkownikRepository;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Knp\Component\Pager\PaginatorInterface;
-
 
 class UzytkownikService
 {
@@ -20,14 +18,11 @@ class UzytkownikService
      * UzytkownikService constructor.
      *
      * @param \App\Repository\UzytkownikRepository      $uzytkownikRepository Uzytkownik repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
      */
-    public function __construct(UzytkownikRepository $uzytkownikRepository, PaginatorInterface $paginator)
+    public function __construct(UzytkownikRepository $uzytkownikRepository)
     {
         $this->uzytkownikRepository = $uzytkownikRepository;
-        $this->paginator = $paginator;
     }
-
 
     /**
      * Save uzytkownik.
@@ -43,14 +38,12 @@ class UzytkownikService
         $this->uzytkownikRepository->save($uzytkownik);
     }
 
-
-
     /**
      * Register uzytkownik.
      *
-     * @param $data
+     * @param array $data
      */
-    public function register($data): void
+    public function register(array $data): void
     {
         $this->uzytkownikRepository->register($data);
     }

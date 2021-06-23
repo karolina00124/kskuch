@@ -33,6 +33,7 @@ class RejestracjaType extends AbstractType
                 ]
             )
         ;
+        $builder->add('uzytkownikDane', UzytkownikDaneType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

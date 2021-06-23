@@ -19,6 +19,15 @@ class UzytkownikController extends AbstractController
     private $uzytkownikService;
 
     /**
+     * UzytkownikController constructor.
+     * @param UzytkownikService $uzytkownikService
+     */
+    public function __construct(UzytkownikService $uzytkownikService)
+    {
+        $this->uzytkownikService = $uzytkownikService;
+    }
+
+    /**
      * @Route("/register", name="user_register")
      */
     public function register(Request $request)

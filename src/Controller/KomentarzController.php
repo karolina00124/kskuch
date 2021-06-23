@@ -8,6 +8,7 @@ use App\Entity\Komentarz;
 use App\Form\KomentarzType;
 use App\Repository\PrzepisRepository;
 use App\Service\KomentarzService;
+use App\Service\PrzepisService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  *
  * @Route("/komentarz")
  *
- * @IsGranted("ROLE_ADMIN")
  */
 class KomentarzController extends AbstractController
 {
@@ -29,14 +29,18 @@ class KomentarzController extends AbstractController
      */
     private $komentarzService;
     /**
+     * @var PrzepisService
+     */
+    private $przepisService;
+    /**
      * KomentarzController constructor.
      * @param KomentarzService $komentarzService
      */
-    public function __construct(KomentarzService $komentarzService)
+    public function __construct(KomentarzService $komentarzService, PrzepisService $przepisService)
     {
         $this->komentarzService = $komentarzService;
+        $this->przepisService = $przepisService;
     }
-
 
     /**
      * Index action.
@@ -50,6 +54,8 @@ class KomentarzController extends AbstractController
      *     methods={"GET"},
      *     name="komentarz_index",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request): Response
     {
@@ -72,6 +78,8 @@ class KomentarzController extends AbstractController
      *     name="komentarz_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(Komentarz $komentarz): Response
     {
@@ -97,9 +105,9 @@ class KomentarzController extends AbstractController
      *     name="komentarz_create",
      * )
      */
-    public function create(Request $request, PrzepisRepository $przepisRepository, int $przepisId): Response
+    public function create(Request $request, int $przepisId): Response
     {
-        $przepis = $przepisRepository->find($przepisId);
+        $przepis = $this->przepisService->getOne($przepisId);
 
         $komentarz = new Komentarz();
         $form = $this->createForm(KomentarzType::class, $komentarz);
@@ -141,6 +149,8 @@ class KomentarzController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="komentarz_edit",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Komentarz $komentarz): Response
     {
@@ -182,6 +192,8 @@ class KomentarzController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="komentarz_delete",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Komentarz $komentarz): Response
     {

@@ -49,10 +49,8 @@ class PrzepisRepository extends ServiceEntityRepository
     {
         $qb = $this->getOrCreateQueryBuilder()
             ->select(
-                'partial przepis.{id, dataUtworzenia, nazwa}',
+                'partial przepis.{id, dataUtworzenia, nazwa, thumbDiff}',
                 'partial tagi.{id,tagNazwa}',
-
-
             )
             ->leftJoin('przepis.tagi', 'tagi')
             ->orderBy('przepis.dataUtworzenia', 'DESC');

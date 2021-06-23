@@ -77,4 +77,35 @@ class PrzepisService
     {
         $this->przepisRepository->delete($przepis);
     }
+
+    /**
+     * @param int $przepisId
+     * @return Przepis|null
+     */
+    public function getOne(int $przepisId)
+    {
+        return $this->przepisRepository->find($przepisId);
+    }
+
+    /**
+     * @param Przepis $przepis
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function voteUp(Przepis $przepis)
+    {
+        $przepis->setThumbUp($przepis->getThumbUp() + 1);
+        $this->save($przepis);
+    }
+
+    /**
+     * @param Przepis $przepis
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function voteDown(Przepis $przepis)
+    {
+        $przepis->setThumbDown($przepis->getThumbDown() + 1);
+        $this->save($przepis);
+    }
 }
