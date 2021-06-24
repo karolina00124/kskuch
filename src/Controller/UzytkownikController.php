@@ -13,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class UzytkownikController.
@@ -83,7 +82,7 @@ class UzytkownikController extends AbstractController
         }
 
         return $this->render(
-            'uzytkownik/edit.html.twig',
+            'uzytkownik/edit_own_profile.html.twig',
             ['form' => $form->createView()]
         );
     }
@@ -171,39 +170,38 @@ class UzytkownikController extends AbstractController
         );
     }
 
-    /* /**
-      * Edit user for admin.
-      *
-      * @Route(
-      *     "/uzytkownik/{id}/edit",
-      *     methods={"GET", "POST"},
-      *     name="uzytkownik_edit"
-      *     requirements={"id": "[1-9]\d*"},
-      * )
-      *
-      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-      * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
-      * @param UzytkownikService $uzytkownikService UzytkownikService
-      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-      *
-      */
-   /* public function edit(Uzytkownik $uzytkownik, Request $request)
+    /**
+     * Edit user for admin.
+     *
+     * @Route(
+     *     "/uzytkownik/{id}/edit",
+     *     methods={"GET", "POST"},
+     *     name="uzytkownik_edit",
+     *     requirements={"id": "[1-9]\d*"},
+     * )
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function edit(Request $request, Uzytkownik $uzytkownik)
     {
-
         $form = $this->createForm(UzytkownikType::class, $uzytkownik);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newPasswordPlain = $form->get('newPassword')->getData();
-            $this->uzytkownikService->save_new($uzytkownik, $newPasswordPlain);
+            $this->uzytkownikService->save($uzytkownik, $newPasswordPlain);
             $this->addFlash('success', 'message_updated_successfully');
-            return $this->redirectToRoute('user_edit_own_profile');
+
+            return $this->redirectToRoute('uzytkownik_edit', ['id' => $uzytkownik->getId()]);
         }
 
         return $this->render(
             'uzytkownik/edit.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $form->createView(), 'uzytkownik' => $uzytkownik]
         );
     }
-*/
 }

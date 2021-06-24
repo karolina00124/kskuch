@@ -87,20 +87,7 @@ class UzytkownikService
      */
     public function save(Uzytkownik $uzytkownik, string $newPasswordPlain = null)
     {
-        $this->uzytkownikRepository->save($uzytkownik);
-    }
-    /**
-     * Save new uzytkownik.
-     *
-     * @param \App\Entity\Uzytkownik $uzytkownik       Uzytkownik entity
-     * @param string|null            $newPasswordPlain
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save_new(Uzytkownik $uzytkownik, string $newPasswordPlain = null)
-    {
-        $this->uzytkownikRepository->save_new($uzytkownik);
+        $this->uzytkownikRepository->save($uzytkownik, $newPasswordPlain);
     }
 
     /**

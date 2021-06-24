@@ -31,15 +31,12 @@
                         <a class="btn btn-outline-success btn-sm" href="{{ url('uzytkownik_show', {id: uzytkownik.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
-{#  <a class="btn btn-outline-info btn-sm" href="{{ url('uzytkownik_edit', {id: uzytkownik.id}) }}" title="{{ 'action_edit'|trans }}">
+                        <a class="btn btn-outline-info btn-sm" href="{{ url('uzytkownik_edit', {id: uzytkownik.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
-                        </a>#}
-
+                        </a>
                         <a class="btn btn-outline-danger btn-sm" href="{{ url('uzytkownik_delete', {id: uzytkownik.id}) }}" title="{{ 'action_delete'|trans }}">
                             {{ 'action_delete'|trans }}
                         </a>
-
-
                     </td>
                 </tr>
             {% endfor %}
