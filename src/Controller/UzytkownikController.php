@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class UzytkownikController.
@@ -98,6 +99,7 @@ class UzytkownikController extends AbstractController
      *     methods={"GET"},
      *     name="uzytkownik_index",
      * )
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request): Response
     {
@@ -119,6 +121,7 @@ class UzytkownikController extends AbstractController
      *     name="uzytkownik_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(Uzytkownik $uzytkownik): Response
     {
@@ -144,6 +147,7 @@ class UzytkownikController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="uzytkownik_delete",
      * )
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Uzytkownik $uzytkownik): Response
     {
@@ -185,6 +189,8 @@ class UzytkownikController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Uzytkownik $uzytkownik)
     {
