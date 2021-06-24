@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Komentarz;
+use App\Entity\Uzytkownik;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -93,32 +94,17 @@ class KomentarzRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return Komentarz[] Returns an array of Komentarz objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Uzytkownik $uzytkownik
+     */
+    public function deleteForUzytkownik(Uzytkownik $uzytkownik)
     {
-        return $this->createQueryBuilder('k')
-            ->andWhere('k.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('k.id', 'ASC')
-            ->setMaxResults(10)
+        $this->createQueryBuilder('k')
+            ->delete()
+            ->where('k.autor = :user_id')
+            ->setParameter('user_id', $uzytkownik->getId())
             ->getQuery()
-            ->getResult()
+            ->execute()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Komentarz
-    {
-        return $this->createQueryBuilder('k')
-            ->andWhere('k.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

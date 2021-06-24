@@ -110,32 +110,17 @@ class PrzepisRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return Przepis[] Returns an array of Przepis objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Uzytkownik $uzytkownik
+     */
+    public function deleteForUzytkownik(Uzytkownik $uzytkownik)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        $this->createQueryBuilder('p')
+            ->delete()
+            ->where('p.author = :user_id')
+            ->setParameter('user_id', $uzytkownik->getId())
             ->getQuery()
-            ->getResult()
+            ->execute()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Przepis
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

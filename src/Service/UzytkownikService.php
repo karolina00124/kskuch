@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Uzytkownik;
+use App\Repository\KomentarzRepository;
+use App\Repository\PrzepisRepository;
 use App\Repository\UzytkownikRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -23,16 +25,24 @@ class UzytkownikService
      */
     private PaginatorInterface $paginator;
 
+    /** @var PrzepisRepository */
+    private PrzepisRepository $przepisRepository;
+
+    /** @var KomentarzRepository */
+    private KomentarzRepository $komentarzRepository;
+
     /**
      * UzytkownikService constructor.
      *
      * @param \App\Repository\UzytkownikRepository    $uzytkownikRepository Uzytkownik repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator            Paginator
      */
-    public function __construct(UzytkownikRepository $uzytkownikRepository, PaginatorInterface $paginator)
+    public function __construct(UzytkownikRepository $uzytkownikRepository, PaginatorInterface $paginator, PrzepisRepository $przepisRepository, KomentarzRepository $komentarzRepository)
     {
         $this->uzytkownikRepository = $uzytkownikRepository;
         $this->paginator = $paginator;
+        $this->przepisRepository = $przepisRepository;
+        $this->komentarzRepository = $komentarzRepository;
     }
 
     /**
@@ -52,7 +62,7 @@ class UzytkownikService
     }
 
     /**
-     * Delete uzytkownik.
+     * Delete uzytkownik with coresponding przepisy and komentarze
      *
      * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
      *
@@ -61,6 +71,8 @@ class UzytkownikService
      */
     public function delete(Uzytkownik $uzytkownik): void
     {
+        $this->przepisRepository->deleteForUzytkownik($uzytkownik);
+        $this->komentarzRepository->deleteForUzytkownik($uzytkownik);
         $this->uzytkownikRepository->delete($uzytkownik);
     }
 

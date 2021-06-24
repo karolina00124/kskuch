@@ -57,7 +57,7 @@ class Uzytkownik implements UserInterface
     /**
      * @var UzytkownikDane
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\UzytkownikDane", mappedBy="uzytkownik", cascade={"persist"},  cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\UzytkownikDane", mappedBy="uzytkownik", cascade={"persist", "remove"})
      */
     private UzytkownikDane $uzytkownikDane;
 
