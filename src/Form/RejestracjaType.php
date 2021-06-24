@@ -14,14 +14,16 @@ class RejestracjaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nazwa_uzytkownik',
+            ->add(
+                'nazwa_uzytkownik',
                 TextType::class,
                 [
                     'label' => 'label_nazwa_uzytkownik',
                     'required' => true,
                 ]
             )
-            ->add('haslo',
+            ->add(
+                'haslo',
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
@@ -29,7 +31,7 @@ class RejestracjaType extends AbstractType
                     'options' => ['attr' => ['class' => 'password-field']],
                     'required' => true,
                     'first_options'  => ['label' => 'label_haslo'],
-                    'second_options' => ['label' => 'label_haslo_powtorz']
+                    'second_options' => ['label' => 'label_haslo_powtorz'],
                 ]
             )
         ;

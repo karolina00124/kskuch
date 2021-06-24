@@ -26,7 +26,7 @@ class TagController extends AbstractController
     /**
      * @var TagService
      */
-    private $tagService;
+    private TagService $tagService;
 
     /**
      * TagController constructor.
@@ -103,7 +103,6 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->tagService->save($tag);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -121,7 +120,7 @@ class TagController extends AbstractController
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Tag $tag Tag entity
+     * @param \App\Entity\Tag                           $tag     Tag entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -141,7 +140,6 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->tagService->save($tag);
 
             $this->addFlash('success', 'message_updated_successfully');
@@ -162,7 +160,7 @@ class TagController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Tag $tag Tag entity
+     * @param \App\Entity\Tag                           $tag     Tag entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

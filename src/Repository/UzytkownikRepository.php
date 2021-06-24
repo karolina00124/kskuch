@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Uzytkownik;
-use App\Entity\UzytkownikDane;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,11 +26,11 @@ class UzytkownikRepository extends ServiceEntityRepository
     /**
      * Password encoder.
      *
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     * @param \Doctrine\Persistence\ManagerRegistry $registry Manager registry
      *
      * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
      */
-    private $passwordEncoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     public function __construct(ManagerRegistry $registry, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -113,6 +112,7 @@ class UzytkownikRepository extends ServiceEntityRepository
     /**
      * Rejestruje użytkownika
      * @param array $data
+     * @throws \Doctrine\ORM\ORMException
      */
     public function register(array $data)
     {
@@ -132,14 +132,15 @@ class UzytkownikRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Uzytkownik $user
+     * @param Uzytkownik  $user
      * @param string|null $newPasswordPlain
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save(Uzytkownik $user, string $newPasswordPlain = null)
     {
-        if($newPasswordPlain) {
+        if ($newPasswordPlain) {
             $user->setHaslo(
                 $this->passwordEncoder->encodePassword(
                     $user,
@@ -153,14 +154,15 @@ class UzytkownikRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Uzytkownik $user
+     * @param \App\Entity\Uzytkownik $uzytkownik
      * @param string|null $newPasswordPlain
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save_new(Uzytkownik $uzytkownik, string $newPasswordPlain = null)
     {
-        if($newPasswordPlain) {
+        if ($newPasswordPlain) {
             $uzytkownik->setHaslo(
                 $this->passwordEncoder->encodePassword(
                     $uzytkownik,

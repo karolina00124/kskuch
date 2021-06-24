@@ -15,20 +15,20 @@ class PrzepisService
      *
      * @var \App\Repository\PrzepisRepository
      */
-    private $przepisRepository;
+    private PrzepisRepository $przepisRepository;
 
     /**
      * Paginator.
      *
      * @var \Knp\Component\Pager\PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * PrzepisService constructor.
      *
-     * @param \App\Repository\PrzepisRepository      $przepisRepository Przepis repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\PrzepisRepository       $przepisRepository Przepis repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator         Paginator
      */
     public function __construct(PrzepisRepository $przepisRepository, PaginatorInterface $paginator)
     {
@@ -80,15 +80,17 @@ class PrzepisService
 
     /**
      * @param int $przepisId
+     *
      * @return Przepis|null
      */
-    public function getOne(int $przepisId)
+    public function getOne(int $przepisId): ?Przepis
     {
         return $this->przepisRepository->find($przepisId);
     }
 
     /**
      * @param Przepis $przepis
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -100,6 +102,7 @@ class PrzepisService
 
     /**
      * @param Przepis $przepis
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

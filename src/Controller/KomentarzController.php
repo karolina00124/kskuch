@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Komentarz;
 use App\Form\KomentarzType;
-use App\Repository\PrzepisRepository;
+
 use App\Service\KomentarzService;
 use App\Service\PrzepisService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,14 +27,16 @@ class KomentarzController extends AbstractController
     /**
      * @var KomentarzService
      */
-    private $komentarzService;
+    private KomentarzService $komentarzService;
     /**
      * @var PrzepisService
      */
-    private $przepisService;
+    private PrzepisService $przepisService;
+
     /**
      * KomentarzController constructor.
      * @param KomentarzService $komentarzService
+     * @param \App\Service\PrzepisService $przepisService
      */
     public function __construct(KomentarzService $komentarzService, PrzepisService $przepisService)
     {
@@ -91,8 +93,8 @@ class KomentarzController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param int $przepisId Id przepisu
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param int                                       $przepisId Id przepisu
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -135,8 +137,8 @@ class KomentarzController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param \App\Entity\Komentarz                     $komentarz Komentarz entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -158,7 +160,6 @@ class KomentarzController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->komentarzService->save($komentarz);
 
             $this->addFlash('success', 'message_updated_successfully');
@@ -178,8 +179,8 @@ class KomentarzController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param \App\Entity\Komentarz                     $komentarz Komentarz entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

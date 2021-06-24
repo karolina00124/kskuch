@@ -5,14 +5,9 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Category;
-use App\Entity\Contact;
-use App\Entity\Event;
-use App\Entity\User;
 use App\Entity\Uzytkownik;
 use App\Entity\UzytkownikDane;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -28,7 +23,7 @@ class UserFixtures extends AbstractBaseFixtures
      *
      * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
      */
-    private $passwordEncoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     /**
      * UserFixtures constructor.
@@ -48,7 +43,7 @@ class UserFixtures extends AbstractBaseFixtures
     public function loadData(ObjectManager $manager): void
     {
         $user = new Uzytkownik();
-        $user->setNazwaUzytkownik(sprintf('user'));
+        $user->setNazwaUzytkownik('user');
         $user->setRola([Uzytkownik::ROLE_USER]);
         $user->setHaslo(
             $this->passwordEncoder->encodePassword(
@@ -59,7 +54,7 @@ class UserFixtures extends AbstractBaseFixtures
         $manager->persist($user);
 
         $userAdmin = new Uzytkownik();
-        $userAdmin->setNazwaUzytkownik(sprintf('admin'));
+        $userAdmin->setNazwaUzytkownik('admin');
         $userAdmin->setRola([Uzytkownik::ROLE_USER, Uzytkownik::ROLE_ADMIN]);
         $userAdmin->setHaslo(
             $this->passwordEncoder->encodePassword(

@@ -39,8 +39,10 @@ class KomentarzRepository extends ServiceEntityRepository
     {
         return $this
             ->getOrcreateQueryBuilder()
-            ->select(  'partial komentarz.{id, tresc}',
-                'partial autor.{id,nazwa_uzytkownik}')
+            ->select(
+                'partial komentarz.{id, tresc}',
+                'partial autor.{id,nazwa_uzytkownik}'
+            )
             ->join('komentarz.autor', 'autor')
             ->orderBy('komentarz.id', 'ASC');
     }

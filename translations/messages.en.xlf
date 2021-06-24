@@ -354,6 +354,10 @@
                 <source>title_uzytkownik_list</source>
                 <target>Users list</target>
             </trans-unit>
+            <trans-unit id="uzytkownik_lista">
+                <source>uzytkownik_lista</source>
+                <target>Edit users</target>
+            </trans-unit>
             <trans-unit id="question_delete">
                 <source>question_delete</source>
                 <target>Do you want to delete record below?</target>

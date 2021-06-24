@@ -4,9 +4,6 @@ namespace App\Entity;
 
 use App\Repository\KomentarzRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,17 +18,24 @@ class Komentarz
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
+     * Treść.
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max="225",
+     * )
      * @ORM\Column(type="string", length=255)
      */
-    private $tresc;
+    private ?string $tresc;
 
     /**
      * @ORM\ManyToOne(targetEntity=Uzytkownik::class, fetch="EXTRA_LAZY")
      */
-    private $autor;
+    private ?Uzytkownik $autor;
 
     /**
      * @var Przepis
@@ -41,7 +45,7 @@ class Komentarz
      *   @ORM\JoinColumn(name="przepis_id", referencedColumnName="id")
      * })
      */
-    private $przepis;
+    private Przepis $przepis;
 
     public function getId(): ?int
     {

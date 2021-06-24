@@ -354,6 +354,10 @@
                 <source>title_uzytkownik_list</source>
                 <target>Lista użytkowników</target>
             </trans-unit>
+            <trans-unit id="uzytkownik_lista">
+                <source>uzytkownik_lista</source>
+                <target>Edycja użytkowników</target>
+            </trans-unit>
             <trans-unit id="question_delete">
                 <source>question_delete</source>
                 <target>Czy na pewno chesz usunąć poniższy rekord?</target>

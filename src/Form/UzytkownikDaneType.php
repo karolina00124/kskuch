@@ -13,7 +13,8 @@ class UzytkownikDaneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imie',
+            ->add(
+                'imie',
                 TextType::class,
                 [
                     'label' => 'label_imie',
@@ -21,7 +22,8 @@ class UzytkownikDaneType extends AbstractType
                     'attr' => ['max_length' => 64],
                 ]
             )
-            ->add('nazwisko',
+            ->add(
+                'nazwisko',
                 TextType::class,
                 [
                     'label' => 'label_nazwisko',
@@ -29,7 +31,8 @@ class UzytkownikDaneType extends AbstractType
                     'attr' => ['max_length' => 280],
                 ]
             )
-            ->add('email',
+            ->add(
+                'email',
                 TextType::class,
                 [
                     'label' => 'label_email',

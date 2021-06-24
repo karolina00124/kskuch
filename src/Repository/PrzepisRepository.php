@@ -26,7 +26,7 @@ class PrzepisRepository extends ServiceEntityRepository
     /**
      * PrzepisRepository constructor.
      *
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     * @param \Doctrine\Persistence\ManagerRegistry $registry Manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -38,11 +38,13 @@ class PrzepisRepository extends ServiceEntityRepository
         $queryBuilder = $this->queryAll();
         $queryBuilder->andWhere('przepis.author = :author')
             ->setParameter('author', $uzytkownik);
+
         return $queryBuilder;
     }
     /**
      * Query all records.
      * @param array $filters
+     *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
     public function queryAll(array $filters = []): QueryBuilder
@@ -55,13 +57,13 @@ class PrzepisRepository extends ServiceEntityRepository
             ->leftJoin('przepis.tagi', 'tagi')
             ->orderBy('przepis.dataUtworzenia', 'DESC');
 
-        if(array_key_exists('kategoria_id', $filters) && $filters['kategoria_id'] > 0) {
+        if (array_key_exists('kategoria_id', $filters) && $filters['kategoria_id'] > 0) {
             $qb->where('przepis.kategoria = :kategoria_id')
                 ->setParameter('kategoria_id', $filters['kategoria_id'])
             ;
         }
 
-        if(array_key_exists('tag_id', $filters) && $filters['tag_id'] > 0) {
+        if (array_key_exists('tag_id', $filters) && $filters['tag_id'] > 0) {
             $qb->andWhere('tagi IN (:tag_id)')
                 ->setParameter('tag_id', $filters['tag_id'])
             ;

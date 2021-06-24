@@ -15,20 +15,20 @@ class TagService
      *
      * @var \App\Repository\TagRepository
      */
-    private $tagRepository;
+    private TagRepository $tagRepository;
 
     /**
      * Paginator.
      *
      * @var \Knp\Component\Pager\PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * TagService constructor.
      *
-     * @param \App\Repository\TagRepository      $tagRepository Tag repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\TagRepository           $tagRepository Tag repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator     Paginator
      */
     public function __construct(TagRepository $tagRepository, PaginatorInterface $paginator)
     {

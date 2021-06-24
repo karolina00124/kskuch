@@ -17,36 +17,40 @@ class UzytkownikDane
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * Imię.
      * @ORM\Column(type="string", length=62, nullable=true)
+     *
      * @Assert\NotBlank
      */
-    private $imie;
+    private ?string $imie;
 
     /**
      * Nazwisko.
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @Assert\NotBlank
      */
-    private $nazwisko;
+    private ?string $nazwisko;
 
     /**
      * Email.
      * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     *
      * @Assert\NotBlank
      * @Assert\Email
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @var Uzytkownik
+     *
      * @ORM\OneToOne(targetEntity="App\Entity\Uzytkownik", inversedBy="uzytkownikDane")
      * @ORM\JoinColumn(name="uzytkownik_id", referencedColumnName="id")
      */
-    private $uzytkownik;
+    private Uzytkownik $uzytkownik;
 
     public function getId(): ?int
     {

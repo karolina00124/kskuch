@@ -14,20 +14,20 @@ class KomentarzService
      *
      * @var \App\Repository\KomentarzRepository
      */
-    private $komentarzRepository;
+    private KomentarzRepository $komentarzRepository;
 
     /**
      * Paginator.
      *
      * @var \Knp\Component\Pager\PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * KomentarzService constructor.
      *
-     * @param \App\Repository\KomentarzRepository      $komentarzRepository Komentarz repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\KomentarzRepository     $komentarzRepository Komentarz repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
      */
     public function __construct(KomentarzRepository $komentarzRepository, PaginatorInterface $paginator)
     {

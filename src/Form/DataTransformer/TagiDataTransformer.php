@@ -5,7 +5,6 @@ use Symfony\Component\Form\DataTransformerInterface;
 use App\Repository\TagRepository;
 use App\Entity\Tag;
 
-
 /**
  * Class TagiDataTransformer.
  */
@@ -31,24 +30,22 @@ class TagiDataTransformer implements DataTransformerInterface
     /**
      * Transform array of tags to string of names.
      *
-     * @param \Doctrine\Common\Collections\Collection $tags Tags entity collection
-     *
+     * @param $tagi
      * @return string Result
      */
-     public function transform($tagi): string
-      {
-       if (null === $tagi)
-       {
-          return '';
-       }
+    public function transform($tagi): string
+    {
+        if (null === $tagi) {
+            return '';
+        }
 
-    $tagNames = [];
+        $tagNames = [];
 
-       foreach ($tagi as $tag)
-      {
-        $tagNames[] = $tag->getTagNazwa();
-      }
-    return implode(',',$tagNames);
+        foreach ($tagi as $tag) {
+            $tagNames[] = $tag->getTagNazwa();
+        }
+
+        return implode(',', $tagNames);
     }
 
     /**
@@ -81,5 +78,4 @@ class TagiDataTransformer implements DataTransformerInterface
 
         return $tagi;
     }
-
 }

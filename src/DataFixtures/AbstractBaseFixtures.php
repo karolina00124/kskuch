@@ -8,6 +8,9 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Faker\Generator;
+use InvalidArgumentException;
+use LogicException;
 
 /**
  * Class AbstractBaseFixtures.
@@ -19,21 +22,21 @@ abstract class AbstractBaseFixtures extends Fixture
      *
      * @var \Faker\Generator
      */
-    protected $faker;
+    protected Generator $faker;
 
     /**
      * Persistence object manager.
      *
      * @var \Doctrine\Persistence\ObjectManager
      */
-    protected $manager;
+    protected ObjectManager $manager;
 
     /**
      * Object reference index.
      *
      * @var array
      */
-    private $referencesIndex = [];
+    private array $referencesIndex = [];
 
     /**
      * Load.
@@ -123,13 +126,11 @@ abstract class AbstractBaseFixtures extends Fixture
         }
 
         if (empty($this->referencesIndex[$groupName])) {
-            throw new \InvalidArgumentException(sprintf('Did not find any references saved with the group name "%s"', $groupName));
+            throw new InvalidArgumentException(sprintf('Did not find any references saved with the group name "%s"', $groupName));
         }
 
         $randomReferenceKey = $this->faker->randomElement($this->referencesIndex[$groupName]);
 
         return $this->getReference($randomReferenceKey);
     }
-
-
 }

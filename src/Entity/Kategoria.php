@@ -9,28 +9,31 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Class Kategoria.
  * @ORM\Entity(repositoryClass=KategoriaRepository::class)
  * @ORM\Table(name="kategorie")
+ *
  * @UniqueEntity(fields={"kategoriaNazwa"})
  */
 class Kategoria
 {
     /**
      * Id.
-     * @var integer
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Nazwa.
      * @var string
+     *
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
@@ -38,7 +41,7 @@ class Kategoria
      *     max="64",
      * )
      */
-    private $kategoriaNazwa;
+    private string $kategoriaNazwa;
 
     /**
      * @ORM\OneToMany(targetEntity=Przepis::class, mappedBy="kategoria", fetch ="EXTRA_LAZY")
@@ -63,6 +66,7 @@ class Kategoria
     public function setKategoriaNazwa(string $kategoriaNazwa): self
     {
         $this->kategoriaNazwa = $kategoriaNazwa;
+
         return $this;
     }
 
@@ -95,6 +99,4 @@ class Kategoria
 
         return $this;
     }
-
-
 }

@@ -16,6 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Class Przepis.
  * @ORM\Entity(repositoryClass=PrzepisRepository::class)
  * @ORM\Table(name="przepisy")
+ *
  * @UniqueEntity(fields={"nazwa"})
  */
 class Przepis
@@ -23,16 +24,19 @@ class Przepis
     /**
      * Primary key.
      * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Info.
      * @var string
+     *
      * @ORM\Column(type="string", length=200)
+     *
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
@@ -40,12 +44,14 @@ class Przepis
      *     max="150",
      * )
      */
-    private $info;
+    private string $info;
 
     /**
      * Nazwa.
      * @var string
+     *
      * @ORM\Column(type="string", length=65)
+     *
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
@@ -53,40 +59,47 @@ class Przepis
      *     max="64",
      * )
      */
-    private $nazwa;
+    private string $nazwa;
 
     /**
      * Składniki.
      * @var string
+     *
      * @ORM\Column(type="text")
+     *
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
      *     min="3", max="150",
      * )
      */
-    private $skladniki;
+    private string $skladniki;
 
     /**
      * Kroki.
      * @var string
+     *
      * @ORM\Column(type="text")
+     *
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
      *     min="8",
      *)
      */
-    private $kroki;
+    private string $kroki;
 
     /**
      * Data utworzenia.
      * @var \DateTimeInterface
+     *
      * @ORM\Column(type="date")
+     *
      * @Gedmo\Timestampable(on="create")
+     *
      * @Assert\Type(type ="\DateTimeInterface")
      */
-    private $dataUtworzenia;
+    private DateTimeInterface $dataUtworzenia;
 
     /**
      * @var Kategoria
@@ -94,11 +107,12 @@ class Przepis
      * @ORM\ManyToOne(targetEntity=Kategoria::class, inversedBy="przepis")
      * @ORM\JoinColumn(name="kategoria_id", referencedColumnName="id")
      */
-    private $kategoria;
+    private Kategoria $kategoria;
 
     /**
      * Tagi.
      * @var array
+     *
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="przepis")
      * @ORM\JoinTable(name="przepisy_tagi")
      */
@@ -107,7 +121,7 @@ class Przepis
     /**
      * @ORM\ManyToOne(targetEntity=Uzytkownik::class, fetch="EXTRA_LAZY")
      */
-    private $author;
+    private ?Uzytkownik $author;
 
     /**
      * @var Collection
@@ -121,21 +135,21 @@ class Przepis
      *
      * @ORM\Column(name="thumb_up", type="integer")
      */
-    private $thumbUp = 0;
+    private int $thumbUp = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="thumb_down", type="integer")
      */
-    private $thumbDown = 0;
+    private int $thumbDown = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="thumb_diff", type="integer")
      */
-    private $thumbDiff = 0;
+    private int $thumbDiff = 0;
 
     /**
      * Przepis constructor.
@@ -167,11 +181,13 @@ class Przepis
     /**
      * Setter for Info.
      * @param string $info
+     *
      * @return $this
      */
     public function setInfo(string $info): self
     {
         $this->info = $info;
+
         return $this;
     }
 
@@ -185,11 +201,13 @@ class Przepis
 
     /**
      * @param string $nazwa
+     *
      * @return $this
      */
     public function setNazwa(string $nazwa): self
     {
         $this->nazwa = $nazwa;
+
         return $this;
     }
 
@@ -203,11 +221,13 @@ class Przepis
 
     /**
      * @param string $skladniki
+     *
      * @return $this
      */
     public function setSkladniki(string $skladniki): self
     {
         $this->skladniki = $skladniki;
+
         return $this;
     }
 
@@ -221,11 +241,13 @@ class Przepis
 
     /**
      * @param string $kroki
+     *
      * @return $this
      */
     public function setKroki(string $kroki): self
     {
         $this->kroki = $kroki;
+
         return $this;
     }
 
@@ -240,11 +262,13 @@ class Przepis
     /**
      * Setter for Data utworzenia.
      *
-     * @param \DateTimeInterface $Datautworzenia Data utworzenia
+     * @param \DateTimeInterface $dataUtworzenia
+     * @return \App\Entity\Przepis
      */
     public function setDataUtworzenia(DateTimeInterface $dataUtworzenia): self
     {
         $this->dataUtworzenia = $dataUtworzenia;
+
         return $this;
     }
 
@@ -258,6 +282,7 @@ class Przepis
 
     /**
      * @param Kategoria|null $kategoria
+     *
      * @return $this
      */
     public function setKategoria(?Kategoria $kategoria): self
@@ -278,7 +303,7 @@ class Przepis
     /**
      * @param array $tagi
      */
-    public function setTagi($tagi): void
+    public function setTagi(array $tagi): void
     {
         $this->tagi = $tagi;
     }
@@ -291,7 +316,6 @@ class Przepis
         if (!$this->tagi->contains($tag)) {
             $this->tagi[] = $tag;
         }
-
     }
 
     /**
@@ -319,7 +343,6 @@ class Przepis
     public function setAuthor(?UserInterface $author): void
     {
         $this->author = $author;
-
     }
 
     /**
@@ -336,7 +359,6 @@ class Przepis
     public function setKomentarze(Collection $komentarze): void
     {
         $this->komentarze = $komentarze;
-
     }
 
     /**

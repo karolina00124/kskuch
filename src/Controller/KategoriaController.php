@@ -24,9 +24,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class KategoriaController extends AbstractController
 {
     /**
+     * KategoriaService.
+     *
      * @var KategoriaService
      */
-    private $kategoriaService;
+    private KategoriaService $kategoriaService;
 
     /**
      * KategoriaController constructor.
@@ -103,7 +105,6 @@ class KategoriaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->kategoriaService->save($kategoria);
 
             $this->addFlash('success', 'message_created_successfully');
@@ -120,8 +121,8 @@ class KategoriaController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Kategoria $kategoria Kategoria entity
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param \App\Entity\Kategoria                     $kategoria Kategoria entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -141,7 +142,6 @@ class KategoriaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->kategoriaService->save($kategoria);
 
             $this->addFlash('success', 'message_updated_successfully');
@@ -161,8 +161,8 @@ class KategoriaController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Kategoria $kategoria Kategoria entity
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
+     * @param \App\Entity\Kategoria                     $kategoria Kategoria entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -178,8 +178,9 @@ class KategoriaController extends AbstractController
      */
     public function delete(Request $request, Kategoria $kategoria): Response
     {
-        if($kategoria->getPrzepis()->count()){
-            $this->addFlash('warning','message_category_contains_tasks');
+        if ($kategoria->getPrzepis()->count()) {
+            $this->addFlash('warning', 'message_category_contains_tasks');
+
             return $this->redirectToRoute('kategoria_index');
         }
         $form = $this->createForm(FormType::class, $kategoria, ['method' => 'DELETE']);

@@ -4,7 +4,6 @@
  */
 namespace App\Controller;
 
-
 use App\Entity\UzytkownikDane;
 use App\Form\UzytkownikDaneType;
 use App\Repository\UzytkownikDaneRepository;
@@ -13,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * Class UzytkownikDaneController.
  *
@@ -35,8 +35,7 @@ class UzytkownikDaneController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     *
+     * @param \App\Repository\UzytkownikDaneRepository $uzytkownikDaneRepository
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
@@ -56,8 +55,8 @@ class UzytkownikDaneController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\UzytkownikDaneRepository $uzytkownikDaneRepository UzytkownikDane repository
+     * @param \Symfony\Component\HttpFoundation\Request $request                  HTTP request
+     * @param \App\Repository\UzytkownikDaneRepository  $uzytkownikDaneRepository UzytkownikDane repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -77,7 +76,6 @@ class UzytkownikDaneController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $uzytkownikDaneRepository->save($uzytkownikDane);
 
             $this->addFlash('success', 'message_created_successfully');

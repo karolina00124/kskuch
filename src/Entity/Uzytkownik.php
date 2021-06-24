@@ -31,12 +31,12 @@ class Uzytkownik implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=32)
      */
-    private $nazwa_uzytkownik;
+    private ?string $nazwa_uzytkownik;
     /**
      * The hashed password.
      *
@@ -47,18 +47,19 @@ class Uzytkownik implements UserInterface
      * @Assert\NotBlank
      * @Assert\Type(type="string")
      */
-    private $haslo;
+    private string $haslo;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $rola = [];
+    private array $rola = [];
 
     /**
      * @var UzytkownikDane
+     *
      * @ORM\OneToOne(targetEntity="App\Entity\UzytkownikDane", mappedBy="uzytkownik", cascade={"persist"},  cascade={"remove"})
      */
-    private $uzytkownikDane;
+    private UzytkownikDane $uzytkownikDane;
 
     public function getId(): ?int
     {
@@ -118,12 +119,12 @@ class Uzytkownik implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getRoles()
+    public function getRoles(): ?array
     {
         return $this->getRola();
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->getHaslo();
     }

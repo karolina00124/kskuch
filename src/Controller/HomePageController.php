@@ -10,7 +10,6 @@ class HomePageController extends AbstractController
 {
     /**
      * Index action.
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/",

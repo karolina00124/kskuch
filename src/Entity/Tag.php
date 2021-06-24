@@ -6,6 +6,7 @@
 namespace App\Entity;
 
 use App\Repository\TagRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
  * @ORM\Table(name="tagi")
+ *
  * @UniqueEntity(fields={"tagNazwa"})
  */
 class Tag
@@ -23,13 +25,13 @@ class Tag
     /**
      * Id.
      *
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Nazwa.
@@ -37,6 +39,7 @@ class Tag
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
@@ -44,15 +47,17 @@ class Tag
      *     max="64",
      * )
      */
-    private $tagNazwa;
+    private string $tagNazwa;
 
     /**
      * Data utworzenia.
      * @var \DateTimeInterface
+     *
      * @ORM\Column(type="datetime")
+     *
      * @Gedmo\Timestampable(on="create")
      */
-    private $dataUtworzenia;
+    private DateTimeInterface $dataUtworzenia;
 
     /**
      * Przepis.
@@ -89,12 +94,12 @@ class Tag
         return $this;
     }
 
-    public function getDataUtworzenia(): ?\DateTimeInterface
+    public function getDataUtworzenia(): ?DateTimeInterface
     {
         return $this->dataUtworzenia;
     }
 
-    public function setDataUtworzenia(\DateTimeInterface $dataUtworzenia): self
+    public function setDataUtworzenia(DateTimeInterface $dataUtworzenia): self
     {
         $this->dataUtworzenia = $dataUtworzenia;
 

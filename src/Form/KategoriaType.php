@@ -13,14 +13,15 @@ class KategoriaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('kategoriaNazwa',
-                        TextType::class,
-                        [
+            ->add(
+                'kategoriaNazwa',
+                TextType::class,
+                [
                             'label' => 'label_title',
                             'required' => true,
                             'attr' => ['max_length' => 64],
                         ]
-        );
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -34,8 +35,8 @@ class KategoriaType extends AbstractType
          *
          * @return string The prefix of the template block name
          */
-        public function getBlockPrefix(): string
-        {
-            return 'kategoria';
-        }
+    public function getBlockPrefix(): string
+    {
+        return 'kategoria';
+    }
 }

@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Kategoria;
 use App\Entity\Przepis;
-use App\Entity\Tag;
 use App\Form\DataTransformer\TagiDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -35,63 +34,76 @@ class PrzepisType extends AbstractType
      * Bulids the form.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder form builder
-     * @param array $options the options
+     * @param array                                        $options the options
      *
      * @see FormTypeExtensionInterface::bulidForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nazwa', TextType::class,
+            ->add(
+                'nazwa',
+                TextType::class,
                 [
                     'label' => 'label_title',
                     'required' => true,
                     'attr' => ['max_length' => 64],
                 ]
             )
-            ->add('info', TextType::class,
+            ->add(
+                'info',
+                TextType::class,
                 [
                     'label' => 'label_info',
                     'required' => true,
                     'attr' => ['min_length' => 3, 'max_length' => 150],
                 ]
             )
-            ->add('skladniki', TextareaType::class,
+            ->add(
+                'skladniki',
+                TextareaType::class,
                 [
                     'label' => 'label_skladniki',
                     'required' => true,
                     'attr' => ['min_length' => 3],
-                ])
-            ->add('kroki', TextareaType::class,
+                ]
+            )
+            ->add(
+                'kroki',
+                TextareaType::class,
                 [
                     'label' => 'label_kroki',
                     'required' => true,
                     'attr' => ['min_length' => 8],
-                ]);
-            $builder->add('kategoria', EntityType::class,
-                  [
+                ]
+            );
+            $builder->add(
+                'kategoria',
+                EntityType::class,
+                [
                       'class' => Kategoria::class,
-                      'choice_label' =>function($kategoria){
+                      'choice_label' => function ($kategoria) {
                             return $kategoria->getKategoriaNazwa();
                       },
-                      'label'=>'label_kategoria',
-                      'placeholder'=>'choose_category',
-                      'required'=>true,
+                      'label' => 'label_kategoria',
+                      'placeholder' => 'choose_category',
+                      'required' => true,
 
                    ]
             );
-        $builder->add('tagi', TextType::class,
-        [
-            'label'=>'label_tags',
-            'attr'=> ['max_length'=> 128],
-            'required'=>false,
-        ]
-    );
+        $builder->add(
+            'tagi',
+            TextType::class,
+            [
+            'label' => 'label_tags',
+            'attr' => ['max_length' => 128],
+            'required' => false,
+            ]
+        );
         $builder
             ->get('tagi')->addModelTransformer(
                 $this->tagiDataTransformer
             );
-
     }
 
     /**

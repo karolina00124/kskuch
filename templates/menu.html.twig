@@ -13,7 +13,8 @@
 <a class="list-group-item list-group-item-action" href="{{ url('kategoria_index') }}">{{ 'kategoria_lista'|trans }}</a>
 <a class="list-group-item list-group-item-action" href="{{ url('tag_index')}}">{{ 'tag_lista'|trans }}</a>
 <a class="list-group-item list-group-item-action" href="{{ url('komentarz_index')}}">{{ 'komentarz_lista'|trans }}</a>
-    </div>
+    <a class="list-group-item list-group-item-action" href="{{ url('uzytkownik_index')}}">{{ 'uzytkownik_lista'|trans }}</a>
+</div>
 <br/>
 {%  endif %}
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}

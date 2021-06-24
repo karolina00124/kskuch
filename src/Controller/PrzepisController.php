@@ -23,7 +23,7 @@ class PrzepisController extends AbstractController
     /**
     * @var PrzepisService
     */
-    private $przepisService;
+    private PrzepisService $przepisService;
 
     /**
      * PrzepisController constructor.
@@ -106,7 +106,6 @@ class PrzepisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $przepis->setAuthor($this->getUser());
             $this->przepisService->save($przepis);
 
@@ -125,7 +124,7 @@ class PrzepisController extends AbstractController
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param \App\Entity\Przepis                       $przepis Przepis entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -151,7 +150,6 @@ class PrzepisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->przepisService->save($przepis);
 
             $this->addFlash('success', 'message_updated_successfully');
@@ -172,7 +170,7 @@ class PrzepisController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param \App\Entity\Przepis                       $przepis Przepis entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -221,7 +219,7 @@ class PrzepisController extends AbstractController
      * Vote action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param \App\Entity\Przepis                       $przepis Przepis entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -237,10 +235,9 @@ class PrzepisController extends AbstractController
      */
     public function vote(Request $request, Przepis $przepis, string $upOrDown): Response
     {
-        if($upOrDown === 'up') {
+        if ($upOrDown === 'up') {
             $this->przepisService->voteUp($przepis);
-        }
-        elseif ($upOrDown === 'down') {
+        } elseif ($upOrDown === 'down') {
             $this->przepisService->voteDown($przepis);
         }
 

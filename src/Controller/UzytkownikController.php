@@ -23,7 +23,7 @@ class UzytkownikController extends AbstractController
     /**
      * @var UzytkownikService
      */
-    private $uzytkownikService;
+    private UzytkownikService $uzytkownikService;
 
     /**
      * UzytkownikController constructor.
@@ -45,6 +45,7 @@ class UzytkownikController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->uzytkownikService->register($form->getData());
             $this->addFlash('success', 'message_registered_successfully');
+
             return $this->redirectToRoute('app_login');
         }
 
@@ -62,8 +63,9 @@ class UzytkownikController extends AbstractController
      * )
      *
      * @param Request $request
-     * @param UzytkownikService $uzytkownikService
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function editOwnProfile(Request $request)
     {
@@ -76,6 +78,7 @@ class UzytkownikController extends AbstractController
             $newPasswordPlain = $form->get('newPassword')->getData();
             $this->uzytkownikService->save($user, $newPasswordPlain);
             $this->addFlash('success', 'message_updated_successfully');
+
             return $this->redirectToRoute('user_edit_own_profile');
         }
 
@@ -128,8 +131,8 @@ class UzytkownikController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Entity\Uzytkownik                    $uzytkownik Uzytkownik entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

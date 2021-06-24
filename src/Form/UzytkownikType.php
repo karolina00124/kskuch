@@ -15,7 +15,8 @@ class UzytkownikType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nazwa_uzytkownik',
+            ->add(
+                'nazwa_uzytkownik',
                 TextType::class,
                 [
                     'label' => 'label_nazwa_uzytkownik',

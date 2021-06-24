@@ -12,21 +12,26 @@ class MenuExtension extends AbstractExtension
     /**
      * @var KategoriaRepository
      */
-    private $kategoriaRepository;
+    private KategoriaRepository $kategoriaRepository;
 
     public function __construct(KategoriaRepository $kategoriaRepository)
     {
         $this->kategoriaRepository = $kategoriaRepository;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new TwigFunction('renderMenu', [$this, 'renderMenu'], ['needs_environment' => true, 'is_safe' => ['html']])
+            new TwigFunction('renderMenu', [$this, 'renderMenu'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
     }
 
-    public function renderMenu(Environment $environment)
+    /**
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\LoaderError
+     */
+    public function renderMenu(Environment $environment): string
     {
         $kategorie = $this->kategoriaRepository->getAll();
 

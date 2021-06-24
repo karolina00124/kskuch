@@ -14,20 +14,20 @@ class KategoriaService
      *
      * @var \App\Repository\KategoriaRepository
      */
-    private $kategoriaRepository;
+    private KategoriaRepository $kategoriaRepository;
 
     /**
      * Paginator.
      *
      * @var \Knp\Component\Pager\PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * KategoriaService constructor.
      *
-     * @param \App\Repository\KategoriaRepository      $kategoriaRepository Kategoria repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\KategoriaRepository     $kategoriaRepository Kategoria repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
      */
     public function __construct(KategoriaRepository $kategoriaRepository, PaginatorInterface $paginator)
     {

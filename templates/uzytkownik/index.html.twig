@@ -18,6 +18,7 @@
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'uzytkownik.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_nazwa_uzytkownik'|trans, 'uzytkownik.nazwa_uzytkownik') }}</th>
+                <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -26,6 +27,20 @@
                     <td>{{ uzytkownik.id }}</td>
                     <td>{{ uzytkownik.nazwaUzytkownik }}</td>
 
+                    <td>
+                        <a class="btn btn-outline-success btn-sm" href="{{ url('uzytkownik_show', {id: uzytkownik.id}) }}" title="{{ 'action_view'|trans }}">
+                            {{ 'action_view'|trans }}
+                        </a>
+{#  <a class="btn btn-outline-info btn-sm" href="{{ url('uzytkownik_edit', {id: uzytkownik.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
+                        </a>#}
+
+                        <a class="btn btn-outline-danger btn-sm" href="{{ url('uzytkownik_delete', {id: uzytkownik.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
+                        </a>
+
+
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

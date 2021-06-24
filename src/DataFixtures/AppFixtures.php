@@ -11,7 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixtures::class,
@@ -33,6 +33,7 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
 
     /**
      * @param $manager
+     *
      * @return Kategoria[]
      */
     private function loadKategorie($manager): array
@@ -53,14 +54,16 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
         }
 
         $manager->flush();
+
         return $kategorie;
     }
 
     /**
      * @param ObjectManager $manager
+     *
      * @return Tag[]
      */
-    private function loadTags(ObjectManager $manager)
+    private function loadTags(ObjectManager $manager): array
     {
         $tags = [];
 
@@ -79,11 +82,12 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
 
     /**
      * @param ObjectManager $manager
-     * @param Tag[] $tags
-     * @param Kategoria[] $kategorie
+     * @param Tag[]         $tags
+     * @param Kategoria[]   $kategorie
+     *
      * @return Przepis[]
      */
-    private function loadPrzepis(ObjectManager $manager, array $tags, array $kategorie)
+    private function loadPrzepis(ObjectManager $manager, array $tags, array $kategorie): array
     {
         $przepisy = [];
         for ($i = 0; $i < 25; ++$i) {
@@ -96,13 +100,13 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
             $przepis->setAuthor($this->getReference(UserFixtures::USER_REFERENCE));
 
             // losujemy index z tablicy
-            $randomKategoriaIndex = (array)array_rand($kategorie, 1);
+            $randomKategoriaIndex = (array) array_rand($kategorie);
             // przypisujemy kategorie o losowym indeksie
             $przepis->setKategoria($kategorie[$randomKategoriaIndex[0]]);
 
             $randomsTagNumber = rand(0, 3);
             if ($randomsTagNumber > 0) {
-                $randomTagsIndex = (array)array_rand($tags, $randomsTagNumber);
+                $randomTagsIndex = (array) array_rand($tags, $randomsTagNumber);
                 foreach ($randomTagsIndex as $randomTagIndex) {
                     $przepis->addTag($tags[$randomTagIndex]);
                 }
@@ -118,10 +122,10 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
     }
 
     /**
-     * @param $manager
+     * @param \Doctrine\Persistence\ObjectManager $manager
      * @param Przepis[] $przepisy
      */
-    public function loadKomentarze(ObjectManager $manager, $przepisy)
+    public function loadKomentarze(ObjectManager $manager, array $przepisy)
     {
         foreach ($przepisy as $przepis) {
             for ($i = 0; $i < 3; ++$i) {

@@ -7,7 +7,6 @@ use App\Repository\UzytkownikRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
-
 class UzytkownikService
 {
     /**
@@ -15,20 +14,20 @@ class UzytkownikService
      *
      * @var \App\Repository\UzytkownikRepository
      */
-    private $uzytkownikRepository;
+    private UzytkownikRepository $uzytkownikRepository;
 
     /**
      * Paginator.
      *
      * @var \Knp\Component\Pager\PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * UzytkownikService constructor.
      *
-     * @param \App\Repository\UzytkownikRepository      $uzytkownikRepository Uzytkownik repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\UzytkownikRepository    $uzytkownikRepository Uzytkownik repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator            Paginator
      */
     public function __construct(UzytkownikRepository $uzytkownikRepository, PaginatorInterface $paginator)
     {
@@ -68,8 +67,8 @@ class UzytkownikService
     /**
      * Save uzytkownik.
      *
-     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
-     * @param string|null $newPasswordPlain
+     * @param \App\Entity\Uzytkownik $uzytkownik       Uzytkownik entity
+     * @param string|null            $newPasswordPlain
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -81,8 +80,8 @@ class UzytkownikService
     /**
      * Save new uzytkownik.
      *
-     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
-     * @param string|null $newPasswordPlain
+     * @param \App\Entity\Uzytkownik $uzytkownik       Uzytkownik entity
+     * @param string|null            $newPasswordPlain
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -96,10 +95,10 @@ class UzytkownikService
      * Register uzytkownik.
      *
      * @param array $data
+     * @throws \Doctrine\ORM\ORMException
      */
     public function register(array $data): void
     {
         $this->uzytkownikRepository->register($data);
     }
-
 }
