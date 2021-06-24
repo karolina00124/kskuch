@@ -102,9 +102,13 @@
                 <source>label_menu</source>
                 <target>Recipes</target>
             </trans-unit>
-            <trans-unit id="label_mark">
-                <source>label_mark</source>
-                <target>Rate</target>
+            <trans-unit id="label_mark_up">
+                <source>label_mark_up</source>
+                <target>Good mark</target>
+            </trans-unit>
+            <trans-unit id="label_mark_down">
+                <source>label_mark_down</source>
+                <target>Bad mark</target>
             </trans-unit>
             <trans-unit id="label_menu_2">
                 <source>label_menu_2</source>
@@ -153,6 +157,10 @@
             <trans-unit id="label_title">
                 <source>label_title</source>
                 <target>Title</target>
+            </trans-unit>
+            <trans-unit id="label_thumb_diff">
+                <source>label_thumb_diff</source>
+                <target>Mark</target>
             </trans-unit>
             <trans-unit id="label_updated_at">
                 <source>label_updated_at</source>
@@ -333,6 +341,18 @@
             <trans-unit id="title_tag_list">
                 <source>title_tag_list</source>
                 <target>Tags list</target>
+            </trans-unit>
+            <trans-unit id="title_uzytkownik_delete">
+                <source>title_uzytkownik_delete</source>
+                <target>Delete user</target>
+            </trans-unit>
+            <trans-unit id="title_uzytkownik_details">
+                <source>title_uzytkownik_details</source>
+                <target>Users details #%id%</target>
+            </trans-unit>
+            <trans-unit id="title_uzytkownik_list">
+                <source>title_uzytkownik_list</source>
+                <target>Users list</target>
             </trans-unit>
             <trans-unit id="question_delete">
                 <source>question_delete</source>

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_uzytkownik_details'|trans({'%id%': uzytkownik.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_uzytkownik_details'|trans({'%id%':uzytkownik.id|default('')}) }}</h1>
+    {% if uzytkownik is defined and uzytkownik|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label_id'|trans }}</dt>
+            <dd>{{ uzytkownik.id }}</dd>
+            <dt>{{ 'label_title'|trans }}</dt>
+            <dd>{{ uzytkownik.nazwaUzytkownik }}</dd>
+            <dt>{{ 'label_imie'|trans }}</dt>
+            <dd>{{ uzytkownik.uzytkownikDane.imie }}</dd>
+            <dt>{{ 'label_nazwisko'|trans }}</dt>
+            <dd>{{ uzytkownik.uzytkownikDane.nazwisko }}</dd>
+            <dt>{{ 'label_email'|trans }}</dt>
+            <dd>{{ uzytkownik.uzytkownikDane.email }}</dd>
+        </dl>
+        <p>
+            <a href="{{ url('uzytkownik_index') }}" class="btn btn-light">
+                {{ 'action_back_to_list'|trans }} <i class="bi bi-arrow-return-left"></i>
+            </a>
+        </p>
+    {% else %}
+        {% include 'default/_single_flash_message.html.twig' with {
+            type: 'warning',
+            message: 'message_item_not_found'|trans
+        } %}
+    {% endif %}
+{% endblock %}

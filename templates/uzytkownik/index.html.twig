@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_uzytkownik_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="index_title"> {{ 'title_uzytkownik_list'|trans }}
+    </div>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'uzytkownik.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_nazwa_uzytkownik'|trans, 'uzytkownik.nazwa_uzytkownik') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for uzytkownik in pagination.items %}
+                <tr>
+                    <td>{{ uzytkownik.id }}</td>
+                    <td>{{ uzytkownik.nazwaUzytkownik }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+
+            {% include 'default/_single_flash_message.html.twig' with {
+                type: 'warning',
+                message: 'message.empty_list'|trans
+            } %}
+
+    {% endif %}
+{% endblock %}

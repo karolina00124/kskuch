@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Uzytkownik;
 use App\Entity\UzytkownikDane;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -17,7 +18,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UzytkownikRepository extends ServiceEntityRepository
 {
     /**
+     * Items per page.
+     *
+     * @constant int
+     */
+    const PAGINATOR_ITEMS_PER_PAGE = 5;
+
+    /**
      * Password encoder.
+     *
+     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     *
      * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
      */
     private $passwordEncoder;
@@ -26,6 +37,48 @@ class UzytkownikRepository extends ServiceEntityRepository
     {
         $this->passwordEncoder = $passwordEncoder;
         parent::__construct($registry, Uzytkownik::class);
+    }
+    /**
+     * Query all records.
+     * @return QueryBuilder Query builder
+     */
+    public function queryAll(): QueryBuilder
+    {
+        return $this
+            ->createQueryBuilder('uzytkownik');
+    }
+
+    /**
+     * @return Uzytkownik[]
+     */
+    public function getAll(): array
+    {
+        return $this->queryAll()->getQuery()->getResult();
+    }
+    /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('uzytkownik');
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Uzytkownik $uzytkownik): void
+    {
+        $this->_em->remove($uzytkownik);
+        $this->_em->flush();
     }
 
     // /**
@@ -96,6 +149,27 @@ class UzytkownikRepository extends ServiceEntityRepository
         }
 
         $this->_em->persist($user);
+        $this->_em->flush();
+    }
+
+    /**
+     * @param Uzytkownik $user
+     * @param string|null $newPasswordPlain
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save_new(Uzytkownik $uzytkownik, string $newPasswordPlain = null)
+    {
+        if($newPasswordPlain) {
+            $uzytkownik->setHaslo(
+                $this->passwordEncoder->encodePassword(
+                    $uzytkownik,
+                    $newPasswordPlain
+                )
+            );
+        }
+
+        $this->_em->persist($uzytkownik);
         $this->_em->flush();
     }
 }
