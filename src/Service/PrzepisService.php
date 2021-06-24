@@ -40,13 +40,14 @@ class PrzepisService
      * Create paginated list.
      *
      * @param int $page Page number
+     * @param array $filters Filtry
      *
      * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
      */
-    public function createPaginatedList(int $page): PaginationInterface
+    public function createPaginatedList(int $page, array $filters = []): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->przepisRepository->queryAll(),
+            $this->przepisRepository->queryAll($filters),
             $page,
             PrzepisRepository::PAGINATOR_ITEMS_PER_PAGE
         );

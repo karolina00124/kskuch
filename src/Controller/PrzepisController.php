@@ -53,10 +53,11 @@ class PrzepisController extends AbstractController
         $filters = [];
         $filters['kategoria_id'] = $request->query->getInt('filters_kategoria_id');
         $filters['tag_id'] = $request->query->getInt('filters_tag_id');
+        $filters['autor_id'] = $request->query->getInt('filters_autor_id');
 
         return $this->render(
             'przepis/index.html.twig',
-            ['pagination' => $this->przepisService->createPaginatedList($request->query->getInt('page', 1))]
+            ['pagination' => $this->przepisService->createPaginatedList($request->query->getInt('page', 1), $filters)]
         );
     }
 

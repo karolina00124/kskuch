@@ -69,6 +69,12 @@ class PrzepisRepository extends ServiceEntityRepository
             ;
         }
 
+        if (array_key_exists('autor_id', $filters) && $filters['autor_id'] > 0) {
+            $qb->andWhere('przepis.author = :autor_id')
+                ->setParameter('autor_id', $filters['autor_id'])
+            ;
+        }
+
         return $qb;
     }
     /**
