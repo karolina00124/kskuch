@@ -39,8 +39,10 @@
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="btn-group" role="group" aria-label="comment, mark">
-            <a href="{{ url('przepis_vote', {id: przepis.id, upOrDown: 'up'}) }}" title="{{ 'label_mark_up'|trans }}" type="button" class="btn btn-secondary"> + {{ przepis.thumbUp }}</a>
-            <a href="{{ url('przepis_vote', {id: przepis.id, upOrDown: 'down'}) }}" title="{{ 'label_mark_down'|trans }}" type="button" class="btn btn-secondary"> - {{ przepis.thumbDown }}</a>
+            {{ form_start(voteForm, {method: 'PATCH', action: url('przepis_vote', {id: przepis.id}) }) }}
+            {{ form_widget(voteForm.thumbUp, {attr: {class: 'btn btn-secondary'}}) }}
+            {{ form_widget(voteForm.thumbDown, {attr: {class: 'btn btn-secondary'}}) }}
+            {{ form_end(voteForm) }}
             <a href="{{ url('komentarz_create', {przepisId: przepis.id}) }}" title="{{ 'label_comment'|trans }}" type="button" class="btn  btn-info btn-secondary"> {{ 'label_comment'|trans }} </a>
         </div>
         <br>

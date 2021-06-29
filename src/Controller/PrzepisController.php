@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Przepis;
 use App\Form\PrzepisType;
+use App\Form\VoteType;
 use App\Service\PrzepisService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -77,9 +78,15 @@ class PrzepisController extends AbstractController
      */
     public function show(Przepis $przepis): Response
     {
+        $voteForm = $this->createForm(VoteType::class, $przepis, [
+            'method' => 'PATCH',
+            'thumbUpCnt' => $przepis->getThumbUp(),
+            'thumbDownCnt' => $przepis->getThumbDown(),
+        ]);
+
         return $this->render(
             'przepis/show.html.twig',
-            ['przepis' => $przepis]
+            ['przepis' => $przepis, 'voteForm' => $voteForm->createView()]
         );
     }
 
@@ -228,18 +235,26 @@ class PrzepisController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
-     *     "/{id}/vote/{upOrDown}",
-     *     methods={"GET"},
+     *     "/{id}/vote",
+     *     methods={"PATCH"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="przepis_vote",
      * )
      */
-    public function vote(Request $request, Przepis $przepis, string $upOrDown): Response
+    public function vote(Request $request, Przepis $przepis): Response
     {
-        if ($upOrDown === 'up') {
-            $this->przepisService->voteUp($przepis);
-        } elseif ($upOrDown === 'down') {
-            $this->przepisService->voteDown($przepis);
+        $form = $this->createForm(VoteType::class, $przepis, ['method' => 'PATCH']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $action = $form->get('thumbUp')->isClicked() ? 'up' : 'down';
+
+            if ($action === 'up') {
+                $this->przepisService->voteUp($przepis);
+            } elseif ($action === 'down') {
+                $this->przepisService->voteDown($przepis);
+            }
         }
 
         return $this->redirectToRoute('przepis_show', ['id' => $przepis->getId()]);
