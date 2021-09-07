@@ -1,4 +1,7 @@
 <?php
+/**
+ * UzytkownikDaneType form
+ */
 
 namespace App\Form;
 
@@ -8,8 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ *
+ */
 class UzytkownikDaneType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -42,12 +51,16 @@ class UzytkownikDaneType extends AbstractType
             );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => UzytkownikDane::class,
         ]);
     }
+
     /**
      * Returns the prefix of the template block name for this type.
      *

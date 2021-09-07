@@ -1,11 +1,13 @@
 <?php
+/**
+ * Uzytkownik entity
+ */
 
 namespace App\Entity;
 
 use App\Repository\UzytkownikRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,18 +17,21 @@ class Uzytkownik implements UserInterface
 {
     /**
      * Role user.
+     *
      * @var string
      */
-    const ROLE_USER = 'ROLE_USER';
+    public const ROLE_USER = 'ROLE_USER';
 
     /**
      * Role admin.
+     *
      * @var string
      */
-    const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
      * Primary key.
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -36,11 +41,9 @@ class Uzytkownik implements UserInterface
     /**
      * @ORM\Column(type="string", length=32)
      */
-    private ?string $nazwa_uzytkownik;
+    private ?string $nazwaUzytkownik;
     /**
      * The hashed password.
-     *
-     * @var string
      *
      * @ORM\Column(type="string", length=191)
      *
@@ -55,34 +58,51 @@ class Uzytkownik implements UserInterface
     private array $rola = [];
 
     /**
-     * @var UzytkownikDane
-     *
      * @ORM\OneToOne(targetEntity="App\Entity\UzytkownikDane", mappedBy="uzytkownik", cascade={"persist", "remove"})
      */
     private UzytkownikDane $uzytkownikDane;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getNazwaUzytkownik(): ?string
     {
-        return $this->nazwa_uzytkownik;
+        return $this->nazwaUzytkownik;
     }
 
-    public function setNazwaUzytkownik(string $nazwa_uzytkownik): self
+    /**
+     * @param string $nazwaUzytkownik
+     *
+     * @return $this
+     */
+    public function setNazwaUzytkownik(string $nazwaUzytkownik): self
     {
-        $this->nazwa_uzytkownik = $nazwa_uzytkownik;
+        $this->nazwaUzytkownik = $nazwaUzytkownik;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getHaslo(): ?string
     {
         return $this->haslo;
     }
 
+    /**
+     * @param string $haslo
+     *
+     * @return $this
+     */
     public function setHaslo(string $haslo): self
     {
         $this->haslo = $haslo;
@@ -90,11 +110,19 @@ class Uzytkownik implements UserInterface
         return $this;
     }
 
+    /**
+     * @return array|null
+     */
     public function getRola(): ?array
     {
         return $this->rola;
     }
 
+    /**
+     * @param array $rola
+     *
+     * @return $this
+     */
     public function setRola(array $rola): self
     {
         $this->rola = $rola;
@@ -119,16 +147,25 @@ class Uzytkownik implements UserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * @return array|null
+     */
     public function getRoles(): ?array
     {
         return $this->getRola();
     }
 
+    /**
+     * @return string|null
+     */
     public function getPassword(): ?string
     {
         return $this->getHaslo();
     }
 
+    /**
+     * @return string|void
+     */
     public function getUsername()
     {
         $this->getNazwaUzytkownik();

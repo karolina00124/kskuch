@@ -1,4 +1,7 @@
 <?php
+/**
+ * Kategoria entity.
+ */
 
 namespace App\Entity;
 
@@ -11,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Kategoria.
+ *
  * @ORM\Entity(repositoryClass=KategoriaRepository::class)
  * @ORM\Table(name="kategorie")
  *
@@ -20,7 +24,6 @@ class Kategoria
 {
     /**
      * Id.
-     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,7 +33,6 @@ class Kategoria
 
     /**
      * Nazwa.
-     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -46,23 +48,37 @@ class Kategoria
     /**
      * @ORM\OneToMany(targetEntity=Przepis::class, mappedBy="kategoria", fetch ="EXTRA_LAZY")
      */
-    private $przepis;
+    private Collection $przepis;
 
+    /**
+     * Kategoria constructor.
+     */
     public function __construct()
     {
         $this->przepis = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getKategoriaNazwa(): ?string
     {
         return $this->kategoriaNazwa;
     }
 
+    /**
+     * @param string $kategoriaNazwa
+     *
+     * @return $this
+     */
     public function setKategoriaNazwa(string $kategoriaNazwa): self
     {
         $this->kategoriaNazwa = $kategoriaNazwa;
@@ -78,6 +94,11 @@ class Kategoria
         return $this->przepis;
     }
 
+    /**
+     * @param Przepis $przepis
+     *
+     * @return $this
+     */
     public function addPrzepis(Przepis $przepis): self
     {
         if (!$this->przepis->contains($przepis)) {
@@ -88,6 +109,11 @@ class Kategoria
         return $this;
     }
 
+    /**
+     * @param Przepis $przepis
+     *
+     * @return $this
+     */
     public function removePrzepis(Przepis $przepis): self
     {
         if ($this->przepis->removeElement($przepis)) {

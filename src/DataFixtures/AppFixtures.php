@@ -1,16 +1,31 @@
 <?php
+/**
+ * AppFixtures.
+ */
 
 namespace App\DataFixtures;
 
-use App\Entity\Komentarz;
 use App\Entity\Kategoria;
+use App\Entity\Komentarz;
 use App\Entity\Przepis;
 use App\Entity\Tag;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ *
+ */
 class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @psalm-return array<class-string<FixtureInterface>>
+     *
+     * @return array
+     */
     public function getDependencies(): array
     {
         return [
@@ -20,6 +35,36 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
 
     /**
      * @param ObjectManager $manager
+     *
+     * @param array         $przepisy
+     */
+    public function loadKomentarze(ObjectManager $manager, array $przepisy)
+    {
+        foreach ($przepisy as $przepis) {
+            for ($i = 0; $i < 3; ++$i) {
+                $komentarz = new Komentarz();
+                $komentarz->setTresc($this->faker->sentence);
+                $komentarz->setPrzepis($przepis);
+                $komentarz->setAutor($this->getReference(UserFixtures::ADMIN_REFERENCE));
+                $this->manager->persist($komentarz);
+            }
+
+            for ($i = 0; $i < 3; ++$i) {
+                $komentarz = new Komentarz();
+                $komentarz->setTresc($this->faker->sentence);
+                $komentarz->setPrzepis($przepis);
+                $komentarz->setAutor($this->getReference(UserFixtures::USER_REFERENCE));
+                $this->manager->persist($komentarz);
+            }
+
+            $manager->flush();
+        }
+    }
+
+    /**
+     * Load data.
+     *
+     * @param ObjectManager $manager Persistence object manager
      */
     protected function loadData(ObjectManager $manager): void
     {
@@ -50,7 +95,7 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
             $kategorie[$i] = new Kategoria();
             $kategorie[$i]->setKategoriaNazwa($nazwa);
             $this->manager->persist($kategorie[$i]);
-            $i++;
+            ++$i;
         }
 
         $manager->flush();
@@ -61,7 +106,7 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
     /**
      * @param ObjectManager $manager
      *
-     * @return Tag[]
+     * @return array
      */
     private function loadTags(ObjectManager $manager): array
     {
@@ -82,10 +127,11 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
 
     /**
      * @param ObjectManager $manager
-     * @param Tag[]         $tags
-     * @param Kategoria[]   $kategorie
      *
-     * @return Przepis[]
+     * @param array         $tags
+     * @param array         $kategorie
+     *
+     * @return array
      */
     private function loadPrzepis(ObjectManager $manager, array $tags, array $kategorie): array
     {
@@ -119,32 +165,5 @@ class AppFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
         $manager->flush();
 
         return $przepisy;
-    }
-
-    /**
-     * @param \Doctrine\Persistence\ObjectManager $manager
-     * @param Przepis[] $przepisy
-     */
-    public function loadKomentarze(ObjectManager $manager, array $przepisy)
-    {
-        foreach ($przepisy as $przepis) {
-            for ($i = 0; $i < 3; ++$i) {
-                $komentarz = new Komentarz();
-                $komentarz->setTresc($this->faker->sentence);
-                $komentarz->setPrzepis($przepis);
-                $komentarz->setAutor($this->getReference(UserFixtures::ADMIN_REFERENCE));
-                $this->manager->persist($komentarz);
-            }
-
-            for ($i = 0; $i < 3; ++$i) {
-                $komentarz = new Komentarz();
-                $komentarz->setTresc($this->faker->sentence);
-                $komentarz->setPrzepis($przepis);
-                $komentarz->setAutor($this->getReference(UserFixtures::USER_REFERENCE));
-                $this->manager->persist($komentarz);
-            }
-
-            $manager->flush();
-        }
     }
 }

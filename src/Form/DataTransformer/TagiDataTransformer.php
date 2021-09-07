@@ -1,9 +1,15 @@
 <?php
+/**
+ * TagiDataTransformer transformer.
+ */
+
 namespace App\Form\DataTransformer;
 
-use Symfony\Component\Form\DataTransformerInterface;
-use App\Repository\TagRepository;
 use App\Entity\Tag;
+use App\Repository\TagRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * Class TagiDataTransformer.
@@ -12,8 +18,6 @@ class TagiDataTransformer implements DataTransformerInterface
 {
     /**
      * Tag repository.
-     *
-     * @var \App\Repository\TagRepository
      */
     private TagRepository $tagRepository;
 
@@ -31,6 +35,7 @@ class TagiDataTransformer implements DataTransformerInterface
      * Transform array of tags to string of names.
      *
      * @param $tagi
+     *
      * @return string Result
      */
     public function transform($tagi): string
@@ -55,8 +60,8 @@ class TagiDataTransformer implements DataTransformerInterface
      *
      * @return array Result
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function reverseTransform($value): array
     {
@@ -67,7 +72,7 @@ class TagiDataTransformer implements DataTransformerInterface
         foreach ($tagTitles as $tagTitle) {
             if ('' !== trim($tagTitle)) {
                 $tag = $this->tagRepository->findOneByTagNazwa(strtolower($tagTitle));
-                if (null == $tag) {
+                if (null === $tag) {
                     $tag = new Tag();
                     $tag->setTagNazwa($tagTitle);
                     $this->tagRepository->save($tag);

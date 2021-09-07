@@ -25,8 +25,6 @@ class Tag
     /**
      * Id.
      *
-     * @var int
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -35,8 +33,6 @@ class Tag
 
     /**
      * Nazwa.
-     *
-     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -51,7 +47,6 @@ class Tag
 
     /**
      * Data utworzenia.
-     * @var \DateTimeInterface
      *
      * @ORM\Column(type="datetime")
      *
@@ -61,9 +56,10 @@ class Tag
 
     /**
      * Przepis.
+     *
      * @ORM\ManyToMany(targetEntity=Przepis::class, mappedBy="tagi")
      */
-    private $przepis;
+    private Collection $przepis;
 
     /**
      * Tag constructor.
@@ -75,6 +71,7 @@ class Tag
 
     /**
      * Getter for Id.
+     *
      * @return int|null
      */
     public function getId(): ?int
@@ -82,11 +79,19 @@ class Tag
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTagNazwa(): ?string
     {
         return $this->tagNazwa;
     }
 
+    /**
+     * @param string $tagNazwa
+     *
+     * @return $this
+     */
     public function setTagNazwa(string $tagNazwa): self
     {
         $this->tagNazwa = $tagNazwa;
@@ -94,11 +99,19 @@ class Tag
         return $this;
     }
 
+    /**
+     * @return DateTimeInterface|null
+     */
     public function getDataUtworzenia(): ?DateTimeInterface
     {
         return $this->dataUtworzenia;
     }
 
+    /**
+     * @param DateTimeInterface $dataUtworzenia
+     *
+     * @return $this
+     */
     public function setDataUtworzenia(DateTimeInterface $dataUtworzenia): self
     {
         $this->dataUtworzenia = $dataUtworzenia;
@@ -114,6 +127,11 @@ class Tag
         return $this->przepis;
     }
 
+    /**
+     * @param Przepis $przepis
+     *
+     * @return $this
+     */
     public function addPrzepis(Przepis $przepis): self
     {
         if (!$this->przepis->contains($przepis)) {
@@ -124,6 +142,11 @@ class Tag
         return $this;
     }
 
+    /**
+     * @param Przepis $przepis
+     *
+     * @return $this
+     */
     public function removePrzepis(Przepis $przepis): self
     {
         if ($this->przepis->removeElement($przepis)) {

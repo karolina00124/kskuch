@@ -1,9 +1,14 @@
 <?php
+/**
+ * TagRepository
+ */
 
 namespace App\Repository;
 
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,12 +25,12 @@ class TagRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 5;
+    public const PAGINATOR_ITEMS_PER_PAGE = 5;
 
     /**
      * TagRepository constructor.
      *
-     * @param \Doctrine\Persistence\ManagerRegistry $registry Manager registry
+     * @param ManagerRegistry $registry Manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -34,6 +39,7 @@ class TagRepository extends ServiceEntityRepository
 
     /**
      * Query all records.
+     *
      * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
@@ -50,24 +56,14 @@ class TagRepository extends ServiceEntityRepository
     {
         return $this->queryAll()->getQuery()->getResult();
     }
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('tag');
-    }
+
     /**
      * Save record.
      *
-     * @param \App\Entity\Tag $tag Tag entity
+     * @param Tag $tag Tag entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Tag $tag): void
     {
@@ -78,15 +74,27 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Tag $tag Tag entity
+     * @param Tag $tag Tag entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Tag $tag): void
     {
         $this->_em->remove($tag);
         $this->_em->flush();
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('tag');
     }
 
     // /**

@@ -44,6 +44,8 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "escapestudios/symfony2-coding-standard": "^3.12",
         "fakerphp/faker": "^1.14",
+        "friendsofphp/php-cs-fixer": "^3.1",
+        "phpmd/phpmd": "^2.10",
         "squizlabs/php_codesniffer": "^3.6",
         "symfony/browser-kit": "^4.4",
         "symfony/css-selector": "^4.4",
@@ -84,10 +86,16 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@phpcs-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@phpcs-scripts"
+        ],
+        "phpcs-scripts": [
+            "vendor/bin/phpcs --config-set installed_paths $(realpath vendor/escapestudios/symfony2-coding-standard)",
+            "vendor/bin/phpcs --config-set default_standard Symfony"
         ]
     },
     "conflict": {

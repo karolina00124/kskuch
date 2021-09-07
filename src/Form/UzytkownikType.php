@@ -1,4 +1,7 @@
 <?php
+/**
+ * UzytkownikType form
+ */
 
 namespace App\Form;
 
@@ -10,8 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ *
+ */
 class UzytkownikType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -31,17 +40,21 @@ class UzytkownikType extends AbstractType
             'type' => PasswordType::class,
             'invalid_message' => 'Hasła muszą się zgadzać',
             'options' => ['attr' => ['class' => 'password-field']],
-            'first_options'  => ['label' => 'label_nowe_haslo'],
+            'first_options' => ['label' => 'label_nowe_haslo'],
             'second_options' => ['label' => 'label_haslo_powtorz'],
         ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Uzytkownik::class,
         ]);
     }
+
     /**
      * Returns the prefix of the template block name for this type.
      *

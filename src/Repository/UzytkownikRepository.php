@@ -1,9 +1,14 @@
 <?php
+/**
+ * UzytkownikRepository
+ */
 
 namespace App\Repository;
 
 use App\Entity\Uzytkownik;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -21,24 +26,28 @@ class UzytkownikRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 5;
+    public const PAGINATOR_ITEMS_PER_PAGE = 5;
 
     /**
      * Password encoder.
      *
-     * @param \Doctrine\Persistence\ManagerRegistry $registry Manager registry
-     *
-     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
+     * @param ManagerRegistry $registry Manager registry
      */
     private UserPasswordEncoderInterface $passwordEncoder;
 
+    /**
+     * @param ManagerRegistry              $registry
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
     public function __construct(ManagerRegistry $registry, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
         parent::__construct($registry, Uzytkownik::class);
     }
+
     /**
      * Query all records.
+     *
      * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
@@ -54,30 +63,99 @@ class UzytkownikRepository extends ServiceEntityRepository
     {
         return $this->queryAll()->getQuery()->getResult();
     }
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('uzytkownik');
-    }
 
     /**
      * Delete record.
      *
-     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
+     * @param Uzytkownik $uzytkownik Uzytkownik entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Uzytkownik $uzytkownik): void
     {
         $this->_em->remove($uzytkownik);
         $this->_em->flush();
+    }
+
+    /**
+     * Rejestruje użytkownika.
+     *
+     * @param array $data
+     *
+     * @throws ORMException
+     */
+    public function register(array $data)
+    {
+        $user = new Uzytkownik();
+        $user->setNazwaUzytkownik($data['nazwa_uzytkownik']);
+        $user->setHaslo(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $data['haslo']
+            )
+        );
+        $user->setRola([Uzytkownik::ROLE_USER]);
+        $user->setUzytkownikDane($data['uzytkownikDane']);
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
+
+    /**
+     * @param Uzytkownik  $user
+     * @param string|null $newPasswordPlain
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function save(Uzytkownik $user, string $newPasswordPlain = null)
+    {
+        if ($newPasswordPlain) {
+            $user->setHaslo(
+                $this->passwordEncoder->encodePassword(
+                    $user,
+                    $newPasswordPlain
+                )
+            );
+        }
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
+
+    /**
+     * @param Uzytkownik  $uzytkownik
+     * @param string|null $newPasswordPlain
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function saveNew(Uzytkownik $uzytkownik, string $newPasswordPlain = null)
+    {
+        if ($newPasswordPlain) {
+            $uzytkownik->setHaslo(
+                $this->passwordEncoder->encodePassword(
+                    $uzytkownik,
+                    $newPasswordPlain
+                )
+            );
+        }
+
+        $this->_em->persist($uzytkownik);
+        $this->_em->flush();
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('uzytkownik');
     }
 
     // /**
@@ -108,70 +186,4 @@ class UzytkownikRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    /**
-     * Rejestruje użytkownika
-     * @param array $data
-     * @throws \Doctrine\ORM\ORMException
-     */
-    public function register(array $data)
-    {
-        $user = new Uzytkownik();
-        $user->setNazwaUzytkownik($data['nazwa_uzytkownik']);
-        $user->setHaslo(
-            $this->passwordEncoder->encodePassword(
-                $user,
-                $data['haslo']
-            )
-        );
-        $user->setRola([Uzytkownik::ROLE_USER]);
-        $user->setUzytkownikDane($data['uzytkownikDane']);
-
-        $this->_em->persist($user);
-        $this->_em->flush();
-    }
-
-    /**
-     * @param Uzytkownik  $user
-     * @param string|null $newPasswordPlain
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save(Uzytkownik $user, string $newPasswordPlain = null)
-    {
-        if ($newPasswordPlain) {
-            $user->setHaslo(
-                $this->passwordEncoder->encodePassword(
-                    $user,
-                    $newPasswordPlain
-                )
-            );
-        }
-
-        $this->_em->persist($user);
-        $this->_em->flush();
-    }
-
-    /**
-     * @param \App\Entity\Uzytkownik $uzytkownik
-     * @param string|null $newPasswordPlain
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save_new(Uzytkownik $uzytkownik, string $newPasswordPlain = null)
-    {
-        if ($newPasswordPlain) {
-            $uzytkownik->setHaslo(
-                $this->passwordEncoder->encodePassword(
-                    $uzytkownik,
-                    $newPasswordPlain
-                )
-            );
-        }
-
-        $this->_em->persist($uzytkownik);
-        $this->_em->flush();
-    }
 }

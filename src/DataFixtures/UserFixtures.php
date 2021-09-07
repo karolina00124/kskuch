@@ -15,13 +15,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserFixtures extends AbstractBaseFixtures
 {
-    const ADMIN_REFERENCE = 'admin';
-    const USER_REFERENCE = 'user';
+    public const ADMIN_REFERENCE = 'admin';
+    public const USER_REFERENCE = 'user';
 
     /**
      * Password encoder.
-     *
-     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
      */
     private UserPasswordEncoderInterface $passwordEncoder;
 

@@ -1,33 +1,37 @@
 <?php
+/**
+ * KomentarzService
+ */
 
 namespace App\Service;
 
 use App\Entity\Komentarz;
 use App\Repository\KomentarzRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+/**
+ * KomentarzService class
+ */
 class KomentarzService
 {
     /**
      * Komentarz repository.
-     *
-     * @var \App\Repository\KomentarzRepository
      */
     private KomentarzRepository $komentarzRepository;
 
     /**
      * Paginator.
-     *
-     * @var \Knp\Component\Pager\PaginatorInterface
      */
     private PaginatorInterface $paginator;
 
     /**
      * KomentarzService constructor.
      *
-     * @param \App\Repository\KomentarzRepository     $komentarzRepository Komentarz repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
+     * @param KomentarzRepository $komentarzRepository Komentarz repository
+     * @param PaginatorInterface  $paginator           Paginator
      */
     public function __construct(KomentarzRepository $komentarzRepository, PaginatorInterface $paginator)
     {
@@ -40,7 +44,7 @@ class KomentarzService
      *
      * @param int $page Page number
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
@@ -54,10 +58,10 @@ class KomentarzService
     /**
      * Save komentarz.
      *
-     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param Komentarz $komentarz Komentarz entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Komentarz $komentarz): void
     {
@@ -67,10 +71,10 @@ class KomentarzService
     /**
      * Delete komentarz.
      *
-     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param Komentarz $komentarz Komentarz entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Komentarz $komentarz): void
     {

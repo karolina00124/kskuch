@@ -1,19 +1,23 @@
 <?php
+/**
+ * Przepis entity
+ */
 
 namespace App\Entity;
 
 use App\Repository\PrzepisRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use DateTimeInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class Przepis.
+ *
  * @ORM\Entity(repositoryClass=PrzepisRepository::class)
  * @ORM\Table(name="przepisy")
  *
@@ -23,7 +27,6 @@ class Przepis
 {
     /**
      * Primary key.
-     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -33,7 +36,6 @@ class Przepis
 
     /**
      * Info.
-     * @var string
      *
      * @ORM\Column(type="string", length=200)
      *
@@ -48,7 +50,6 @@ class Przepis
 
     /**
      * Nazwa.
-     * @var string
      *
      * @ORM\Column(type="string", length=65)
      *
@@ -63,7 +64,6 @@ class Przepis
 
     /**
      * Składniki.
-     * @var string
      *
      * @ORM\Column(type="text")
      *
@@ -77,7 +77,6 @@ class Przepis
 
     /**
      * Kroki.
-     * @var string
      *
      * @ORM\Column(type="text")
      *
@@ -91,7 +90,6 @@ class Przepis
 
     /**
      * Data utworzenia.
-     * @var \DateTimeInterface
      *
      * @ORM\Column(type="date")
      *
@@ -102,8 +100,8 @@ class Przepis
     private DateTimeInterface $dataUtworzenia;
 
     /**
-     * @var Kategoria
-     * Kategoria.
+     * @var kategoria
+     *                Kategoria
      * @ORM\ManyToOne(targetEntity=Kategoria::class, inversedBy="przepis")
      * @ORM\JoinColumn(name="kategoria_id", referencedColumnName="id")
      */
@@ -111,6 +109,7 @@ class Przepis
 
     /**
      * Tagi.
+     *
      * @var array
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="przepis")
@@ -131,22 +130,16 @@ class Przepis
     private $komentarze;
 
     /**
-     * @var int
-     *
      * @ORM\Column(name="thumb_up", type="integer")
      */
     private int $thumbUp = 0;
 
     /**
-     * @var int
-     *
      * @ORM\Column(name="thumb_down", type="integer")
      */
     private int $thumbDown = 0;
 
     /**
-     * @var int
-     *
      * @ORM\Column(name="thumb_diff", type="integer")
      */
     private int $thumbDiff = 0;
@@ -162,6 +155,7 @@ class Przepis
 
     /**
      * Getter for Id.
+     *
      * @return int|null
      */
     public function getId(): ?int
@@ -171,6 +165,7 @@ class Przepis
 
     /**
      * Getter for Info.
+     *
      * @return string|null
      */
     public function getInfo(): ?string
@@ -180,6 +175,7 @@ class Przepis
 
     /**
      * Setter for Info.
+     *
      * @param string $info
      *
      * @return $this
@@ -262,8 +258,9 @@ class Przepis
     /**
      * Setter for Data utworzenia.
      *
-     * @param \DateTimeInterface $dataUtworzenia
-     * @return \App\Entity\Przepis
+     * @param DateTimeInterface $dataUtworzenia
+     *
+     * @return Przepis
      */
     public function setDataUtworzenia(DateTimeInterface $dataUtworzenia): self
     {
@@ -320,6 +317,7 @@ class Przepis
 
     /**
      * Remove tag from collection.
+     *
      * @param Tag $tag
      */
     public function removeTag(Tag $tag): void

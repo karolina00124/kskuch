@@ -2,13 +2,15 @@
 /**
  * UzytkownikDane controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\UzytkownikDane;
 use App\Form\UzytkownikDaneType;
 use App\Repository\UzytkownikDaneRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +26,7 @@ class UzytkownikDaneController extends AbstractController
 
     /**
      * UzytkownikDaneController constructor.
+     *
      * @param UzytkownikDaneRepository $uzytkownikDaneRepository
      */
     public function __construct(UzytkownikDaneRepository $uzytkownikDaneRepository)
@@ -31,12 +34,12 @@ class UzytkownikDaneController extends AbstractController
         $this->uzytkownikDaneRepository = $uzytkownikDaneRepository;
     }
 
-
     /**
      * Index action.
      *
-     * @param \App\Repository\UzytkownikDaneRepository $uzytkownikDaneRepository
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @param UzytkownikDaneRepository $uzytkownikDaneRepository
+     *
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -55,13 +58,13 @@ class UzytkownikDaneController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request                  HTTP request
-     * @param \App\Repository\UzytkownikDaneRepository  $uzytkownikDaneRepository UzytkownikDane repository
+     * @param Request                  $request                  HTTP request
+     * @param UzytkownikDaneRepository $uzytkownikDaneRepository UzytkownikDane repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/create",

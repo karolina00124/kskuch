@@ -1,4 +1,7 @@
 <?php
+/**
+ * PrzepisType form
+ */
 
 namespace App\Form;
 
@@ -12,11 +15,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ *
+ */
 class PrzepisType extends AbstractType
 {
     /**
      * Tagi data transformer.
-     * @var TagiDataTransformer
      */
     private TagiDataTransformer $tagiDataTransformer;
 
@@ -31,10 +36,10 @@ class PrzepisType extends AbstractType
     }
 
     /**
-     * Bulids the form.
+     * Builds the form.
      *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder form builder
-     * @param array                                        $options the options
+     * @param FormBuilderInterface $builder form builder
+     * @param array                $options the options
      *
      * @see FormTypeExtensionInterface::bulidForm()
      */
@@ -77,20 +82,19 @@ class PrzepisType extends AbstractType
                     'attr' => ['min_length' => 8],
                 ]
             );
-            $builder->add(
-                'kategoria',
-                EntityType::class,
-                [
+        $builder->add(
+            'kategoria',
+            EntityType::class,
+            [
                       'class' => Kategoria::class,
                       'choice_label' => function ($kategoria) {
-                            return $kategoria->getKategoriaNazwa();
+                          return $kategoria->getKategoriaNazwa();
                       },
                       'label' => 'label_kategoria',
                       'placeholder' => 'choose_category',
                       'required' => true,
-
                    ]
-            );
+        );
         $builder->add(
             'tagi',
             TextType::class,
@@ -109,7 +113,7 @@ class PrzepisType extends AbstractType
     /**
      * Configures the options for this type.
      *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
+     * @param OptionsResolver $resolver The resolver for the options
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -117,6 +121,7 @@ class PrzepisType extends AbstractType
             'data_class' => Przepis::class,
         ]);
     }
+
     /**
      * Returns the prefix of the template block name for this type.
      *

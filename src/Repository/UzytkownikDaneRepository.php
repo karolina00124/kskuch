@@ -1,9 +1,14 @@
 <?php
+/**
+ * UzytkownikDaneRepository
+ */
 
 namespace App\Repository;
 
 use App\Entity\UzytkownikDane;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,10 +20,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UzytkownikDaneRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UzytkownikDane::class);
     }
+
     /**
      * @return UzytkownikDane[]
      */
@@ -26,24 +35,14 @@ class UzytkownikDaneRepository extends ServiceEntityRepository
     {
         return $this->queryAll()->getQuery()->getResult();
     }
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('uzytkownikDane');
-    }
+
     /**
      * Save record.
      *
-     * @param \App\Entity\UzytkownikDane $uzytkownikDane UzytkownikDane entity
+     * @param UzytkownikDane $uzytkownikDane UzytkownikDane entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(UzytkownikDane $uzytkownikDane): void
     {
@@ -54,15 +53,27 @@ class UzytkownikDaneRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\UzytkownikDane $uzytkownikDane UzytkownikDane entity
+     * @param UzytkownikDane $uzytkownikDane UzytkownikDane entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(UzytkownikDane $uzytkownikDane): void
     {
         $this->_em->remove($uzytkownikDane);
         $this->_em->flush();
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('uzytkownikDane');
     }
 
     // /**

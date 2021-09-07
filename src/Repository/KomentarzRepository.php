@@ -1,10 +1,15 @@
 <?php
+/**
+ * KomentarzRepository
+ */
 
 namespace App\Repository;
 
 use App\Entity\Komentarz;
 use App\Entity\Uzytkownik;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,11 +26,12 @@ class KomentarzRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 15;
+    public const PAGINATOR_ITEMS_PER_PAGE = 15;
+
     /**
      * KomentarzRepository constructor.
      *
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     * @param ManagerRegistry $registry Manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -34,6 +40,7 @@ class KomentarzRepository extends ServiceEntityRepository
 
     /**
      * Query all records.
+     *
      * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
@@ -55,24 +62,14 @@ class KomentarzRepository extends ServiceEntityRepository
     {
         return $this->queryAll()->getQuery()->getResult();
     }
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('komentarz');
-    }
+
     /**
      * Save record.
      *
-     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param Komentarz $komentarz Komentarz entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Komentarz $komentarz): void
     {
@@ -83,10 +80,10 @@ class KomentarzRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param Komentarz $komentarz Komentarz entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Komentarz $komentarz): void
     {
@@ -106,5 +103,17 @@ class KomentarzRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute()
         ;
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('komentarz');
     }
 }

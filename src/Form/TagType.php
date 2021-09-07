@@ -1,4 +1,7 @@
 <?php
+/**
+ * TagType form
+ */
 
 namespace App\Form;
 
@@ -9,14 +12,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormTypeExtensionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ *
+ */
 class TagType extends AbstractType
 {
-
     /**
-     * Bulids the form.
+     * Builds the form.
      *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder form builder
-     * @param array                                        $options the options
+     * @param FormBuilderInterface $builder form builder
+     * @param array                $options the options
      *
      * @see FormTypeExtensionInterface::bulidForm()
      */
@@ -34,12 +39,16 @@ class TagType extends AbstractType
             );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Tag::class,
         ]);
     }
+
     /**
      * Returns the prefix of the template block name for this type.
      *

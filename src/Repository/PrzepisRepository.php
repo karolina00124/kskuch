@@ -1,10 +1,15 @@
 <?php
+/**
+ * PrzepisRepository
+ */
 
 namespace App\Repository;
 
 use App\Entity\Przepis;
 use App\Entity\Uzytkownik;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,18 +26,23 @@ class PrzepisRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 10;
+    public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * PrzepisRepository constructor.
      *
-     * @param \Doctrine\Persistence\ManagerRegistry $registry Manager registry
+     * @param ManagerRegistry $registry Manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Przepis::class);
     }
 
+    /**
+     * @param Uzytkownik $uzytkownik
+     *
+     * @return QueryBuilder
+     */
     public function queryByAuthor(Uzytkownik $uzytkownik): QueryBuilder
     {
         $queryBuilder = $this->queryAll();
@@ -41,11 +51,13 @@ class PrzepisRepository extends ServiceEntityRepository
 
         return $queryBuilder;
     }
+
     /**
      * Query all records.
+     *
      * @param array $filters
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryAll(array $filters = []): QueryBuilder
     {
@@ -77,24 +89,14 @@ class PrzepisRepository extends ServiceEntityRepository
 
         return $qb;
     }
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('przepis');
-    }
+
     /**
      * Save record.
      *
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param Przepis $przepis Przepis entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Przepis $przepis): void
     {
@@ -105,10 +107,10 @@ class PrzepisRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param Przepis $przepis Przepis entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Przepis $przepis): void
     {
@@ -128,5 +130,17 @@ class PrzepisRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute()
         ;
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('przepis');
     }
 }

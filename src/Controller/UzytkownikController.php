@@ -2,31 +2,33 @@
 /**
  * Uzytkownik controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\Uzytkownik;
 use App\Form\RejestracjaType;
 use App\Form\UzytkownikType;
 use App\Service\UzytkownikService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class UzytkownikController.
  */
 class UzytkownikController extends AbstractController
 {
-    /**
-     * @var UzytkownikService
-     */
     private UzytkownikService $uzytkownikService;
 
     /**
      * UzytkownikController constructor.
+     *
      * @param UzytkownikService $uzytkownikService
      */
     public function __construct(UzytkownikService $uzytkownikService)
@@ -36,10 +38,16 @@ class UzytkownikController extends AbstractController
 
     /**
      * @Route("/register", name="user_register")
+     *
+     * @param Request $request
+     *
+     * @return Response HTTP Response
+     *
+     * @throws ORMException
      */
-    public function register(Request $request)
+    public function register(Request $request): Response
     {
-        $form = $this->createForm(RejestracjaType::class, null);
+        $form = $this->createForm(RejestracjaType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,9 +71,11 @@ class UzytkownikController extends AbstractController
      * )
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @return RedirectResponse|Response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function editOwnProfile(Request $request)
     {
@@ -87,12 +97,13 @@ class UzytkownikController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/uzytkownik",
@@ -108,12 +119,13 @@ class UzytkownikController extends AbstractController
             ['pagination' => $this->uzytkownikService->createPaginatedList($request->query->getInt('page', 1))]
         );
     }
+
     /**
      * Show action.
      *
-     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
+     * @param Uzytkownik $uzytkownik Uzytkownik entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/uzytkownik/{id}",
@@ -130,16 +142,17 @@ class UzytkownikController extends AbstractController
             ['uzytkownik' => $uzytkownik]
         );
     }
+
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\Uzytkownik                    $uzytkownik Uzytkownik entity
+     * @param Request    $request    HTTP request
+     * @param Uzytkownik $uzytkownik Uzytkownik entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/uzytkownik/{id}/delete",
@@ -184,15 +197,17 @@ class UzytkownikController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Uzytkownik $uzytkownik Uzytkownik entity
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @param Request    $request    HTTP request
+     * @param Uzytkownik $uzytkownik Uzytkownik entity
+     *
+     * @return Response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit(Request $request, Uzytkownik $uzytkownik)
+    public function edit(Request $request, Uzytkownik $uzytkownik): Response
     {
         $form = $this->createForm(UzytkownikType::class, $uzytkownik);
         $form->handleRequest($request);

@@ -5,6 +5,12 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
+    "composer/semver": {
+        "version": "3.2.5"
+    },
+    "composer/xdebug-handler": {
+        "version": "2.0.2"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -109,6 +115,18 @@
     "fakerphp/faker": {
         "version": "v1.14.1"
     },
+    "friendsofphp/php-cs-fixer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
+        },
+        "files": [
+            ".php-cs-fixer.dist.php"
+        ]
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
@@ -130,8 +148,14 @@
     "nikic/php-parser": {
         "version": "v4.10.5"
     },
+    "pdepend/pdepend": {
+        "version": "2.10.0"
+    },
     "php": {
         "version": "7.4"
+    },
+    "php-cs-fixer/diff": {
+        "version": "v2.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -141,6 +165,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpmd/phpmd": {
+        "version": "2.10.2"
     },
     "psr/cache": {
         "version": "1.0.1"

@@ -2,34 +2,35 @@
 /**
  * Przepis controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\Przepis;
 use App\Form\PrzepisType;
 use App\Form\VoteType;
 use App\Service\PrzepisService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class PrzepisController.
+ *
  * @Route("/przepis")
  */
 class PrzepisController extends AbstractController
 {
-    /**
-    * @var PrzepisService
-    */
     private PrzepisService $przepisService;
 
     /**
      * PrzepisController constructor.
      *
-     * @param \App\Service\PrzepisService $przepisService
+     * @param PrzepisService $przepisService
      */
     public function __construct(PrzepisService $przepisService)
     {
@@ -39,9 +40,9 @@ class PrzepisController extends AbstractController
     /**
      * Index action.
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -65,9 +66,9 @@ class PrzepisController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param Przepis $przepis Przepis entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -93,12 +94,12 @@ class PrzepisController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/create",
@@ -131,13 +132,13 @@ class PrzepisController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis                       $przepis Przepis entity
+     * @param Request $request HTTP request
+     * @param Przepis $przepis Przepis entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -177,13 +178,13 @@ class PrzepisController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis                       $przepis Przepis entity
+     * @param Request $request HTTP request
+     * @param Przepis $przepis Przepis entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/delete",
@@ -226,13 +227,13 @@ class PrzepisController extends AbstractController
     /**
      * Vote action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Przepis                       $przepis Przepis entity
+     * @param Request $request HTTP request
+     * @param Przepis $przepis Przepis entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/vote",
@@ -247,12 +248,11 @@ class PrzepisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $action = $form->get('thumbUp')->isClicked() ? 'up' : 'down';
 
-            if ($action === 'up') {
+            if ('up' === $action) {
                 $this->przepisService->voteUp($przepis);
-            } elseif ($action === 'down') {
+            } elseif ('down' === $action) {
                 $this->przepisService->voteDown($przepis);
             }
         }

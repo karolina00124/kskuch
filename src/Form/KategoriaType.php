@@ -1,4 +1,7 @@
 <?php
+/**
+ * KategoriaType form
+ */
 
 namespace App\Form;
 
@@ -8,8 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ *
+ */
 class KategoriaType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -24,17 +33,21 @@ class KategoriaType extends AbstractType
             );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Kategoria::class,
         ]);
     }
-        /**
-         * Returns the prefix of the template block name for this type.
-         *
-         * @return string The prefix of the template block name
-         */
+
+    /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * @return string The prefix of the template block name
+     */
     public function getBlockPrefix(): string
     {
         return 'kategoria';

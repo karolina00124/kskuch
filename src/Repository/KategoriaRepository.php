@@ -1,9 +1,14 @@
 <?php
+/**
+ * KategoriaRepository
+ */
 
 namespace App\Repository;
 
 use App\Entity\Kategoria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,12 +25,12 @@ class KategoriaRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 3;
+    public const PAGINATOR_ITEMS_PER_PAGE = 3;
 
     /**
      * KategoriaRepository constructor.
      *
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     * @param ManagerRegistry $registry Manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -34,6 +39,7 @@ class KategoriaRepository extends ServiceEntityRepository
 
     /**
      * Query all records.
+     *
      * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
@@ -50,24 +56,14 @@ class KategoriaRepository extends ServiceEntityRepository
     {
         return $this->queryAll()->getQuery()->getResult();
     }
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('kategoria');
-    }
+
     /**
      * Save record.
      *
-     * @param \App\Entity\Kategoria $kategoria Kategoria entity
+     * @param Kategoria $kategoria Kategoria entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Kategoria $kategoria): void
     {
@@ -78,15 +74,27 @@ class KategoriaRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Kategoria $kategoria Kategoria entity
+     * @param Kategoria $kategoria Kategoria entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Kategoria $kategoria): void
     {
         $this->_em->remove($kategoria);
         $this->_em->flush();
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('kategoria');
     }
 
     // /**

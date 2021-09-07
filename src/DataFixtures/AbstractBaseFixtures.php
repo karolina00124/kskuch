@@ -19,29 +19,23 @@ abstract class AbstractBaseFixtures extends Fixture
 {
     /**
      * Faker.
-     *
-     * @var \Faker\Generator
      */
     protected Generator $faker;
 
     /**
      * Persistence object manager.
-     *
-     * @var \Doctrine\Persistence\ObjectManager
      */
     protected ObjectManager $manager;
 
     /**
      * Object reference index.
-     *
-     * @var array
      */
     private array $referencesIndex = [];
 
     /**
      * Load.
      *
-     * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
+     * @param ObjectManager $manager Persistence object manager
      */
     public function load(ObjectManager $manager): void
     {
@@ -53,7 +47,7 @@ abstract class AbstractBaseFixtures extends Fixture
     /**
      * Load data.
      *
-     * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
+     * @param ObjectManager $manager Persistence object manager
      */
     abstract protected function loadData(ObjectManager $manager): void;
 
@@ -88,6 +82,7 @@ abstract class AbstractBaseFixtures extends Fixture
             $this->addReference(sprintf('%s_%d', $groupName, $i), $entity);
         }
     }
+
     /**
      * Get array of objects references based on count.
      *

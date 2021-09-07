@@ -1,33 +1,37 @@
 <?php
+/**
+ * KategoriaService
+ */
 
 namespace App\Service;
 
 use App\Entity\Kategoria;
 use App\Repository\KategoriaRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+/**
+ * KategoriaService class
+ */
 class KategoriaService
 {
     /**
      * Kategoria repository.
-     *
-     * @var \App\Repository\KategoriaRepository
      */
     private KategoriaRepository $kategoriaRepository;
 
     /**
      * Paginator.
-     *
-     * @var \Knp\Component\Pager\PaginatorInterface
      */
     private PaginatorInterface $paginator;
 
     /**
      * KategoriaService constructor.
      *
-     * @param \App\Repository\KategoriaRepository     $kategoriaRepository Kategoria repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator           Paginator
+     * @param KategoriaRepository $kategoriaRepository Kategoria repository
+     * @param PaginatorInterface  $paginator           Paginator
      */
     public function __construct(KategoriaRepository $kategoriaRepository, PaginatorInterface $paginator)
     {
@@ -40,7 +44,7 @@ class KategoriaService
      *
      * @param int $page Page number
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
@@ -54,10 +58,10 @@ class KategoriaService
     /**
      * Save kategoria.
      *
-     * @param \App\Entity\Kategoria $kategoria Kategoria entity
+     * @param Kategoria $kategoria Kategoria entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Kategoria $kategoria): void
     {
@@ -67,10 +71,10 @@ class KategoriaService
     /**
      * Delete kategoria.
      *
-     * @param \App\Entity\Kategoria $kategoria Kategoria entity
+     * @param Kategoria $kategoria Kategoria entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Kategoria $kategoria): void
     {

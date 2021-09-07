@@ -2,17 +2,20 @@
 /**
  *Tag controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\Tag;
 use App\Form\TagType;
 use App\Service\TagService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class TagController.
@@ -23,14 +26,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class TagController extends AbstractController
 {
-    /**
-     * @var TagService
-     */
     private TagService $tagService;
 
     /**
      * TagController constructor.
-     * @param \App\Service\TagService $tagService
+     *
+     * @param TagService $tagService
      */
     public function __construct(TagService $tagService)
     {
@@ -40,9 +41,9 @@ class TagController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -52,7 +53,6 @@ class TagController extends AbstractController
      */
     public function index(Request $request): Response
     {
-
         return $this->render(
             'tag/index.html.twig',
             ['pagination' => $this->tagService->createPaginatedList($request->query->getInt('page', 1))]
@@ -62,9 +62,9 @@ class TagController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Tag $tag Tag entity
+     * @param Tag $tag Tag entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -80,15 +80,16 @@ class TagController extends AbstractController
             ['tag' => $tag]
         );
     }
+
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/create",
@@ -119,13 +120,13 @@ class TagController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Tag                           $tag     Tag entity
+     * @param Request $request HTTP request
+     * @param Tag     $tag     Tag entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -159,13 +160,13 @@ class TagController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Entity\Tag                           $tag     Tag entity
+     * @param Request $request HTTP request
+     * @param Tag     $tag     Tag entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/delete",

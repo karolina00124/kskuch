@@ -1,7 +1,8 @@
 <?php
 /**
- * VoteType
+ * VoteType form
  */
+
 namespace App\Form;
 
 use App\Entity\Przepis;
@@ -11,15 +12,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class VoteType
+ * Class VoteType.
  */
 class VoteType extends AbstractType
 {
     /**
      * Bulids the form.
      *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder form builder
-     * @param array                                        $options the options
+     * @param FormBuilderInterface $builder form builder
+     * @param array                $options the options
      *
      * @see FormTypeExtensionInterface::bulidForm()
      */
@@ -31,6 +32,9 @@ class VoteType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -39,6 +43,7 @@ class VoteType extends AbstractType
             'thumbDownCnt' => 0,
         ]);
     }
+
     /**
      * Returns the prefix of the template block name for this type.
      *

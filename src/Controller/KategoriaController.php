@@ -2,17 +2,20 @@
 /**
  * Kategoria controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\Kategoria;
 use App\Form\KategoriaType;
 use App\Service\KategoriaService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class KategoriaController.
@@ -25,8 +28,6 @@ class KategoriaController extends AbstractController
 {
     /**
      * KategoriaService.
-     *
-     * @var KategoriaService
      */
     private KategoriaService $kategoriaService;
 
@@ -43,9 +44,9 @@ class KategoriaController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -64,9 +65,9 @@ class KategoriaController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Kategoria $kategoria Kategoria entity
+     * @param Kategoria $kategoria Kategoria entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -82,15 +83,16 @@ class KategoriaController extends AbstractController
             ['kategoria' => $kategoria]
         );
     }
+
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/create",
@@ -121,13 +123,13 @@ class KategoriaController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     * @param \App\Entity\Kategoria                     $kategoria Kategoria entity
+     * @param Request   $request   HTTP request
+     * @param Kategoria $kategoria Kategoria entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -161,13 +163,13 @@ class KategoriaController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     * @param \App\Entity\Kategoria                     $kategoria Kategoria entity
+     * @param Request   $request   HTTP request
+     * @param Kategoria $kategoria Kategoria entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/delete",

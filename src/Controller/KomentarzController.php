@@ -2,41 +2,38 @@
 /**
  *Komentarz controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\Komentarz;
 use App\Form\KomentarzType;
-
 use App\Service\KomentarzService;
 use App\Service\PrzepisService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class KomentarzController.
  *
  * @Route("/komentarz")
- *
  */
 class KomentarzController extends AbstractController
 {
-    /**
-     * @var KomentarzService
-     */
     private KomentarzService $komentarzService;
-    /**
-     * @var PrzepisService
-     */
+
     private PrzepisService $przepisService;
 
     /**
      * KomentarzController constructor.
+     *
      * @param KomentarzService $komentarzService
-     * @param \App\Service\PrzepisService $przepisService
+     * @param PrzepisService   $przepisService
      */
     public function __construct(KomentarzService $komentarzService, PrzepisService $przepisService)
     {
@@ -47,9 +44,9 @@ class KomentarzController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -70,9 +67,9 @@ class KomentarzController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Komentarz $komentarz Komentarz entity
+     * @param Komentarz $komentarz Komentarz entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -90,16 +87,17 @@ class KomentarzController extends AbstractController
             ['komentarz' => $komentarz]
         );
     }
+
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     * @param int                                       $przepisId Id przepisu
+     * @param Request $request   HTTP request
+     * @param int     $przepisId Id przepisu
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{przepisId}/create",
@@ -137,13 +135,13 @@ class KomentarzController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     * @param \App\Entity\Komentarz                     $komentarz Komentarz entity
+     * @param Request   $request   HTTP request
+     * @param Komentarz $komentarz Komentarz entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -179,13 +177,13 @@ class KomentarzController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     * @param \App\Entity\Komentarz                     $komentarz Komentarz entity
+     * @param Request   $request   HTTP request
+     * @param Komentarz $komentarz Komentarz entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/delete",

@@ -1,4 +1,7 @@
 <?php
+/**
+ * UzytkownikDane entity.
+ */
 
 namespace App\Entity;
 
@@ -13,6 +16,7 @@ class UzytkownikDane
 {
     /**
      * Id.
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -21,6 +25,7 @@ class UzytkownikDane
 
     /**
      * Imię.
+     *
      * @ORM\Column(type="string", length=62, nullable=true)
      *
      * @Assert\NotBlank
@@ -29,6 +34,7 @@ class UzytkownikDane
 
     /**
      * Nazwisko.
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Assert\NotBlank
@@ -37,6 +43,7 @@ class UzytkownikDane
 
     /**
      * Email.
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Assert\NotBlank
@@ -45,23 +52,32 @@ class UzytkownikDane
     private ?string $email;
 
     /**
-     * @var Uzytkownik
-     *
      * @ORM\OneToOne(targetEntity="App\Entity\Uzytkownik", inversedBy="uzytkownikDane")
      * @ORM\JoinColumn(name="uzytkownik_id", referencedColumnName="id")
      */
     private Uzytkownik $uzytkownik;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getImie(): ?string
     {
         return $this->imie;
     }
 
+    /**
+     * @param string|null $imie
+     *
+     * @return $this
+     */
     public function setImie(?string $imie): self
     {
         $this->imie = $imie;
@@ -69,11 +85,19 @@ class UzytkownikDane
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getNazwisko(): ?string
     {
         return $this->nazwisko;
     }
 
+    /**
+     * @param string|null $nazwisko
+     *
+     * @return $this
+     */
     public function setNazwisko(?string $nazwisko): self
     {
         $this->nazwisko = $nazwisko;
@@ -81,11 +105,19 @@ class UzytkownikDane
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string|null $email
+     *
+     * @return $this
+     */
     public function setEmail(?string $email): self
     {
         $this->email = $email;

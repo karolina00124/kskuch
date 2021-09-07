@@ -1,34 +1,37 @@
 <?php
-
+/**
+ * TagService
+ */
 
 namespace App\Service;
 
 use App\Entity\Tag;
 use App\Repository\TagRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+/**
+ * TagService class
+ */
 class TagService
 {
     /**
      * Tag repository.
-     *
-     * @var \App\Repository\TagRepository
      */
     private TagRepository $tagRepository;
 
     /**
      * Paginator.
-     *
-     * @var \Knp\Component\Pager\PaginatorInterface
      */
     private PaginatorInterface $paginator;
 
     /**
      * TagService constructor.
      *
-     * @param \App\Repository\TagRepository           $tagRepository Tag repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator     Paginator
+     * @param TagRepository      $tagRepository Tag repository
+     * @param PaginatorInterface $paginator     Paginator
      */
     public function __construct(TagRepository $tagRepository, PaginatorInterface $paginator)
     {
@@ -41,7 +44,7 @@ class TagService
      *
      * @param int $page Page number
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
@@ -55,10 +58,10 @@ class TagService
     /**
      * Save tag.
      *
-     * @param \App\Entity\Tag $tag Tag entity
+     * @param Tag $tag Tag entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Tag $tag): void
     {
@@ -68,24 +71,24 @@ class TagService
     /**
      * Delete tag.
      *
-     * @param \App\Entity\Tag $tag Tag entity
+     * @param Tag $tag Tag entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Tag $tag): void
     {
         $this->tagRepository->delete($tag);
     }
 
+    // transformer
 
-    //transformer
     /**
      * Find by title.
      *
      * @param string $title tag title
      *
-     * @return \App\Entity\Tag|null Tag entity
+     * @return Tag|null Tag entity
      */
     public function findOneByTitle(string $title): ?Tag
     {

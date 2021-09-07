@@ -1,34 +1,37 @@
 <?php
-
+/**
+ * PrzepisService
+ */
 
 namespace App\Service;
 
 use App\Entity\Przepis;
 use App\Repository\PrzepisRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
+/**
+ * PrzepisService class
+ */
 class PrzepisService
 {
     /**
      * Przepis repository.
-     *
-     * @var \App\Repository\PrzepisRepository
      */
     private PrzepisRepository $przepisRepository;
 
     /**
      * Paginator.
-     *
-     * @var \Knp\Component\Pager\PaginatorInterface
      */
     private PaginatorInterface $paginator;
 
     /**
      * PrzepisService constructor.
      *
-     * @param \App\Repository\PrzepisRepository       $przepisRepository Przepis repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator         Paginator
+     * @param PrzepisRepository  $przepisRepository Przepis repository
+     * @param PaginatorInterface $paginator         Paginator
      */
     public function __construct(PrzepisRepository $przepisRepository, PaginatorInterface $paginator)
     {
@@ -39,10 +42,10 @@ class PrzepisService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int   $page    Page number
      * @param array $filters Filtry
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function createPaginatedList(int $page, array $filters = []): PaginationInterface
     {
@@ -56,10 +59,10 @@ class PrzepisService
     /**
      * Save przepis.
      *
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param Przepis $przepis Przepis entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Przepis $przepis): void
     {
@@ -69,10 +72,10 @@ class PrzepisService
     /**
      * Delete przepis.
      *
-     * @param \App\Entity\Przepis $przepis Przepis entity
+     * @param Przepis $przepis Przepis entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Przepis $przepis): void
     {
@@ -92,8 +95,8 @@ class PrzepisService
     /**
      * @param Przepis $przepis
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function voteUp(Przepis $przepis)
     {
@@ -104,8 +107,8 @@ class PrzepisService
     /**
      * @param Przepis $przepis
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function voteDown(Przepis $przepis)
     {
