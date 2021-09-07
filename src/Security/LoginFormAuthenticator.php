@@ -95,10 +95,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->uzytkownikRepository->findOneBy(['nazwa_uzytkownik' => $credentials['nazwa_uzytkownik']]);
+        $user = $this->uzytkownikRepository->findOneBy(['nazwaUzytkownik' => $credentials['nazwa_uzytkownik']]);
 
         if (!$user) {
-            throw new UsernameNotFoundException('Nazwa_uzytkownik could not be found.');
+            throw new UsernameNotFoundException('nazwaUzytkownik could not be found.');
         }
 
         return $user;
